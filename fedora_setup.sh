@@ -233,7 +233,18 @@ if [ ! $? -eq 0 ]; then
 fi
 
 # Configure dnf now, before we start using it
-printf "\nfastestmirror=True\nmax_parallel_downloads=10\ndefaultyes=True\nminrate=384k\n" | sudo tee -a /etc/dnf/dnf.conf >/dev/null
+DNF_CONF="[main]
+gpgcheck=1
+installonly_limit=3
+clean_requirements_on_remove=True
+best=False
+skip_if_unavailable=True
+fastestmirror=True
+max_parallel_downloads=20
+defaultyes=True
+minrate=384k"
+sudo mv /etc/dnf/dnf.conf /etc/dnf/dnf.conf-og
+printf "%s\n" "$DNF_CONF" | sudo tee /etc/dnf/dnf.conf >/dev/null
 
 # Disable gnome's package-kit to avoid problems while this script is running
 sudo systemctl stop packagekit
