@@ -50,7 +50,7 @@ Separate () {
 # Aquire root privileges now
 sudo echo >/dev/null
 
-printf "Welcome to \e[01mFedora Setup\e[00m version %s!\n" $(git tag --points-at main)
+printf "Welcome to \e[01mFedora Setup\e[00m version %s!\n" $(git describe --tags --abbrev=0)
 printf "Follow the instructions and you should be up and running soon\n";
 printf "THE SOFTWARE IS PROVIDED \"AS IS\", read the license for more information\n\n"
 
