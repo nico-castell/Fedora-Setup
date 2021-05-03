@@ -1,0 +1,10 @@
+# Configure line endings
+* text=auto
+*.sh text eol=lf
+samples/* text eol=lf
+
+# behavior for image files (binary by default)
+#*.jpg   binary
+#*.png   binary
+#*.gif   binary
+*.ico    binary
