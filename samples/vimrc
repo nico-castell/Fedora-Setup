@@ -1,14 +1,4 @@
-" An example for a vimrc file.
-"
-" Maintainer:	Bram Moolenaar <Bram@vim.org>
-" Last change:	2019 Dec 17
-"
-" To use it, copy it to
-"	       for Unix:  ~/.vimrc
-"	      for Amiga:  s:.vimrc
-"	 for MS-Windows:  $VIM\_vimrc
-"	      for Haiku:  ~/config/settings/vim/vimrc
-"	    for OpenVMS:  sys$login:.vimrc
+" vimrc file
 
 " When started as "evim", evim.vim will already have done these settings, bail
 " out.
@@ -27,6 +17,17 @@ else
     set undofile	" keep an undo file (undo changes after closing)
   endif
 endif
+
+" Configure directories for backups
+set backup
+let &directory = expand('~/.vimdata/swap//')
+let &backupdir = expand('~/.vimdata/backup//')
+let &undodir   = expand('~/.vimdata/undo//')
+
+" Make sure the directories exist
+if !isdirectory(&directory) | call mkdir(&directory, "p") | endif
+if !isdirectory(&backupdir) | call mkdir(&backupdir, "p") | endif
+if !isdirectory(&undodir)   | call mkdir(&undodir, "p")   | endif
 
 if &t_Co > 2 || has("gui_running")
   " Switch on highlighting the last used search pattern.
@@ -57,8 +58,6 @@ set shiftwidth=0
 "set expandtab
 set number
 set nowrap
-set nobackup
-set dir=~/.tmp
 
 " Statusline:
 set statusline=%#PmenuSel# 

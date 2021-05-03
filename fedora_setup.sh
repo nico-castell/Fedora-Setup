@@ -305,8 +305,6 @@ case $i in
 
 	vim)
 	cat "$script_location/samples/vimrc" | sudo tee /root/.vimrc /root/.vimrc-og | tee ~/.vimrc ~/.vimrc-og >/dev/null
-	mkdir ~/.tmp
-	sudo mkdir /root/.tmp
 	;;
 
 	"@development-tools")
