@@ -37,10 +37,11 @@ esac; shift; done
 
 # Set all defaults, unless the user overrides them.
 if [ -z $1 ]; then
-	DESTINATION=("/media/$USER/Data & BackUps")
+	DEST=("Data & BackUps")
 else
-	DESTINATION=("/media/$USER/$1")
+	DEST=("$1")
 fi
+DESTINATION=("/run/media/$USER/$DEST")
 shift
 if [ -z $1 ]; then
 	LIST=("Desktop" "Documents" "Development" "Templates" "GIMP" ".mydock" "Pictures" "Music" "Videos" ".bashrc" ".zshrc" ".zsh_aliases" ".vimrc" ".clang-format")
@@ -76,11 +77,11 @@ fi
 
 # Testing if the secondary Drive is connected.
 if [ ! -d "$DESTINATION" ]; then
-	echo -e "\e[31mERROR: \"${DESTINATION/"/media/$USER/"/""}\" drive not found.\e[00m"
+	echo -e "\e[31mERROR: \"${DEST}\" drive not found.\e[00m"
 	exit 1
 fi
 
-echo -e "Backing up in \"\e[36m${DESTINATION/"/media/$USER/"/""}\e[00m\"..."
+echo -e "Backing up in \"\e[36m${DEST}\e[00m\"..."
 
 # Test for the backings directory, creae it if necessary.
 if [ ! -d "$DESTINATION/Backings/" ]; then mkdir "$DESTINATION/Backings"; fi
