@@ -7,10 +7,10 @@
 
 Separate 4
 printf "Successfully installed \e[36mVisual Studio Code\e[00m, configuring...\n"
-echo "Choose some developer tools to prepare:"
+printf "Choose some developer tools to prepare:\n"
 
-[[ ${TO_DNF[@]} == *"git"* ]] && LIST+=("Git with vscode")
-[[ ${APPEND_DNF[@]} == *"nodejs"* ]] && LIST+=("VS Code Extension development")
+[[ ${TO_DNF[@]} == *"@development-tools"* ]] && LIST+=("Git with vscode")
+[[ ${APPEND_DNF[@]} == *"nodejs"* ]]         && LIST+=("VS Code Extension development")
 
 # Do not attempt to configure if no packages were installed
 # (Safeguard in case someone tries to run this file without sourcing it properly)
@@ -32,7 +32,7 @@ case $c in
 	unset USERNAME EMAIL DEF_BRANCH
 
 	# Integrate vscode in some common Git operations.
-	printf "Please, select a default editor for \e[36mcommit messages\e[00m:\n"
+	printf "Please, select a default editor for commit messages:\n"
 	GIT_EDITORS+=("vscode")
 	GIT_EDITORS+=("vim")
 	GIT_EDITORS+=("nano")
@@ -71,13 +71,7 @@ case $c in
 	;;
 
 	"VS Code Extension development")
-	echo "Installing Node.js 15..."
-	Animate & PID=$!
-	curl -sL https://deb.nodesource.com/setup_15.x | sudo -E bash - >/dev/null
-	sudo apt-get install -y nodejs >/dev/null
-	kill $PID
-
-	echo "Installing VS Code extension generator..."
+	printf "Installing: \e[01myo generator-code vsce\e[00m...\n"
 	Animate & PID=$!
 	sudo npm install -g yo generator-code vsce >/dev/null
 	kill $PID

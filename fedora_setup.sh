@@ -67,7 +67,7 @@ if ! $load_tmp_file: then
 			# User presses ENTER -> YES
 			# Times out          -> NO
 			if [ $O -eq 0 ] && [ -z $REPLY ]; then REPLY=("y"); fi
-			if [ $= -gt 128 ]; then echo; REPLY=("n"); fi
+			if [ $O -gt 128 ]; then echo; REPLY=("n"); fi
 
 			# Append confirmed items to the list.
 			if [[ ${REPLY,,} == "y" ]]; then
@@ -171,7 +171,7 @@ fi
 
 #region Loading choices from file
 if $load_tmp_file; then
-	# Error if there arent previous choices
+	# Error if there aren't previous choices
 	if [ -f "$choices_file" ]; then
 		printf "\e[01mLoading previous choices\e[00m\n"
 	else
@@ -218,7 +218,7 @@ done
 
 # Backup the following files if present
 for i in .bashrc .clang-format .zshrc .vimrc; do
-	[ ! -d ~/$i-og ] && cp ~/$i ~/$i-og
+	[ ! -f ~/$i-og ] && cp ~/$i ~/$i-og
 	# "-og" stands for original
 done
 
@@ -228,11 +228,12 @@ done
 # Test for an internet connection and exit if none is found.
 ping -c 1 google.com &>/dev/null
 if [ ! $? -eq 0 ]; then
-	echo -e >&2 "\e[31mERROR: No internet\e[00m"
+	printf "\e[31mERROR: No internet\e[00m\n" >&2 /dev/null
 	exit 1
 fi
 
 # Configure dnf now, before we start using it
+sudo mv /etc/dnf/dnf.conf /etc/dnf/dnf.conf-og
 DNF_CONF="[main]
 gpgcheck=1
 installonly_limit=3
@@ -243,10 +244,10 @@ fastestmirror=True
 max_parallel_downloads=20
 defaultyes=True
 minrate=384k"
-sudo mv /etc/dnf/dnf.conf /etc/dnf/dnf.conf-og
 printf "%s\n" "$DNF_CONF" | sudo tee /etc/dnf/dnf.conf >/dev/null
+unset DNF_CONF
 
-# Disable gnome's package-kit to avoid problems while this script is running
+# Stop GNOME's packagekit to avoid problems while the package manager is being used.
 sudo systemctl stop packagekit
 
 # Set up extra sources now
@@ -262,7 +263,7 @@ case $i in
 	brave-browser)
 	printf "Preparing \e[01mBrave Browser\e[00m source...\n"
 	sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
-	printf "[brave-browser-rpm-release.s3.brave.com_x86_64_]\nname=Brave Browser\nbaseurl=https://brave-browser-rpm-release.s3.brave.com/x86_64/\nenabled=1\ngpgkey=https://https://brave-browser-rpm-release.s3.brave.com/brave-core.asc\ngpgcheck=1\n" | sudo tee /etc/yum.repos.d/brave-browser.repo
+	printf "[brave-browser-rpm-release.s3.brave.com_x86_64_]\nname=Brave Browser\nbaseurl=https://brave-browser-rpm-release.s3.brave.com/x86_64/\nenabled=1\ngpgkey=https://brave-browser-rpm-release.s3.brave.com/brave-core.asc\ngpgcheck=1\n" | sudo tee /etc/yum.repos.d/brave-browser.repo
 	;;
 
 	# TODO: Find a way to avoid hard-coding RPM-Fusion
@@ -335,7 +336,7 @@ case $i in
 	printf "%s\e[00m\n" $([ $? -eq 0 ] && printf "\e[32mSuccess" || printf "\e[31mFail")
 
 	read -rp "Do you want to suspend the OS when you close the lid? (laptops only) (Y/n) "
-	[[ ${REPLY,,} == "y" ]] && sudo sed -i 's/#HandleLidSwitch=suspend/HandleLidSwitchSuspend/' /etc/systemd/logind.conf
+	[[ ${REPLY,,} == "y" ]] && sudo sed -i 's/#HandleLidSwitch=suspend/HandleLidSwitch=suspend/' /etc/systemd/logind.conf
 	;;
 
 	zsh)
@@ -343,13 +344,13 @@ case $i in
 	printf "Successfully installed \e[36mzsh\e[00m, configuring...\n"
 
 	# Create .zshrc files
-	[ ! -f ~/.zshrc ] && cat "$script_location/samples/zshrc" | tee ~/.zshrc ~/.zshrc-og >/dev/null
+	     [ ! -f ~/.zshrc ]     && cat "$script_location/samples/zshrc" | tee ~/.zshrc ~/.zshrc-og >/dev/null
 	sudo [ ! -f /root/.zshrc ] && cat "$script_location/samples/zshrc" | sudo tee /root/.zshrc /root/.zshrc-og >/dev/null
 
 	# Prepare powerline shell
 	sudo pip3 install powerline-shell &>/dev/null
 
-	if [ $? -eq 0]; then
+	if [ $? -eq 0 ]; then
 		sed -i "s/# user_powerline/use_powerline/" ~/.zshrc
 		sudo sed -i "s/# user_powerline/use_powerline/" /root/.zshrc
 
@@ -379,7 +380,8 @@ case $i in
 	fi
 
 	# Ensure zsh aliases file exists
-	[ -f ~/.zsh_aliases ] || printf "# zsh aliases file\n" > ~/.zsh_aliases
+	     [ -f ~/.zsh_aliases ] || printf "# zsh aliases file\n" | tee ~/.zsh_aliases     >/dev/null
+	sudo [ -f ~/.zsh_aliases ] || printf "# zsh aliases file\n" | tee /root/.zsh_aliases >/dev/null
 
 	read -rp "Do you want to make `tput setaf 6`zsh`tput sgr0` your default shell? (Y/n) "
 	if [[ ${REPLY,,} == "y" ]] || [ -z $REPLY ]; then
