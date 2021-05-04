@@ -52,6 +52,14 @@ I'm assuming you have just installed [fedora](https://getfedora.org/en/workstati
 
 <h2 align="center">About</h2>
 
+This project started as a heavily reworked version of [Pop!_OS Setup](https://github.com/nico-castell/PopOS-Setup), adapted to work in [Fedora](https://getfedora.org/en/workstation/download/).
+
+The repository has 2 main branches:
+- `main`: Contains the latest stable version.
+- `develop`: Where the project is developed.
+
+All pull requests should be against the `develop` branch. Every once in a while, `develop` is merged into `main` and given a version tag.
+
 This repository, and all contributions to this repository, are under the [MIT License](LICENSE). This software can also install packages under different licenses, this project's license doesn't apply to them, see each package.
 
 > *Live long, and prosper.*  
