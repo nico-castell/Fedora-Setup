@@ -10,5 +10,7 @@
 	],
 	"editor.insertSpaces": false,
 	"editor.detectIndentation": false,
-	"files.eol": "\n"
+	"files.eol": "\n",
+	// Markdown all-in-one settings
+	"markdown.extension.toc.levels": "2..3"
 }
