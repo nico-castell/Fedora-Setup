@@ -86,8 +86,6 @@ if $delete_server; then
 				printf "Deleting server files, \e[31mFailed\e[00m\n"
 			fi
 
-			sudo update-desktop-database
-
 			# Delete firewall rules (user assisted)
 			printf "Choose the rules for port 25565 # MC-SERVER, press ENTER without typing a rule when you're done."
 			sudo ufw status numbered
@@ -303,7 +301,6 @@ Icon=$mc_folder/server-icon.png"
 #endregion ===================================================================
 code_5=0
 mkdir -p "$appmenu"
-sudo update-desktop-database
 printf '%s\n' "$desktop_file" > "$mc_entry" ; code_5=$?
 chmod -x "$mc_entry"
 

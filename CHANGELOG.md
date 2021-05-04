@@ -6,6 +6,7 @@ All significant changes to **Fedora Setup** will be documented here.
   - [Added](#added)
   - [Changed](#changed)
   - [Fixed](#fixed)
+  - [Removed](#removed)
 - [Pre releases](#pre-releases)
   - [Version 0.0.1 - *2021-05-03*](#version-001---2021-05-03)
 
@@ -27,6 +28,9 @@ All significant changes to **Fedora Setup** will be documented here.
 - [fedora_setup.sh](fedora_setup.sh):
   - Fixed a few typos.
   - Fixed wrongly named brave browser gpg key.
+### Removed
+- [mc_server_builder.sh](modules/mc_server_builder.sh):
+  - Removed `update-desktop-database` commands as these commands don't run on Wayland.
 
 ## Pre releases
 

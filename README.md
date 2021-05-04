@@ -17,7 +17,7 @@ I'm assuming you have just installed [fedora](https://getfedora.org/en/workstati
   ```shell
   $ git clone https://github.com/nico-castell/Fedora-Setup.git
   ```
-2. (Optional) Look at the instuctions in thme [gnome_apperance.sh](modules/gnome_appearance.sh) script, and configure the file structure for the script to set up the GNOME appearance with your themes.
+2. (Optional) Look at the instuctions in the [gnome_apperance.sh](modules/gnome_appearance.sh) script, and configure the file structure for the script to set up the GNOME appearance with your themes.
 	```
 	modules
 	└── themes
