@@ -56,36 +56,23 @@ printf "THE SOFTWARE IS PROVIDED \"AS IS\", read the license for more informatio
 
 #region Prompting the user for their choices
 if ! $load_tmp_file: then
-	# Go through a list of packages asking the user to choose which ones to
-	# install.
-	Confirm_from_list () {
-		unset Confirmed
-		for i in ${To_Confirm[@]}; do
-			read -r -p "Confirm `tput setaf 3`\"$i\"`tput sgr0` (Y/n) " -t 10
-			O=$?
-
-			# User presses ENTER -> YES
-			# Times out          -> NO
-			if [ $O -eq 0 ] && [ -z $REPLY ]; then REPLY=("y"); fi
-			if [ $O -gt 128 ]; then echo; REPLY=("n"); fi
-
-			# Append confirmed items to the list.
-			if [[ ${REPLY,,} == "y" ]]; then
-				Confimed+=("$i")
-			fi
-		done
-	}
-
 	# We're about to make a new choices file
 	[ -f "$choices_file" ] && rm "$choices_file"
 
 	# List of packages to install (then set up)
 	printf "Confirm packages to install:\n"
 
-	# Load packages from packages.txt
-	for i in $(cat "$packages_file"); do To_Confirm+=("$i"); done
-	Confirm_from_list
-	TO_DNF=(${Confirmed[@]})
+	# Go through a list of packages asking the user to choose which ones to
+	# install.
+	IFSB="$IFS"
+	IFS="$(echo -en "\n\b")"
+	for i in $(cat "$packages_file" | cut -d ' ' -f 1); do
+		read -r -p "Confirm: `tput setaf 3``printf %s $i | tr '_' ' '``tput sgr0` (Y/n) "
+		[[ ${REPLY,,} == "y" ]] || [ -z $REPLY ] && \
+		TO_DNF+=("$(cat packages.txt | grep "$i" | cut -d ' ' -f 2-)")
+	done
+	IFS="$IFSB"
+	unset IFSB
 
 	# Append "essential" packages
 	To_DNF+=("neofetch" "vim" "ufw" "xclip")
@@ -114,14 +101,6 @@ if ! $load_tmp_file: then
 			fi
 		done
 		unset LIST
-		;;
-
-		zsh)
-		APPEND_DNF+=("zsh-syntax-highlighting" "zsh-autosuggestions" "python3-pip" "util-linux-user")
-		;;
-
-		"@development-tools")
-		APPEND_DNF+=("git-lfs")
 		;;
 	esac
 	done

@@ -1,32 +1,33 @@
-@development-tools
-audacity
-brave-browser
-cmatrix
-code
-dconf-editor
-discord
-flatpak
-geary
-gimp
-gnome-chess
-gnome-mines
-gnome-power-manager
-gnome-tweaks
-gparted
-grub-customizer
-hddtemp
-htop
-inkscape
-java-latest-openjdk
-lm_sensors
-obs-studio
-os-prober
-p7zip
-seahorse
-steam
-thunderbird
-tlp
-tree
-virtualbox
-vlc
-zsh
+Development_Tools @development-tools git git-lfs
+Libre_Office @libreoffice
+Audacity audacity
+Brave_Browser brave-browser
+cmatrix cmatrix
+Visual_Studio_Code code git
+dconf-Editor dconf-editor
+Discord discord
+Flatpak flatpak
+Geary_Mail geary
+GIMP gimp
+GNOME_Chess gnome-chess
+GNOME_Mines gnome-mines
+GNOME_Power-Manager gnome-power-manager
+GNOME_Tweaks gnome-tweaks
+Gparted gparted
+Grub_Customizer grub-customizer
+hddtemp hddtemp
+HTOP htop
+Inkscape inkscape
+Java_OpenJDK java-latest-openjdk
+LM_Sensors lm_sensors
+OBS_Studio obs-studio
+OS_Prober os-prober
+7zip p7zip
+Passwords_and_Keys seahorse gpgme
+Steam steam
+Thunderbird thunderbird
+TLP tlp powertop
+Tree tree
+Virtual_Box VirtualBox
+VLC vlc
+Z-Shell zsh zsh-syntax-highlighting zsh-autosuggestions python3-pip util-linux-user
