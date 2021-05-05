@@ -14,14 +14,12 @@ GNOME_Mines gnome-mines
 GNOME_Power-Manager gnome-power-manager
 GNOME_Tweaks gnome-tweaks
 Gparted gparted
-Grub_Customizer grub-customizer
-hddtemp hddtemp
+Grub_Customizer grub-customizer os-prober
 HTOP htop
 Inkscape inkscape
 Java_OpenJDK java-latest-openjdk
-LM_Sensors lm_sensors
+LM_Sensors lm_sensors hddtemp
 OBS_Studio obs-studio
-OS_Prober os-prober
 7zip p7zip
 Passwords_and_Keys seahorse gpgme
 Steam steam

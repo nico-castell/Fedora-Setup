@@ -66,10 +66,10 @@ if ! $load_tmp_file: then
 	# install.
 	IFSB="$IFS"
 	IFS="$(echo -en "\n\b")"
-	for i in $(cat "$packages_file" | cut -d ' ' -f 1); do
-		read -r -p "Confirm: `tput setaf 3``printf %s $i | tr '_' ' '``tput sgr0` (Y/n) "
+	for i in $(cat "$packages_file"); do
+		read -r -p "Confirm: `tput setaf 3``printf %s $i | cut -d ' ' -f 1 | tr '_' ' '``tput sgr0` (Y/n) "
 		[[ ${REPLY,,} == "y" ]] || [ -z $REPLY ] && \
-		TO_DNF+=("$(cat packages.txt | grep "$i" | cut -d ' ' -f 2-)")
+		TO_DNF+=("$(printf %s "$i" | cut -d ' ' -f 2-)")
 	done
 	IFS="$IFSB"
 	unset IFSB
