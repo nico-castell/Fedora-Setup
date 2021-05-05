@@ -164,6 +164,10 @@ if ! $load_tmp_file: then
 	INSTALL_DUC=$Confimed
 	test $INSTALL_DUC && Modules+=("INSTALL_DUC")
 
+	prompt_user "systemdboot_switch.sh" "switch to systemd-boot"
+	SYSTEMDBOOT_SWITCH=$Confimed
+	test $SYSTEMDBOOT_SWITCH && Modules+=("SYSTEMDBOOT_SWITCH")
+
 	printf "MODULES - %s\n" "${Modules[@]}" >> "$choices_file"
 	Separate 4
 fi
@@ -397,20 +401,23 @@ fi
 sudo systemctl restart packagekit
 
 # Run modules
-if [ $GNOME_APPEARANCE ]; then
+if [ $GNOME_APPEARANCE   ]; then
 	"$modules_folder/gnome_appearance.sh"
 fi
-if [ $GNOME_SETTINGS   ]; then
+if [ $GNOME_SETTINGS     ]; then
 	"$modules_folder/gnome_settings.sh"
 fi
-if [ $GNOME_EXTENSIONS ]; then
+if [ $GNOME_EXTENSIONS   ]; then
 	"$modules_folder/gnome_extensions.sh"
 fi
-if [ $BUILD_MC_SERVER  ]; then
+if [ $BUILD_MC_SERVER    ]; then
 	"$modules_folder/mc_server_builder.sh"
 fi
-if [ $INSTALL_DUC      ]; then
+if [ $INSTALL_DUC        ]; then
 	"$modules_folder/duc_noip_install.sh" -e
+fi
+if [ $SYSTEMDBOOT_SWITCH ]; then
+	"$modules_folder/systemdboot_switch.sh"
 fi
 
 # Clean up after we're done
