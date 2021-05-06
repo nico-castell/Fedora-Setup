@@ -28,6 +28,6 @@ Steam steam
 Thunderbird thunderbird
 TLP tlp powertop
 Tree tree
-Virtual_Box VirtualBox
+Virtual_Box VirtualBox kernel-headers kernel-devel qt5-qtx11extras @c-development
 VLC vlc
 Z-Shell zsh zsh-syntax-highlighting zsh-autosuggestions python3-pip util-linux-user
