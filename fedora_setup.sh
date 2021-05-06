@@ -55,40 +55,27 @@ printf "Follow the instructions and you should be up and running soon\n";
 printf "THE SOFTWARE IS PROVIDED \"AS IS\", read the license for more information\n\n"
 
 #region Prompting the user for their choices
-if ! $load_tmp_file: then
-	# Go through a list of packages asking the user to choose which ones to
-	# install.
-	Confirm_from_list () {
-		unset Confirmed
-		for i in ${To_Confirm[@]}; do
-			read -r -p "Confirm `tput setaf 3`\"$i\"`tput sgr0` (Y/n) " -t 10
-			O=$?
-
-			# User presses ENTER -> YES
-			# Times out          -> NO
-			if [ $O -eq 0 ] && [ -z $REPLY ]; then REPLY=("y"); fi
-			if [ $O -gt 128 ]; then echo; REPLY=("n"); fi
-
-			# Append confirmed items to the list.
-			if [[ ${REPLY,,} == "y" ]]; then
-				Confimed+=("$i")
-			fi
-		done
-	}
-
+if ! $load_tmp_file; then
 	# We're about to make a new choices file
 	[ -f "$choices_file" ] && rm "$choices_file"
 
 	# List of packages to install (then set up)
 	printf "Confirm packages to install:\n"
 
-	# Load packages from packages.txt
-	for i in $(cat "$packages_file"); do To_Confirm+=("$i"); done
-	Confirm_from_list
-	TO_DNF=(${Confirmed[@]})
+	# Go through a list of packages asking the user to choose which ones to
+	# install.
+	IFSB="$IFS"
+	IFS="$(echo -en "\n\b")"
+	for i in $(cat "$packages_file"); do
+		read -r -p "Confirm: `tput setaf 3``printf %s $i | cut -d ' ' -f 1 | tr '_' ' '``tput sgr0` (Y/n) "
+		[[ ${REPLY,,} == "y" ]] || [ -z $REPLY ] && \
+		TO_DNF+=("$(printf %s "$i" | cut -d ' ' -f 2-)")
+	done
+	IFS="$IFSB"
+	unset IFSB
 
 	# Append "essential" packages
-	To_DNF+=("neofetch" "vim" "ufw" "xclip")
+	TO_DNF+=("neofetch" "vim" "ufw" "xclip")
 
 	# Store all selected packages
 	printf "TO_DNF - %s\n" "${TO_DNF[@]}" >> "$choices_file"
@@ -97,13 +84,14 @@ if ! $load_tmp_file: then
 	# Pre-installation instructions for the packages:
 	# If pre-installation instructions could add further packages they should be
 	# executed now. This way, we only need to run the package manager once.
+	APPENDED=0
 	for i in ${TO_DNF[@]}; do
 	case $i in
 		code)
-		printf "I noticed you're installing \e[36mvscode\e[00m...\n"
+		APPENDED=1
+		printf "I noticed you're installing \e[36mVisual Studio Code\e[00m...\n"
 
 		 LIST=("nodejs")                                                   # NodeJS
-		LIST+=("@c-development" "clang" "cmake")                           # C/C++
 		LIST+=("java-latest-openjdk-devel" "@eclipse")                     # Java
 		LIST+=("dotnet-sdk-5.0" "dotnet-sdk-3.1" "aspnetcore-runtime-3.1") # .NET
 
@@ -115,19 +103,12 @@ if ! $load_tmp_file: then
 		done
 		unset LIST
 		;;
-
-		zsh)
-		APPEND_DNF+=("zsh-syntax-highlighting" "zsh-autosuggestions" "python3-pip" "util-linux-user")
-		;;
-
-		"@development-tools")
-		APPEND_DNF+=("git-lfs")
-		;;
 	esac
 	done
 	printf "APPEND_DNF - %s\n" "${APPEND_DNF[@]}" >> "$choices_file"
 
-	Separate 4
+	test $APPENDED -ne 0 && Separate 4
+	unset APPENDED
 
 	printf "Choose some extra scripts to run:\n"
 	# Check if a script is present before prompting
@@ -135,7 +116,7 @@ if ! $load_tmp_file: then
 		unset Confirmed
 		if [ -f "$modules_folder/$1" ]; then
 			read -rp "Do you want to $2 (Y/n) "
-			if [[ ${REPLY,,} = "y" ]] || [[ -z $REPLY ]]; then
+			if [[ ${REPLY,,} == "y" ]] || [ -z $REPLY ]; then
 				Confirmed=true
 			else Confimed=false; fi
 		else Confimed=false; fi
@@ -143,26 +124,30 @@ if ! $load_tmp_file: then
 
 	# Start prompting the user
 	prompt_user "gnome_appearance.sh" "configure the appearance of gnome"
-	GNOME_APPEARANCE=$Confimed
+	GNOME_APPEARANCE=$Confirmed
 	test $GNOME_APPEARANCE && Modules+=("GNOME_APPEARANCE")
 
 	prompt_user "gnome_settings.sh" "modify some of gnome's configurations"
-	GNOME_SETTINGS=$Confimed
+	GNOME_SETTINGS=$Confirmed
 	test $GNOME_SETTINGS && Modules+=("GNOME_SETTINGS")
 
 	prompt_user "gnome_extensions.sh" "install some gnome extensions"
-	GNOME_EXTENSIONS=$Confimed
+	GNOME_EXTENSIONS=$Confirmed
 	test $GNOME_EXTENSIONS && Modules+=("GNOME_EXTENSIONS")
 
 	if [[ ${TO_DNF[@]} == *"java"* ]]; then
 		prompt_user "mc_server_builder.sh" "build a minecraft server"
-		BUILD_MC_SERVER=$Confimed
+		BUILD_MC_SERVER=$Confirmed
 		test $BUILD_MC_SERVER && Modules+=("BUILD_MC_SERVER")
 	fi
 
 	prompt_user "duc_noip_install.sh" "install No-Ip's DUC"
-	INSTALL_DUC=$Confimed
+	INSTALL_DUC=$Confirmed
 	test $INSTALL_DUC && Modules+=("INSTALL_DUC")
+
+	prompt_user "systemdboot_switch.sh" "switch to systemd-boot"
+	SYSTEMDBOOT_SWITCH=$Confirmed
+	test $SYSTEMDBOOT_SWITCH && Modules+=("SYSTEMDBOOT_SWITCH")
 
 	printf "MODULES - %s\n" "${Modules[@]}" >> "$choices_file"
 	Separate 4
@@ -187,7 +172,7 @@ if $load_tmp_file; then
 	APPEND_DNF=${APPEND_DNF/"APPEND_DNF - "/""}
 
 	# Load module scripts to run
-	Modules=(cat "$choices_file" | grep "MODULES")
+	Modules=($(cat "$choices_file" | grep "MODULES"))
 	Modules=${Modules/"MODULES - "/""}
 	[[ "$Modules" == *"GNOME_APPEARANCE"* ]] && GNOME_APPEARANCE=true
 	[[ "$Modules" == *"GNOME_SETTINGS"* ]] && GNOME_SETTINGS=true
@@ -218,7 +203,7 @@ done
 
 # Backup the following files if present
 for i in .bashrc .clang-format .zshrc .vimrc; do
-	[ ! -f ~/$i-og ] && cp ~/$i ~/$i-og
+	[ ! -f ~/$i-og ] && [ -f ~/$i ] && cp ~/$i ~/$i-og
 	# "-og" stands for original
 done
 
@@ -251,24 +236,28 @@ unset DNF_CONF
 sudo systemctl stop packagekit
 
 # Set up extra sources now
+REPOS_ADDED=0
 RPM_FUSION_INSTALLED=false
 for i in ${TO_DNF[@]}; do
 case $i in
 	code)
+	REPOS_ADDED=1
 	printf "Preparing \e[01mVisual Studio Code\e[00m source...\n"
 	sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 	printf "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc\n" | sudo tee /etc/yum.repos.d/vscode.repo >/dev/null
 	;;
 
 	brave-browser)
+	REPOS_ADDED=1
 	printf "Preparing \e[01mBrave Browser\e[00m source...\n"
 	sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
-	printf "[brave-browser-rpm-release.s3.brave.com_x86_64_]\nname=Brave Browser\nbaseurl=https://brave-browser-rpm-release.s3.brave.com/x86_64/\nenabled=1\ngpgkey=https://brave-browser-rpm-release.s3.brave.com/brave-core.asc\ngpgcheck=1\n" | sudo tee /etc/yum.repos.d/brave-browser.repo
+	printf "[brave-browser-rpm-release.s3.brave.com_x86_64_]\nname=Brave Browser\nbaseurl=https://brave-browser-rpm-release.s3.brave.com/x86_64/\nenabled=1\ngpgkey=https://brave-browser-rpm-release.s3.brave.com/brave-core.asc\ngpgcheck=1\n" | sudo tee /etc/yum.repos.d/brave-browser.repo >/dev/null
 	;;
 
 	# TODO: Find a way to avoid hard-coding RPM-Fusion
 	discord|obs-studio|steam|vrtualbox|vlc)
 	if ! $RPM_FUSION_INSTALLED; then
+		REPOS_ADDED=1
 		printf "Preparing \e[01mRPM Fusion\e[00m source...\n"
 		sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm >/dev/null
 		RPM_FUSION_INSTALLED=true
@@ -276,7 +265,8 @@ case $i in
 	;;
 esac
 done
-unset RPM_FUSION_INSTALLED
+test $REPOS_ADDED -ne 0 && Separate 4
+unset REPOS_ADDED RPM_FUSION_INSTALLED
 
 printf "Updating repositories...\n"
 sudo dnf check-update --refresh # Exit code will be 100 if upgrades are available
@@ -288,7 +278,7 @@ if [ $? -eq 100 ]; then
 	read -rp "You answer (default is Y): "
 	if [[ ${REPLY,,} = "y" ]] || [ -z $REPLY ]; then
 		printf "Upgrading...\n"
-		sudo dnf upgrade
+		sudo dnf upgrade -y
 	fi
 fi
 
@@ -300,7 +290,7 @@ sudo dnf install ${TO_DNF[@]} ${APPEND_DNF[@]}
 
 # After successfully installing the packages, if further configuration is required
 # it should be executed now.
-if [ $? -eq 0 ]
+if [ $? -eq 0 ]; then
 for i in ${TO_DNF[@]} ${APPEND_DNF[@]}; do
 case $i in
 	code)
@@ -319,7 +309,7 @@ case $i in
 	cat "$script_location/samples/vimrc" | sudo tee /root/.vimrc /root/.vimrc-og | tee ~/.vimrc ~/.vimrc-og >/dev/null
 	;;
 
-	"@development-tools")
+	git-lfs)
 	git lfs install &>/dev/null
 	;;
 
@@ -393,25 +383,35 @@ esac
 done
 fi
 
-# Restart gnome's package kit after we've finished using the package manager
-sudo systemctl restart packagekit
-
 # Run modules
-if [ $GNOME_APPEARANCE ]; then
+if [[ "$GNOME_APPEARANCE" == true   ]]; then
+	Separate 4; printf "Running \e[01mGNOME Appearance\e[00m module...\n"
 	"$modules_folder/gnome_appearance.sh"
 fi
-if [ $GNOME_SETTINGS   ]; then
+if [[ "$GNOME_SETTINGS" == true     ]]; then
+	Separate 4; printf "Running \e[01mGNOME Settings\e[00m module...\n"
 	"$modules_folder/gnome_settings.sh"
 fi
-if [ $GNOME_EXTENSIONS ]; then
+if [[ "$GNOME_EXTENSIONS" == true   ]]; then
+	Separate 4; printf "Running \e[01mGNOME Extensions\e[00m module...\n"
 	"$modules_folder/gnome_extensions.sh"
 fi
-if [ $BUILD_MC_SERVER  ]; then
+if [[ "$BUILD_MC_SERVER" == true    ]]; then
+	Separate 4; printf "Running \e[01mBuild Minecraft server\e[00m module...\n"
 	"$modules_folder/mc_server_builder.sh"
 fi
-if [ $INSTALL_DUC      ]; then
+if [[ "$INSTALL_DUC" == true        ]]; then
+	Separate 4; printf "Running \e[01mInstall No-Ip's DUC\e[00m module...\n"
 	"$modules_folder/duc_noip_install.sh" -e
 fi
+if [[ "$SYSTEMDBOOT_SWITCH" == true ]]; then
+	Separate 4; printf "Running \e[01mSwitch to systemd-boot module\e[00m...\n"
+	"$modules_folder/systemdboot_switch.sh"
+fi
+
+# Restart gnome's package kit after we've finished using the package manager
+sudo systemctl restart packagekit
+Separate 4
 
 # Clean up after we're done
 [ -f "$choices_file" ] && rm "$choices_file"
@@ -420,5 +420,6 @@ if $persist_at_the_end; then
 	read -p "Press any key to finish. " -n 1
 fi
 
+printf "\e[01;32mFinished!\e[00m your system has been set up.\n"
 exit 0
 # Thanks for downloading, and enjoy!

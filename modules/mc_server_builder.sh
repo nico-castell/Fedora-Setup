@@ -147,7 +147,7 @@ wget -q "$download_link" -O server.jar ; code_1=$?
 
 # Copy server icon
 code_2=0
-cp "$script_location/assets/mcserver/server-icon.png" . ; code_2=$?
+cp "$script_location/../assets/mcserver/server-icon.png" . ; code_2=$?
 
 #region run_file =============================================================
 run_file="#!/bin/bash

@@ -24,18 +24,13 @@ gsettings set org.gnome.calculator refresh-interval 86400
 # Configuring interface.
 echo "Configuring interface..."
 gsettings set org.gnome.desktop.wm.preferences button-layout "close:appmenu"
-gsettings set org.gnome.shell favorite-apps ['brave-browser.desktop', 'org.gnome.Geary.desktop', 'brave-hnpfjngllnobngcgfapefoaidbinmjnm-Default.desktop', 'browser-msoffice.desktop', 'org.gnome.Calendar.desktop', 'code.desktop', 'org.gnome.Nautilus.desktop', 'spotify.desktop']
-
-echo "Configuring interface behaviour..."
 gsettings set org.gnome.mutter center-new-windows true
 gsettings set org.gnome.desktop.wm.preferences action-middle-click-titlebar minimize
 gsettings set org.gnome.SessionManager logout-prompt false
 
 # Configuring peripherals.
-echo "Configuring mouse..."
+echo "Configuring mouse and touchpad..."
 gsettings set org.gnome.desktop.peripherals.mouse accel-profile flat
-
-echo "Configuring touchpad..."
 gsettings set org.gnome.desktop.peripherals.touchpad click-method fingers
 gsettings set org.gnome.desktop.peripherals.touchpad natural-scroll true
 gsettings set org.gnome.desktop.peripherals.touchpad speed 0.5

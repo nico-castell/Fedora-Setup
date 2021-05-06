@@ -5,16 +5,15 @@
 # from fedora_setup.sh because it depends on variables declared in
 # fedora_setup.sh
 
+[[ ${TO_DNF[@]} == *"git"* ]]        && LIST+=("Git with vscode")
+[[ ${APPEND_DNF[@]} == *"nodejs"* ]] && LIST+=("VS Code Extension development")
+
+# Do not run if the package is not being sourced
+if [[ "$0" == *"vscode.sh" ]] && [ ! -z "$LIST" ]; then
 Separate 4
 printf "Successfully installed \e[36mVisual Studio Code\e[00m, configuring...\n"
 printf "Choose some developer tools to prepare:\n"
 
-[[ ${TO_DNF[@]} == *"@development-tools"* ]] && LIST+=("Git with vscode")
-[[ ${APPEND_DNF[@]} == *"nodejs"* ]]         && LIST+=("VS Code Extension development")
-
-# Do not attempt to configure if no packages were installed
-# (Safeguard in case someone tries to run this file without sourcing it properly)
-if [ -n ${TO_DNF[@]} ] && [ -n ${APPEND_DNF[@]} ]; then
 select c in "${LIST[@]}" exit; do
 case $c in
 	"Git with vscode")
@@ -59,10 +58,9 @@ case $c in
 	# Set up aliases
 	printf "Setting up some Git aliases...\n"
 	git config --global alias.mrc '!git merge $1 && git commit -m "$2" --allow-empty && :'
-	git config --global alias.flog "log --all --graph --oneline --format=format:'%C(bold white)%h%C(r) -- %C(blue)%an (%ar)%C(r): %s %C(auto)%d%C(r)'"
-	git config --global alias.sflog "log --all --graph --oneline --format=format:'%C(bold white)%h%C(r) -- %C(yellow)%G?%C(r) %C(blue)%an (%ar)%C(r): %s %C(auto)%d%C(r)'"
+	git config --global alias.flog "log --all --graph --oneline --format=format:'%C(bold yellow)%h%C(r) %an➜ %C(bold)%s%C(r) %C(auto)%d%C(r)\'"
+	git config --global alias.sflog "log --all --graph --oneline --format=format:'%C(bold yellow)%h%C(r) §%C(bold green)%G?%C(r) %an➜ %C(bold)%s%C(r) %C(auto)%d%C(r)'"
 	git config --global alias.slog 'log --show-signature -1'
-	git config --global alias.fflog 'log --graph'
 	git config --global alias.mkst 'stash push -u'
 	git config --global alias.popst 'stash pop "stash@{0}" -q'
 	git config --global alias.unstage 'reset -q HEAD -- .'
