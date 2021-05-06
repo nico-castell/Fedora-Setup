@@ -59,10 +59,9 @@ case $c in
 	# Set up aliases
 	printf "Setting up some Git aliases...\n"
 	git config --global alias.mrc '!git merge $1 && git commit -m "$2" --allow-empty && :'
-	git config --global alias.flog "log --all --graph --oneline --format=format:'%C(bold white)%h%C(r) -- %C(blue)%an (%ar)%C(r): %s %C(auto)%d%C(r)'"
-	git config --global alias.sflog "log --all --graph --oneline --format=format:'%C(bold white)%h%C(r) -- %C(yellow)%G?%C(r) %C(blue)%an (%ar)%C(r): %s %C(auto)%d%C(r)'"
+	git config --global alias.flog "log --all --graph --oneline --format=format:'%C(bold yellow)%h%C(r) %an➜ %C(bold)%s%C(r) %C(auto)%d%C(r)\'"
+	git config --global alias.sflog "log --all --graph --oneline --format=format:'%C(bold yellow)%h%C(r) §%C(bold green)%G?%C(r) %an➜ %C(bold)%s%C(r) %C(auto)%d%C(r)'"
 	git config --global alias.slog 'log --show-signature -1'
-	git config --global alias.fflog 'log --graph'
 	git config --global alias.mkst 'stash push -u'
 	git config --global alias.popst 'stash pop "stash@{0}" -q'
 	git config --global alias.unstage 'reset -q HEAD -- .'
