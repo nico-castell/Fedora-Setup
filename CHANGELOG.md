@@ -2,9 +2,32 @@
 
 All significant changes to **Fedora Setup** will be documented here.
 
+- [Unreleased](#unreleased)
+  - [Added](#added)
+  - [Changed](#changed)
+  - [Removed](#removed)
 - [Pre releases](#pre-releases)
   - [Version 0.0.2 - *2021-05-04*](#version-002---2021-05-04)
   - [Version 0.0.1 - *2021-05-03*](#version-001---2021-05-03)
+
+## Unreleased
+### Added
+- [systemdboot_switch.sh](modules/systemdboot_switch.sh):
+  - This new module can switch Fedora's bootloader from **grub** to **systemd-boot**.
+- [fedora_setup.sh](fedora_setup.sh):
+  - Introduced a new way of loading and selecting packages. The user can now see the name of the app eg **Z-Shell**, confirm the package, and load multiple packages, eg **zsh zsh-autosuggestions \+**.
+- [packages.txt](packages.txt):
+  - Some new packages were added, such as **C/C++**, **GNOME Boxes**, and more.
+### Changed
+- [packages.txt](packages.txt):
+  - Given the new way fedora_setup.sh loads packages, packages.txt was given a new structure to accomodate this by using spaces as delimiters between the name the user sees and the packages selected. Addinionally this means APPEND_DNF is not as useful now.
+- [vscode.sh](vscode.sh):
+  - Updated git aliases `flog` and `sflog`.
+### Removed
+- [fedora_setup.sh](fedora_setup.sh):
+  - Given the new way packages are loaded, the following were removed, in favor of loading them when the user selects their package (TO_DNF):
+    - **C/C++** was removed from APPEND_DNF when choosing packages to append to Visual Studio Code.
+    - **zsh** and **@development-tools** no longer contribute to APPEND_DNF
 
 ## Pre releases
 
