@@ -31,10 +31,10 @@ if $PROCEED; then
 
 	# Find some necessary packages
 	for i in blkid sed awk cut cat sudo grep kernel-install; do
-		if ! which $i; do
+		if ! which $i >/dev/null; then
 			printf "Missing required package: %s\n" $i
 			exit 3
-		done
+		fi
 	done
 
 	# Prepare directory and make a backup of the /etc/fstab
@@ -42,7 +42,9 @@ if $PROCEED; then
 	sudo cp /etc/fstab /etc/fstab-og
 
 	# Get the UUID of the EFI partition
-	ID=$(sudo blkid | grep EFI | cut -d ' ' -f 3)
+	for i in $(sudo blkid | grep EFI); do
+		[[ "$i" == UUID* ]] && ID="$i"
+	done
 	ID=${ID//\"/}
 
 	# Get the current mountpoint of the boot partition
@@ -61,23 +63,24 @@ if $PROCEED; then
 	fi
 
 	# Make directory for systemd-boot
-	sudo mkdir /efi/$(cat /etc/machine-id)
+	sudo mkdir /efi/$(cat /etc/machine-id); O=$?
 
 	# Remove grub, grubby and shim
 	printf "Removing grub, \e[01;31mDO NOT REBOOT OR CANCEL\e[00m...\n"
-	[ $? -eq 0 ] && rm /etc/dnf/protected.d/grub* /etc/dnf/protected.d/shim* && \
-	sudo dnf remove -y grubby grub2* shim* memtest86* && \
+	[ $O -eq 0 ] && sudo rm /etc/dnf/protected.d/grub* /etc/dnf/protected.d/shim* && \
+	sudo dnf remove -y grubby grub2* shim* memtest86* &>/dev/null && \
 	sudo rm -rf /boot/grub2 && sudo rm -rf /boot/loader
+	unset O
 
 	# Install systemd-boot
 	printf "Installing systemd-boot, \e[01;31mDO NOT REBOOT OR CANCEL\e[00m...\n"
-	cat /proc/cmdline | cud -d ' ' -f 2- | sudo tee /etc/kernel/cmdline
-	sudo bootctl install
+	cat /proc/cmdline | cut -d ' ' -f 2- | sudo tee /etc/kernel/cmdline >/dev/null
+	sudo bootctl install 2>&1 | grep entry
 	sudo kernel-install add $(uname -r) /lib/modules/$(uname -r)/vmlinuz
 
 	# Reinstall kernel
 	printf "Reinstalling kernel, \e[01;31mDO NOT REBOOT OR CANCEL\e[00m...\n"
-	sudo dnf reinstall kernel-core -y
+	sudo dnf reinstall kernel-core -y &>/dev/null
 
 	# Give notice the process is finished
 	[ $? -eq 0 ] && printf "\e[01;32mSuccess!\e[00m it is now safe to reboot.\n"

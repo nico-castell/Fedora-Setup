@@ -5,10 +5,10 @@
 # THE SOFTWARE IS PROVIDED "AS IS"
 # Read the included LICENSE file for more information
 
-(xdg-open "https://extensions.gnome.org/extension/906/sound-output-device-chooser/") &
-(xdg-open "https://extensions.gnome.org/extension/97/coverflow-alt-tab/") &
-(xdg-open "https://extensions.gnome.org/extension/307/dash-to-dock/") &
-(xdg-open "https://extensions.gnome.org/extension/779/clipboard-indicator/") &
+(xdg-open "https://extensions.gnome.org/extension/906/sound-output-device-chooser/" &>/dev/null) &
+(xdg-open "https://extensions.gnome.org/extension/97/coverflow-alt-tab/" &>/dev/null) &
+(xdg-open "https://extensions.gnome.org/extension/307/dash-to-dock/" &>/dev/null) &
+(xdg-open "https://extensions.gnome.org/extension/779/clipboard-indicator/" &>/dev/null) &
 
 read -p "Press enter to continue... "
 

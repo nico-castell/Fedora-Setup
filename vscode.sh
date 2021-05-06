@@ -5,16 +5,15 @@
 # from fedora_setup.sh because it depends on variables declared in
 # fedora_setup.sh
 
+[[ ${TO_DNF[@]} == *"git"* ]]        && LIST+=("Git with vscode")
+[[ ${APPEND_DNF[@]} == *"nodejs"* ]] && LIST+=("VS Code Extension development")
+
+# Do not run if the package is not being sourced
+if [[ "$0" == *"vscode.sh" ]] && [ ! -z "$LIST" ]; then
 Separate 4
 printf "Successfully installed \e[36mVisual Studio Code\e[00m, configuring...\n"
 printf "Choose some developer tools to prepare:\n"
 
-[[ ${TO_DNF[@]} == *"@development-tools"* ]] && LIST+=("Git with vscode")
-[[ ${APPEND_DNF[@]} == *"nodejs"* ]]         && LIST+=("VS Code Extension development")
-
-# Do not attempt to configure if no packages were installed
-# (Safeguard in case someone tries to run this file without sourcing it properly)
-if [ -n ${TO_DNF[@]} ] && [ -n ${APPEND_DNF[@]} ]; then
 select c in "${LIST[@]}" exit; do
 case $c in
 	"Git with vscode")
