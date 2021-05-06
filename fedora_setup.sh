@@ -90,7 +90,6 @@ if ! $load_tmp_file: then
 		printf "I noticed you're installing \e[36mvscode\e[00m...\n"
 
 		 LIST=("nodejs")                                                   # NodeJS
-		LIST+=("@c-development" "clang" "cmake")                           # C/C++
 		LIST+=("java-latest-openjdk-devel" "@eclipse")                     # Java
 		LIST+=("dotnet-sdk-5.0" "dotnet-sdk-3.1" "aspnetcore-runtime-3.1") # .NET
 

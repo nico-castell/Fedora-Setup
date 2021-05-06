@@ -1,5 +1,6 @@
 Development_Tools @development-tools git git-lfs
 Libre_Office @libreoffice
+C/C++_development @c-development cmake clang
 Audacity audacity
 Brave_Browser brave-browser
 cmatrix cmatrix
@@ -9,11 +10,12 @@ Discord discord
 Flatpak flatpak
 Geary_Mail geary
 GIMP gimp
+GNOME_Boxes gnome-boxes
 GNOME_Chess gnome-chess
 GNOME_Mines gnome-mines
 GNOME_Power-Manager gnome-power-manager
 GNOME_Tweaks gnome-tweaks
-Gparted gparted
+GParted gparted
 Grub_Customizer grub-customizer os-prober
 HTOP htop
 Inkscape inkscape
