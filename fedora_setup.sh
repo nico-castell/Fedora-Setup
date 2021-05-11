@@ -186,6 +186,9 @@ fi
 
 # The script starts working now
 
+# Set BIOS time to UTC
+sudo timedatectl set-local-rtc 0
+
 # Ensure these hidden folders are present and have the right permissions
 # Normal folders
 for i in mydock icons themes; do
