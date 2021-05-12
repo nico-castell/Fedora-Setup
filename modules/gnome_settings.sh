@@ -23,7 +23,8 @@ gsettings set org.gnome.calculator refresh-interval 86400
 
 # Configuring interface.
 echo "Configuring interface..."
-gsettings set org.gnome.desktop.wm.preferences button-layout "close:appmenu"
+gsettings set org.gnome.shell app-picker-layout "[]"
+gsettings reset org.gnome.desktop.wm.preferences button-layout
 gsettings set org.gnome.mutter center-new-windows true
 gsettings set org.gnome.desktop.wm.preferences action-middle-click-titlebar minimize
 gsettings set org.gnome.SessionManager logout-prompt false
