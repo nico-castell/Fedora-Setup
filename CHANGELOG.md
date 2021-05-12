@@ -5,6 +5,7 @@ All significant changes to **Fedora Setup** will be documented here.
 - [Unreleased](#unreleased)
   - [Added](#added)
   - [Fixed](#fixed)
+  - [Removed](#removed)
 - [Released](#released)
   - [Version 1.0.0 - *2021-05-06*](#version-100---2021-05-06)
 - [Pre releases](#pre-releases)
@@ -16,13 +17,20 @@ All significant changes to **Fedora Setup** will be documented here.
 - [fedora_setup.sh](fedora_setup.sh):
   - The script now sets the BIOS time to UTC.
   - The script now configures [Flathub](https://flathub.org/home) as a flatpak remote, then removes Fedora's remotes.
+  - Git configuration and vscode extension development are now part of this file
 - [geary-autostart.desktop](deskcuts/geary-autostart.desktop):
   - Added deskcut to autostart geary service when logging in.
 - [packages.txt](packages.txt):
   - Added `gnome-extensions-app` to be installed along with `gnome-tweaks`.
+  - .NET 5.0 and 3.1 are now listed in this file
 ### Fixed
 - [packages.txt](packages.txt):
   - Added missing depedencies of VirtualBox.
+### Removed
+- [fedora_setup.sh](fedora_setup.sh):
+  - Removed `APPEND_DNF` as it is no longer useful
+- **vscode.sh**:
+  - The file was removed because it was no longer useful.
 
 ## Released
 
