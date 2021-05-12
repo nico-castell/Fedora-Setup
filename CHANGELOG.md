@@ -18,6 +18,8 @@ All significant changes to **Fedora Setup** will be documented here.
   - The script now configures [Flathub](https://flathub.org/home) as a flatpak remote, then removes Fedora's remotes.
 - [geary-autostart.desktop](deskcuts/geary-autostart.desktop):
   - Added deskcut to autostart geary service when logging in.
+- [packages.txt](packages.txt):
+  - Added `gnome-extensions-app` to be installed along with `gnome-tweaks`.
 ### Fixed
 - [packages.txt](packages.txt):
   - Added missing depedencies of VirtualBox.

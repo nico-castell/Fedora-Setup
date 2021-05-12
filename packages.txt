@@ -14,7 +14,7 @@ GNOME_Boxes gnome-boxes
 GNOME_Chess gnome-chess
 GNOME_Mines gnome-mines
 GNOME_Power-Manager gnome-power-manager
-GNOME_Tweaks gnome-tweaks
+GNOME_Tweaks gnome-tweaks gnome-extensions-app
 GParted gparted
 Grub_Customizer grub-customizer os-prober
 HTOP htop
