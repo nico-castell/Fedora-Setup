@@ -301,22 +301,25 @@ case $i in
 	source "$script_location/vscode.sh"
 	;;
 
-	lm_sensors)
+	lm_sensors) # Tell the user to configure the sensors
 	Separate 4
 	printf "Configure \"lm_sensors\":\n"
 	sleep 1.5 # Time for the user to read
 	sudo sensors-detect
 	;;
 
-	vim)
+	vim) # Install .vimrc
 	cat "$script_location/samples/vimrc" | sudo tee /root/.vimrc /root/.vimrc-og | tee ~/.vimrc ~/.vimrc-og >/dev/null
 	;;
 
-	git-lfs)
-	git lfs install &>/dev/null
+	flatpak) # Add flathub repository and delete fedora's repos.
+	if sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo >/dev/null; then
+		sudo flatpak remote-delete fedora >/dev/null
+		sudo flatpak remote-delete fedora-testing >/dev/null
+	fi
 	;;
 
-	tlp)
+	tlp) # Copy the configuration file
 	Separate 4
 	printf "Successfully installed \e[36mtlp\e[00m, configuring..."
 
@@ -332,7 +335,7 @@ case $i in
 	[[ ${REPLY,,} == "y" ]] && sudo sed -i 's/#HandleLidSwitch=suspend/HandleLidSwitch=suspend/' /etc/systemd/logind.conf
 	;;
 
-	zsh)
+	zsh) # Copy .zshrc and offer to switch default shell
 	Separate 4
 	printf "Successfully installed \e[36mzsh\e[00m, configuring...\n"
 

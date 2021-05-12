@@ -15,6 +15,7 @@ All significant changes to **Fedora Setup** will be documented here.
 ### Added
 - [fedora_setup.sh](fedora_setup.sh):
   - The script now sets the BIOS time to UTC.
+  - The script now configures [Flathub](https://flathub.org/home) as a flatpak remote, then removes Fedora's remotes.
 - [geary-autostart.desktop](deskcuts/geary-autostart.desktop):
   - Added deskcut to autostart geary service when logging in.
 ### Fixed
