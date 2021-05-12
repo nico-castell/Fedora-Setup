@@ -271,6 +271,11 @@ case $i in
 	sudo sensors-detect
 	;;
 
+	ufw) # Enable ufw firewall
+	[[ $(sudo ufw status 2>&1 | grep Status) == *"inactive" ]] && \
+		sudo ufw enable &>/dev/null
+	;;
+
 	vim) # Install .vimrc
 	cat "$script_location/samples/vimrc" | sudo tee /root/.vimrc /root/.vimrc-og | tee ~/.vimrc ~/.vimrc-og >/dev/null
 	;;
