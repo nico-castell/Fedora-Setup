@@ -1,10 +1,13 @@
-Development_Tools @development-tools git git-lfs
 Libre_Office @libreoffice
-C/C++_development @c-development cmake clang
 Audacity audacity
 Brave_Browser brave-browser
 cmatrix cmatrix
 Visual_Studio_Code code git
+Development_Tools @development-tools git git-lfs
+C/C++_development @c-development cmake clang
+.NET_3.1 dotnet-sdk-3.1 aspnetcore-runtime-3.1
+.NET_5.0 dotnet-sdk-5.0 aspnetcore-runtime-5.0
+Node.JS nodejs
 dconf-Editor dconf-editor
 Discord discord
 Flatpak flatpak

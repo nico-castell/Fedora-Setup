@@ -81,35 +81,6 @@ if ! $load_tmp_file; then
 	printf "TO_DNF - %s\n" "${TO_DNF[@]}" >> "$choices_file"
 	Separate 4
 
-	# Pre-installation instructions for the packages:
-	# If pre-installation instructions could add further packages they should be
-	# executed now. This way, we only need to run the package manager once.
-	APPENDED=0
-	for i in ${TO_DNF[@]}; do
-	case $i in
-		code)
-		APPENDED=1
-		printf "I noticed you're installing \e[36mVisual Studio Code\e[00m...\n"
-
-		 LIST=("nodejs")                                                   # NodeJS
-		LIST+=("java-latest-openjdk-devel" "@eclipse")                     # Java
-		LIST+=("dotnet-sdk-5.0" "dotnet-sdk-3.1" "aspnetcore-runtime-3.1") # .NET
-
-		for i in ${LIST[@]}; do
-			read -rp "Do you want to install `tput setaf 3`$i`tput sgr0` too? (Y/n) "
-			if [[ ${REPLY,,} == "y" ]] || [ -z $REPLY ]; then
-				APPEND_DNF+=("$i")
-			fi
-		done
-		unset LIST
-		;;
-	esac
-	done
-	printf "APPEND_DNF - %s\n" "${APPEND_DNF[@]}" >> "$choices_file"
-
-	test $APPENDED -ne 0 && Separate 4
-	unset APPENDED
-
 	printf "Choose some extra scripts to run:\n"
 	# Check if a script is present before prompting
 	prompt_user () {
@@ -167,9 +138,6 @@ if $load_tmp_file; then
 	# Load dnf packages
 	TO_DNF=$(cat "$choices_file" | grep "TO_DNF")
 	TO_DNF=${TO_DNF/"TO_DNF - "/""}
-
-	APPEND_DNF=$(cat "$choices_file" | grep "APPEND_DNF")
-	APPEND_DNF=${APPEND_DNF/"APPEND_DNF - "/""}
 
 	# Load module scripts to run
 	Modules=($(cat "$choices_file" | grep "MODULES"))
@@ -296,11 +264,6 @@ sudo dnf install ${TO_DNF[@]} ${APPEND_DNF[@]}
 if [ $? -eq 0 ]; then
 for i in ${TO_DNF[@]} ${APPEND_DNF[@]}; do
 case $i in
-	code)
-	# Instructions for this package are very extensive, so they're in another file
-	source "$script_location/vscode.sh"
-	;;
-
 	lm_sensors) # Tell the user to configure the sensors
 	Separate 4
 	printf "Successfully installed \e[36mlm_sensors\e[00m, configuring...\n"
@@ -316,6 +279,17 @@ case $i in
 	if sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo >/dev/null; then
 		sudo flatpak remote-delete fedora >/dev/null
 		sudo flatpak remote-delete fedora-testing >/dev/null
+	fi
+	;;
+
+	nodejs) # Offer to install tools to develop vscode extensions
+	if which code >/dev/null; then
+		Separate 4
+		read -rp "Do you want to install tools to develop extensions for `tput setaf 6`Visual Studio Code`tput sgr0`? (Y/n) "
+		if [[ ${REPLY,,} == "y" ]] || [ -z $REPLY ]; then
+			printf "Installing...\n"
+			sudo npm install -g yo generator-code vsce >/dev/null
+		fi
 	fi
 	;;
 
