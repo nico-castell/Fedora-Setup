@@ -15,6 +15,8 @@ All significant changes to **Fedora Setup** will be documented here.
 ### Added
 - [fedora_setup.sh](fedora_setup.sh):
   - The script now sets the BIOS time to UTC.
+- [geary-autostart.desktop](deskcuts/geary-autostart.desktop):
+  - Added deskcut to autostart geary service when logging in.
 ### Fixed
 - [packages.txt](packages.txt):
   - Added missing depedencies of VirtualBox.
