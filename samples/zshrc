@@ -47,6 +47,12 @@ setopt hist_ignore_space      # ignore commands that start with space
 setopt hist_verify            # show command with history expansion to user before running it
 #setopt share_history         # share command history data
 
+# force zsh to show the complete history
+alias history="history 0"
+
+# make less more friendly for non-text input files, see lesspipe(1)
+#[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
 # Add patters to the regex to avoid storing them in history
 function zshaddhistory() {
 	emulate -L zsh
@@ -58,26 +64,15 @@ function zshaddhistory() {
 	fi
 }
 
-# force zsh to show the complete history
-alias history="history 0"
+# Uncomment the following line if you don't like systemctl's auto-paging feature:
+# export SYSTEMD_PAGER=
 
-# make less more friendly for non-text input files, see lesspipe(1)
-#[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-	debian_chroot=$(cat /etc/debian_chroot)
-fi
-
-# set a fancy prompt (non-color, unless we know we "want" color)
+# Find if we have color prompt
+# Uncomment to force color prompt
+#force_color_prompt=yes
 case "$TERM" in
-	xterm-color|*-256color) color_prompt=yes;;
+	xterm-color|*-256color) color_prompt=yes ;;
 esac
-
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-# force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
 	if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
@@ -93,14 +88,11 @@ fi
 # Find a git branch, and add it to the prompt.
 find_branch () {
 	_branch="$(git branch 2>/dev/null | sed -e "/^\s/d" -e "s/^\*\s//")"
-	if [ ! -z $_branch ]; then
-		echo -n " $_branch"
-	fi
-	unset _branch
+	[ ! -z $_branch ] && printf " - %s" $_branch
 }
 
 if [ "$color_prompt" = yes ]; then
-	PROMPT="%B%F{green}%n@%m%f%b:%B%F{yellow}\$(find_branch)%b%f %F{blue}%B%2~%f%b%# "
+	PROMPT="[%B%n@%m%b %1~\$(find_branch)]%# "
 
 	# enable syntax-highlighting
 	if [ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] && [ "$color_prompt" = yes ]; then
@@ -173,20 +165,11 @@ if [ "$color_prompt" = yes ]; then
 	# use_powerline
 
 else
-	PROMPT="${debian_chroot:+($debian_chroot)}%B%F{green}%n@%m%f%b:%B%F{yellow}\$(find_branch)%b%f %F{blue}%2~%f%# "
+	PROMPT="[%n@%m %1~\$(find_branch)]%# "
 fi
 RPROMPT="%(?..%B%F{red}%?%b%f)"
 
 unset color_prompt force_color_prompt
-
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-	TERM_TITLE=$'\e]0;${debian_chroot:+($debian_chroot)}%n@%m: %~\a'
-	;;
-*)
-	;;
-esac
 
 # enable color support of ls, less and man, and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -214,10 +197,10 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # some more ls aliases
-alias lla='ls -lah --group-directories-first'
-alias ll='ls -lABh --group-directories-first'
-alias la='ls -ABh'
-alias l='ls -lBh --group-directories-first'
+alias lla='ls -lahF --group-directories-first'
+alias ll='ls -lABhF --group-directories-first'
+alias la='ls -ABhF'
+alias l='ls -lBhF --group-directories-first'
 
 # Create a directory and cd into it
 new() {
@@ -235,7 +218,5 @@ if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
 	fi
 fi
 
-# Put all aliases in this file.
-if [ -f ~/.zsh_aliases ]; then
-	source ~/.zsh_aliases
-fi
+# Put all your aliases in ~/.zsh_aliases
+[ -f ~/.zsh_aliases ] && . ~/.zsh_aliases
