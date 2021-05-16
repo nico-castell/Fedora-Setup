@@ -22,6 +22,8 @@ All significant changes to **Fedora Setup** will be documented here.
 - [fedora_setup.sh](fedora_setup.sh):
   - To avoid complexity, the post-instalation instructions were removed from this script, instead opting to source them from the new directory [post-install.d](post-install.d).
 ### Changed
+- [fedora_setup.sh](fedora_setup.sh):
+  - Now RPM-Fusion Free and Non-Free are queued separately and installed once, this means the script won't install two sources without needing one of them.
 - [.zshrc](samples/zshrc):
   - The prompt was made much more similar to Fedora's default prompt.
   - Many minor modifications were made

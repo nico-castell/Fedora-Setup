@@ -209,7 +209,8 @@ sudo systemctl stop packagekit
 
 # Set up extra sources now
 REPOS_ADDED=0
-RPM_FUSION_INSTALLED=false
+RPMFUSION_NONFREE_QUEUED=false
+RPMFUSION_FREE_QUEUED=false
 for i in ${TO_DNF[@]}; do
 case $i in
 	code)
@@ -227,18 +228,31 @@ case $i in
 	;;
 
 	# TODO: Find a way to avoid hard-coding RPM-Fusion
-	discord|obs-studio|steam|vrtualbox|vlc)
-	if ! $RPM_FUSION_INSTALLED; then
+	obs-studio|VirtualBox|vlc)
+	if ! $RPMFUSION_FREE_QUEUED; then
 		REPOS_ADDED=1
-		printf "Preparing \e[01mRPM Fusion\e[00m source...\n"
-		sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm >/dev/null
-		RPM_FUSION_INSTALLED=true
+		TO_RPMFUSION+=("https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm")
+		RPMFUSION_FREE_QUEUED=true
+	fi
+	;;
+
+	discord|steam)
+	if ! $RPMFUSION_NONFREE_QUEUED; then
+		REPOS_ADDED=1
+		TO_RPMFUSION+=("https://mirrors.rpmfusion.org/free/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm")
+		RPMFUSION_NONFREE_QUEUED=true
 	fi
 	;;
 esac
 done
+
+if [ -n "${TO_RPMFUSION[@]}" ]; then
+	printf "Preparing \e[01mRPM Fusion\e[00m source...\n"
+	sudo dnf install -y ${TO_RPMFUSION[@]}
+fi
+
 test $REPOS_ADDED -ne 0 && Separate 4
-unset REPOS_ADDED RPM_FUSION_INSTALLED
+unset REPOS_ADDED RPMFUSION_FREE_QUEUED RPMFUSION_NONFREE_QUEUED TO_RPMFUSION
 
 printf "Updating repositories...\n"
 sudo dnf check-update --refresh # Exit code will be 100 if upgrades are available
