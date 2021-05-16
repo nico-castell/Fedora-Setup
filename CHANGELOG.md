@@ -3,6 +3,8 @@
 All significant changes to **Fedora Setup** will be documented here.
 
 - [Unreleased](#unreleased)
+  - [Added](#added)
+  - [Removed](#removed)
   - [Changed](#changed)
 - [Released](#released)
   - [Version 1.1.0 - *2021-05-12*](#version-110---2021-05-12)
@@ -12,6 +14,12 @@ All significant changes to **Fedora Setup** will be documented here.
   - [Version 0.0.1 - *2021-05-03*](#version-001---2021-05-03)
 
 ## Unreleased
+### Added
+- [post-install.d](post-install.d):
+  - Created this directory to put all post-installation instructions in this folder. This is to avoid unnecessary complexity in [fedora_setup.sh](fedora_setup.sh).
+### Removed
+- [fedora_setup.sh](fedora_setup.sh):
+  - To avoid complexity, the post-instalation instructions were removed from this script, instead opting to source them from the new directory [post-install.d](post-install.d).
 ### Changed
 - [.zshrc](samples/zshrc):
   - The prompt was made much more similar to Fedora's default prompt.
@@ -21,6 +29,7 @@ All significant changes to **Fedora Setup** will be documented here.
 
 ## Released
 ### Version [1.1.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/1.1.0) - *2021-05-12*
+The variable APPEND_DNF was removed, along with **vscode.sh**. The instructions of vscode.sh were added to [fedora_setup.sh](fedora_setup.sh). Also, a few packages were added to [packages.txt](packages.txt).
 #### Added
 - [fedora_setup.sh](fedora_setup.sh):
   - The script now sets the BIOS time to UTC.
