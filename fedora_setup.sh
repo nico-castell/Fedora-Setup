@@ -32,6 +32,7 @@ script_location="$(pwd)"
 choices_file=("$script_location/.tmp_choices")
 packages_file=("$script_location/packages.txt")
 modules_folder=("$script_location/modules")
+postinstall_folder=("$script_location/post-install.d")
 
 # Prepare module variables
 GNOME_APPEARANCE=false
@@ -78,7 +79,7 @@ if ! $load_tmp_file; then
 	TO_DNF+=("neofetch" "vim" "ufw" "xclip")
 
 	# Store all selected packages
-	printf "TO_DNF - %s\n" "${TO_DNF[@]}" >> "$choices_file"
+	printf "TO_DNF - ${TO_DNF[@]}\n" >> "$choices_file"
 	Separate 4
 
 	printf "Choose some extra scripts to run:\n"
@@ -120,7 +121,7 @@ if ! $load_tmp_file; then
 	SYSTEMDBOOT_SWITCH=$Confirmed
 	test $SYSTEMDBOOT_SWITCH && Modules+=("SYSTEMDBOOT_SWITCH")
 
-	printf "MODULES - %s\n" "${Modules[@]}" >> "$choices_file"
+	printf "MODULES - ${Modules[@]}\n" >> "$choices_file"
 	Separate 4
 fi
 #endregion
@@ -143,10 +144,10 @@ if $load_tmp_file; then
 	Modules=($(cat "$choices_file" | grep "MODULES"))
 	Modules=${Modules/"MODULES - "/""}
 	[[ "$Modules" == *"GNOME_APPEARANCE"* ]] && GNOME_APPEARANCE=true
-	[[ "$Modules" == *"GNOME_SETTINGS"* ]] && GNOME_SETTINGS=true
+	[[ "$Modules" == *"GNOME_SETTINGS"*   ]] && GNOME_SETTINGS=true
 	[[ "$Modules" == *"GNOME_EXTENSIONS"* ]] && GNOME_EXTENSIONS=true
-	[[ "$Modules" == *"BUILD_MC_SERVER"* ]] && BUILD_MC_SERVER=true
-	[[ "$Modules" == *"INSTALL_DUC"* ]] && INSTALL_DUC=true
+	[[ "$Modules" == *"BUILD_MC_SERVER"*  ]] && BUILD_MC_SERVER=true
+	[[ "$Modules" == *"INSTALL_DUC"*      ]] && INSTALL_DUC=true
 
 	Separate 4
 fi
@@ -259,164 +260,12 @@ Separate 4
 printf "Installing user-selected packages...\n"
 sudo dnf install ${TO_DNF[@]} ${APPEND_DNF[@]}
 
-# After successfully installing the packages, if further configuration is required
-# it should be executed now.
+# Source the post-installation scripts for the packages we've installed
 if [ $? -eq 0 ]; then
-for i in ${TO_DNF[@]} ${APPEND_DNF[@]}; do
-case $i in
-	lm_sensors) # Tell the user to configure the sensors
-	Separate 4
-	printf "Successfully installed \e[36mlm_sensors\e[00m, configuring...\n"
-	sleep 1.5 # Time for the user to read
-	sudo sensors-detect
-	;;
-
-	ufw) # Enable ufw firewall
-	[[ $(sudo ufw status 2>&1 | grep Status) == *"inactive" ]] && \
-		sudo ufw enable &>/dev/null
-	;;
-
-	vim) # Install .vimrc
-	cat "$script_location/samples/vimrc" | sudo tee /root/.vimrc /root/.vimrc-og | tee ~/.vimrc ~/.vimrc-og >/dev/null
-	;;
-
-	flatpak) # Add flathub repository and delete fedora's repos.
-	if sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo >/dev/null; then
-		sudo flatpak remote-delete fedora >/dev/null
-		sudo flatpak remote-delete fedora-testing >/dev/null
-	fi
-	;;
-
-	nodejs) # Offer to install tools to develop vscode extensions
-	if which code >/dev/null; then
-		Separate 4
-		read -rp "Do you want to install tools to develop extensions for `tput setaf 6`Visual Studio Code`tput sgr0`? (Y/n) "
-		if [[ ${REPLY,,} == "y" ]] || [ -z $REPLY ]; then
-			printf "Installing...\n"
-			sudo npm install -g yo generator-code vsce >/dev/null
-		fi
-	fi
-	;;
-
-	tlp) # Copy the configuration file
-	Separate 4
-	printf "Successfully installed \e[36mtlp\e[00m, configuring..."
-
-	# Conditionally execute all the steps to configure tlp.
-	sudo mv /etc/tlp.conf /etc/tlp.conf-og && \
-	cat "$script_location/samples/tlp.conf" | sudo tee /etc/tlp.conf >/dev/null && \
-	sudo systemctl enable tlp && \
-	sudo systemctl restart tlp
-
-	printf "%s\e[00m\n" $([ $? -eq 0 ] && printf "\e[32mSuccess" || printf "\e[31mFail")
-
-	read -rp "Do you want to suspend the OS when you close the lid? (laptops only) (Y/n) "
-	[[ ${REPLY,,} == "y" ]] && sudo sed -i 's/#HandleLidSwitch=suspend/HandleLidSwitch=suspend/' /etc/systemd/logind.conf
-	;;
-
-	git) # Configure git
-	Separate 4
-	printf "Successfully installed \e[36mGit\e[00m, configuring...\n"
-
-	# User configurations
-	read -p "What's your commit name? " USERNAME
-	git config --global user.name "$USERNAME"
-	read -p "What's your commit email? " EMAIL
-	git config --global user.email "$EMAIL"
-	read -p "What do you want to call the default branch? " BRANCH
-	[ ! -z $BRANCH ] && git config --global init.defaultBranch "$BRANCH"
-	unset USERNAME EMAIL BRANCH
-
-	# Choose a commit editor
-	printf "Please, select a default editor for commit messages:\n"
-	which code  >/dev/null && GIT_EDITORS+=("vscode")
-	which vim   >/dev/null && GIT_EDITORS+=("vim")
-	which namo  >/dev/null && GIT_EDITORS+=("nano")
-	which gedit >/dev/null && GIT_EDITORS+=("gedit")
-	select GIT_EDITOR in ${GIT_EDITORS[@]}; do
-	case $GIT_EDITOR in
-		vscode) git config --global core.editor "code --wait"         ;;
-		vim)    git config --global core.editor "vim"                 ;;
-		nano)   git config --global core.editor "nano"                ;;
-		gedit)  git config --global core.editor "gedit -s"            ;;
-		*) printf "Option %s not recognized.\n" $GIT_EDITOR; continue ;;
-	esac; break; done
-	unset GIT_EDITOR GIT_EDITORS
-
-	# If vscode was installed, configure it as a git mergetool and difftool
-	if which code >/dev/null; then
-		printf "Setting \e[36mVisual Studio Code\e[00m as a Git merge and diff tool...\n"
-		git config --global merge.tool vscode
-		git config --global mergetool.vscode.cmd 'code --wait $MERGED'
-		git config --global diff.tool vscode
-		git config --global difftool.vscode.cmd 'code --wait --diff $LOCAL $REMOTE'
-	fi
-
-	# Configure git
-	printf "Configuring pull behaviour...\n"
-	git config --global pull.ff only
-	printf "Setting up some aliases...\n"
-	git config --global alias.mrc '!git merge $1 && git commit -m "$2" --allow-empty && :'
-	git config --global alias.flog "log --all --graph --oneline --format=format:'%C(bold yellow)%h%C(r) %an➜ %C(bold)%s%C(r) %C(auto)%d%C(r)\'"
-	git config --global alias.sflog "log --all --graph --oneline --format=format:'%C(bold yellow)%h%C(r) §%C(bold green)%G?%C(r) %an➜ %C(bold)%s%C(r) %C(auto)%d%C(r)'"
-	git config --global alias.slog 'log --show-signature -1'
-	git config --global alias.mkst 'stash push -u'
-	git config --global alias.popst 'stash pop "stash@{0}" -q'
-	git config --global alias.unstage 'reset -q HEAD -- .'
-	;;
-
-	zsh) # Copy .zshrc and offer to switch default shell
-	Separate 4
-	printf "Successfully installed \e[36mzsh\e[00m, configuring...\n"
-
-	# Create .zshrc files
-	     [ ! -f ~/.zshrc ]     && cat "$script_location/samples/zshrc" | tee ~/.zshrc ~/.zshrc-og >/dev/null
-	sudo [ ! -f /root/.zshrc ] && cat "$script_location/samples/zshrc" | sudo tee /root/.zshrc /root/.zshrc-og >/dev/null
-
-	# Prepare powerline shell
-	sudo pip3 install powerline-shell &>/dev/null
-
-	if [ $? -eq 0 ]; then
-		sed -i "s/# user_powerline/use_powerline/" ~/.zshrc
-		sudo sed -i "s/# user_powerline/use_powerline/" /root/.zshrc
-
-		mkdir -p ~/.config/powerline-shell
-		sudo mkdir -p /root/.config/powerline-shell
-
-		#region file
-		FILE='{
-	"segments": [
-		"virtual_env",
-		"username",
-		"hostname",
-		"ssh",
-		"cwd",
-		"git",
-		"hg",
-		"jobs",
-		"root"
-	],
-	"cwd": {
-		"max_depth": 3
-	}
-}'
-		#endregion
-		printf "%s\n" "$FILE" | sudo tee /root/.config/powerline-shell/config.json | tee ~/.config/powerline-shell/config.json >/dev/null
-		unset FILE
-	fi
-
-	# Ensure zsh aliases file exists
-	     [ -f ~/.zsh_aliases ] || printf "# zsh aliases file\n" | tee ~/.zsh_aliases     >/dev/null
-	sudo [ -f ~/.zsh_aliases ] || printf "# zsh aliases file\n" | tee /root/.zsh_aliases >/dev/null
-
-	read -rp "Do you want to make `tput setaf 6`zsh`tput sgr0` your default shell? (Y/n) "
-	if [[ ${REPLY,,} == "y" ]] || [ -z $REPLY ]; then
-		chsh -s $(which zsh)
-		sudo chsh -s $(which zsh)
-	fi
-	;;
-esac
-done
+	for i in $(ls "$postinstall_folder" | grep \.sh$); do
+		[[ "${TO_DNF[@]}" == *"${i/".sh"/""}"* ]] && \
+			source "$postinstall_folder/$i"
+	done
 fi
 
 # Run modules
