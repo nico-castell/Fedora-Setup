@@ -6,6 +6,7 @@ All significant changes to **Fedora Setup** will be documented here.
   - [Added](#added)
   - [Removed](#removed)
   - [Changed](#changed)
+  - [Fixed](#fixed)
 - [Released](#released)
   - [Version 1.1.0 - *2021-05-12*](#version-110---2021-05-12)
   - [Version 1.0.0 - *2021-05-06*](#version-100---2021-05-06)
@@ -26,6 +27,9 @@ All significant changes to **Fedora Setup** will be documented here.
   - Many minor modifications were made
 - [.bashrc](samples/bashrc):
   - The file was heavily modified to be similar to Fedora's default .bashrc with a few improvements.
+### Fixed
+- [fedora_setup.sh](fedora_setup.sh):
+  - Fixed error when writing to choices file, which would cause problems when reading from it.
 
 ## Released
 ### Version [1.1.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/1.1.0) - *2021-05-12*

@@ -79,7 +79,7 @@ if ! $load_tmp_file; then
 	TO_DNF+=("neofetch" "vim" "ufw" "xclip")
 
 	# Store all selected packages
-	printf "TO_DNF - ${TO_DNF[@]}\n" >> "$choices_file"
+	echo "TO_DNF - ${TO_DNF[@]}" >> "$choices_file"
 	Separate 4
 
 	printf "Choose some extra scripts to run:\n"
@@ -121,7 +121,7 @@ if ! $load_tmp_file; then
 	SYSTEMDBOOT_SWITCH=$Confirmed
 	test $SYSTEMDBOOT_SWITCH && Modules+=("SYSTEMDBOOT_SWITCH")
 
-	printf "MODULES - ${Modules[@]}\n" >> "$choices_file"
+	echo "MODULES - ${Modules[@]}" >> "$choices_file"
 	Separate 4
 fi
 #endregion
@@ -141,7 +141,7 @@ if $load_tmp_file; then
 	TO_DNF=${TO_DNF/"TO_DNF - "/""}
 
 	# Load module scripts to run
-	Modules=($(cat "$choices_file" | grep "MODULES"))
+	Modules=$(cat "$choices_file" | grep "MODULES")
 	Modules=${Modules/"MODULES - "/""}
 	[[ "$Modules" == *"GNOME_APPEARANCE"* ]] && GNOME_APPEARANCE=true
 	[[ "$Modules" == *"GNOME_SETTINGS"*   ]] && GNOME_SETTINGS=true
