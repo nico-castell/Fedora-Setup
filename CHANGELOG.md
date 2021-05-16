@@ -2,12 +2,22 @@
 
 All significant changes to **Fedora Setup** will be documented here.
 
+- [Unreleased](#unreleased)
+  - [Changed](#changed)
 - [Released](#released)
   - [Version 1.1.0 - *2021-05-12*](#version-110---2021-05-12)
   - [Version 1.0.0 - *2021-05-06*](#version-100---2021-05-06)
 - [Pre releases](#pre-releases)
   - [Version 0.0.2 - *2021-05-04*](#version-002---2021-05-04)
   - [Version 0.0.1 - *2021-05-03*](#version-001---2021-05-03)
+
+## Unreleased
+### Changed
+- [.zshrc](samples/zshrc):
+  - The prompt was made much more similar to Fedora's default prompt.
+  - Many minor modifications were made
+- [.bashrc](samples/bashrc):
+  - The file was heavily modified to be similar to Fedora's default .bashrc with a few improvements.
 
 ## Released
 ### Version [1.1.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/1.1.0) - *2021-05-12*
