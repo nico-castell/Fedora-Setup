@@ -32,6 +32,10 @@ All significant changes to **Fedora Setup** will be documented here.
 ### Fixed
 - [fedora_setup.sh](fedora_setup.sh):
   - Fixed error when writing to choices file, which would cause problems when reading from it.
+- [git.sh](post-install.d/git.sh):
+  - Fixed typo `namo` instead of `nano`.
+- [tlp.sh](post-install.d/tlp.sh):
+  - Fixed missing new-line.
 
 ## Released
 ### Version [1.1.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/1.1.0) - *2021-05-12*
