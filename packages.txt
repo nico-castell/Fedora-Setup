@@ -1,36 +1,36 @@
-Libre_Office @libreoffice
 Audacity audacity
-Brave_Browser brave-browser
-cmatrix cmatrix
-Visual_Studio_Code code git
-Development_Tools @development-tools git git-lfs
-C/C++_development @c-development cmake clang
+OBS_Studio obs-studio
+VLC vlc
 .NET_3.1 dotnet-sdk-3.1 aspnetcore-runtime-3.1
 .NET_5.0 dotnet-sdk-5.0 aspnetcore-runtime-5.0
-Node.JS nodejs
-dconf-Editor dconf-editor
-Discord discord
-Flatpak flatpak
-Geary_Mail geary
-GIMP gimp
+C/C++_development @c-development cmake clang
+Development_Tools @development-tools git git-lfs
 GNOME_Boxes gnome-boxes
+Java_OpenJDK java-latest-openjdk
+Node.JS nodejs
+Virtual_Box VirtualBox kernel-headers kernel-devel qt5-qtx11extras @c-development
+Visual_Studio_Code code git
+cmatrix cmatrix
+Discord discord
 GNOME_Chess gnome-chess
 GNOME_Mines gnome-mines
+Steam steam
+GIMP gimp
+Inkscape inkscape
+Brave_Browser brave-browser
+Geary_Mail geary
+Libre_Office @libreoffice
+Thunderbird thunderbird
+Flatpak flatpak
+Grub_Customizer grub-customizer os-prober
+HTOP htop
+LM_Sensors lm_sensors hddtemp
+TLP tlp powertop
+Z-Shell zsh zsh-syntax-highlighting zsh-autosuggestions python3-pip util-linux-user
+7zip p7zip
+dconf-Editor dconf-editor
 GNOME_Power-Manager gnome-power-manager
 GNOME_Tweaks gnome-tweaks gnome-extensions-app
 GParted gparted
-Grub_Customizer grub-customizer os-prober
-HTOP htop
-Inkscape inkscape
-Java_OpenJDK java-latest-openjdk
-LM_Sensors lm_sensors hddtemp
-OBS_Studio obs-studio
-7zip p7zip
 Passwords_and_Keys seahorse gpgme
-Steam steam
-Thunderbird thunderbird
-TLP tlp powertop
 Tree tree
-Virtual_Box VirtualBox kernel-headers kernel-devel qt5-qtx11extras @c-development
-VLC vlc
-Z-Shell zsh zsh-syntax-highlighting zsh-autosuggestions python3-pip util-linux-user

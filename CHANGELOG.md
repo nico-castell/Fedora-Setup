@@ -26,6 +26,8 @@ All significant changes to **Fedora Setup** will be documented here.
 ### Changed
 - [fedora_setup.sh](fedora_setup.sh):
   - Now RPM-Fusion Free and Non-Free are queued separately and installed once, this means the script won't install two sources without needing one of them.
+- [packages.txt](packages.txt):
+  - Organized packages by category.
 - [.zshrc](samples/zshrc):
   - The prompt was made much more similar to Fedora's default prompt.
   - Many minor modifications were made
