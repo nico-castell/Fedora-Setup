@@ -24,15 +24,25 @@ while [ -n "$1" ]; do
 		;;
 esac; shift; done
 
-unset USAGE_MSG
-
 # Head to the script's directory and store it for later
 cd "$(dirname "$0")"
 script_location="$(pwd)"
+
+# Find relevant folders and files
+MISSING() {
+	printf "\e[31mMissing directory or file:\e[00m\n%s\n" "$1"
+	exit 1
+}
+
 choices_file=("$script_location/.tmp_choices")
 packages_file=("$script_location/packages.txt")
 modules_folder=("$script_location/modules")
 postinstall_folder=("$script_location/post-install.d")
+[ -f "$packages_file"      ] || MISSING "$packages_file"
+[ -d "$modules_folder"     ] || MISSING "$modules_folder"
+[ -d "$postinstall_folder" ] || MISSING "$postinstall_folder"
+
+unset USAGE_MSG MISSING
 
 # Prepare module variables
 GNOME_APPEARANCE=false
@@ -49,7 +59,7 @@ Separate () {
 }
 
 # Aquire root privileges now
-sudo echo >/dev/null
+sudo echo >/dev/null || exit 1
 
 printf "Welcome to \e[01mFedora Setup\e[00m version %s!\n" $(git describe --tags --abbrev=0)
 printf "Follow the instructions and you should be up and running soon\n";

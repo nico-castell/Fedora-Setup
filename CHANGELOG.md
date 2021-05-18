@@ -18,6 +18,8 @@ All significant changes to **Fedora Setup** will be documented here.
 ### Added
 - [post-install.d](post-install.d):
   - Created this directory to put all post-installation instructions in this folder. This is to avoid unnecessary complexity in [fedora_setup.sh](fedora_setup.sh).
+- [fedora_setup.sh](fedora_setup.sh):
+  - Added a check to find if required folders and/or files are missing.
 ### Removed
 - [fedora_setup.sh](fedora_setup.sh):
   - To avoid complexity, the post-instalation instructions were removed from this script, instead opting to source them from the new directory [post-install.d](post-install.d).
@@ -32,6 +34,7 @@ All significant changes to **Fedora Setup** will be documented here.
 ### Fixed
 - [fedora_setup.sh](fedora_setup.sh):
   - Fixed error when writing to choices file, which would cause problems when reading from it.
+  - Fixed script not exiting when failing to get sudo privileges.
 - [git.sh](post-install.d/git.sh):
   - Fixed typo `namo` instead of `nano`.
 - [tlp.sh](post-install.d/tlp.sh):
