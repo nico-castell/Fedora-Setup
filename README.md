@@ -6,7 +6,7 @@
   <a href="https://github.com/nico-castel/Fedora-Setup/commits"><img alt="Commits since last release" src="https://img.shields.io/github/commits-since/nico-castell/Fedora-Setup/latest?label=Commits%20since%20last%20release&color=informational&logo=git&logoColor=white&style=flat-square"></a>
   <a href="https://github.com/nico-castell/Fedora-Setup/releases"><img alt="release" src="https://img.shields.io/github/v/release/nico-castell/Fedora-Setup?label=Release&color=informational&logo=GitHub&logoColor=white&style=flat-square"></a>
   <a href="LICENSE"><img alt="License" src="https://img.shields.io/github/license/nico-castell/Fedora-Setup?label=License&color=informational&logo=Open%20Source%20Initiative&logoColor=white&style=flat-square"></a>
-  <a href="https://github.com/nico-castell/Fedora-Setup"><img alt="Lines of code" src="https://img.shields.io/tokei/lines/github/nico-castell/Fedora-Setup?lable=Lines%20of%20code&color=informational&logo=GNU%20bash&logoColor=white&style=flat-square"></a>
+  <a href="https://github.com/nico-castell/Fedora-Setup"><img alt="Lines of code" src="https://img.shields.io/tokei/lines/github/nico-castell/Fedora-Setup?label=Lines%20of%20code&color=informational&logo=GNU%20bash&logoColor=white&style=flat-square"></a>
 </p>
 
 <h2 align="center">How to use</h2>
