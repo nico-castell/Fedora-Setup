@@ -2,28 +2,26 @@
 
 All significant changes to **Fedora Setup** will be documented here.
 
-- [Unreleased](#unreleased)
-  - [Added](#added)
-  - [Removed](#removed)
-  - [Changed](#changed)
-  - [Fixed](#fixed)
 - [Released](#released)
+  - [Version 1.2.0 - *2021-05-18*](#version-120---2021-05-18)
   - [Version 1.1.0 - *2021-05-12*](#version-110---2021-05-12)
   - [Version 1.0.0 - *2021-05-06*](#version-100---2021-05-06)
 - [Pre releases](#pre-releases)
   - [Version 0.0.2 - *2021-05-04*](#version-002---2021-05-04)
   - [Version 0.0.1 - *2021-05-03*](#version-001---2021-05-03)
 
-## Unreleased
-### Added
+## Released
+### Version [1.2.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/1.2.0) - *2021-05-18*
+This is a cumulative release of many minor changes and fixes, along with one big change. The main change is the creation of the [post-install.d](post-install.d) directory, which separates the package setup phase from the main script, and simplifies development.
+#### Added
 - [post-install.d](post-install.d):
   - Created this directory to put all post-installation instructions in this folder. This is to avoid unnecessary complexity in [fedora_setup.sh](fedora_setup.sh).
 - [fedora_setup.sh](fedora_setup.sh):
   - Added a check to find if required folders and/or files are missing.
-### Removed
+#### Removed
 - [fedora_setup.sh](fedora_setup.sh):
   - To avoid complexity, the post-instalation instructions were removed from this script, instead opting to source them from the new directory [post-install.d](post-install.d).
-### Changed
+#### Changed
 - [fedora_setup.sh](fedora_setup.sh):
   - Now RPM-Fusion Free and Non-Free are queued separately and installed once, this means the script won't install two sources without needing one of them.
 - [packages.txt](packages.txt):
@@ -33,7 +31,7 @@ All significant changes to **Fedora Setup** will be documented here.
   - Many minor modifications were made
 - [.bashrc](samples/bashrc):
   - The file was heavily modified to be similar to Fedora's default .bashrc with a few improvements.
-### Fixed
+#### Fixed
 - [fedora_setup.sh](fedora_setup.sh):
   - Fixed error when writing to choices file, which would cause problems when reading from it.
   - Fixed script not exiting when failing to get sudo privileges.
@@ -42,7 +40,6 @@ All significant changes to **Fedora Setup** will be documented here.
 - [tlp.sh](post-install.d/tlp.sh):
   - Fixed missing new-line.
 
-## Released
 ### Version [1.1.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/1.1.0) - *2021-05-12*
 The variable APPEND_DNF was removed, along with **vscode.sh**. The instructions of vscode.sh were added to [fedora_setup.sh](fedora_setup.sh). Also, a few packages were added to [packages.txt](packages.txt).
 #### Added
