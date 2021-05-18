@@ -2,6 +2,8 @@
 
 All significant changes to **Fedora Setup** will be documented here.
 
+- [Unreleased](#unreleased)
+  - [Added](#added)
 - [Released](#released)
   - [Version 1.2.0 - *2021-05-18*](#version-120---2021-05-18)
   - [Version 1.1.0 - *2021-05-12*](#version-110---2021-05-12)
@@ -9,6 +11,11 @@ All significant changes to **Fedora Setup** will be documented here.
 - [Pre releases](#pre-releases)
   - [Version 0.0.2 - *2021-05-04*](#version-002---2021-05-04)
   - [Version 0.0.1 - *2021-05-03*](#version-001---2021-05-03)
+
+## Unreleased
+### Added
+- [gnome_settings.sh](modules/gnome_settings.sh):
+  - Added checks to see if the application to configure is installed.
 
 ## Released
 ### Version [1.2.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/1.2.0) - *2021-05-18*

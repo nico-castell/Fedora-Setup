@@ -5,21 +5,65 @@
 # THE SOFTWARE IS PROVIDED "AS IS"
 # Read the included LICENSE file for more information
 
-# Configuring Nautilus.
-echo "Configuring nautilus..."
-gsettings reset org.gnome.nautilus.window-state initial-size
-gsettings reset org.gnome.nautilus.window-state sidebar-width
-gsettings set org.gtk.Settings.FileChooser sort-directories-first true
+if which nautilus &>/dev/null; then
+	echo "Configuring nautilus..."
+	gsettings reset org.gnome.nautilus.window-state initial-size
+	gsettings reset org.gnome.nautilus.window-state sidebar-width
+	gsettings set org.gtk.Settings.FileChooser sort-directories-first true
+fi
 
-# Configuring gedit.
-echo "Configuring the text editor (gedit)..."
-gsettings set org.gnome.gedit.plugins active-plugins "['sort', 'snippets', 'spell', 'quickhighlight', 'docinfo', 'time', 'filebrowser', 'modelines']"
-gsettings set org.gnome.gedit.preferences.editor tabs-size "4"
-gsettings set org.gnome.gedit.preferences.editor insert-spaces true
+if which gedit &>/dev/null; then
+	echo "Configuring the text editor (gedit)..."
+	gsettings set org.gnome.gedit.plugins active-plugins "['sort', 'snippets', 'spell', 'quickhighlight', 'docinfo', 'time', 'filebrowser', 'modelines']"
+	gsettings set org.gnome.gedit.preferences.editor tabs-size "4"
+	gsettings set org.gnome.gedit.preferences.editor insert-spaces true
+fi
 
-# Configuring calculator.
-echo "Configuring calculator..."
-gsettings set org.gnome.calculator refresh-interval 86400
+if which gnome-calculator &>/dev/null; then
+	echo "Configuring calculator..."
+	gsettings set org.gnome.calculator refresh-interval 86400
+	gsettings set org.gnome.calculator show-thousands true
+fi
+
+if which gnome-weather &>/dev/null; then
+	echo "Disabling automatic location in weather..."
+	gsettings set org.gnome.Weather automatic-location false
+	gsettings set org.gnome.shell.weather automatic-location false
+fi
+
+if which gnome-calendar &>/dev/null; then
+	echo "Configuring Calendar..."
+	gsettings set org.gnome.calendar weather-settings "(false, true, '', nothing)"
+fi
+
+if which eog &>/dev/null; then
+	echo "Configuring Image viewer..."
+	gsettings set org.gnome.eog.view transparency "'color'"
+	gsettings set org.gnome.eog.view extrapolate false
+fi
+
+if which geary &>/dev/null; then
+	echo "Configuring Geary mail..."
+	gsettings set org.gnome.Geary formatting-toolbar-visible true
+	gsettings set org.gnome.Geary single-key-shortcuts true
+	gsettings set org.gnome.Geary startup-notifications true
+	gsettings set org.gnome.Geary window-height 660
+	gsettings set org.gnome.Geary window-width 1200
+	gsettings set org.gnome.Geary window-maximize false
+fi
+
+if which gnome-terminal &>/dev/null; then
+	echo "Configuring Terminal..."
+	GNOME_TERMINAL_PROFILE=`gsettings get org.gnome.Terminal.ProfilesList default | awk -F \' '{print $2}'`
+	gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:$GNOME_TERMINAL_PROFILE/ default-size-columns 90
+	gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:$GNOME_TERMINAL_PROFILE/ default-size-rows 30
+fi
+
+if which gnome-system-monitor &>/dev/null; then
+	echo "Configuring system monitor..."
+	gsettings set org.gnome.gnome-system-monitor current-tab "resources"
+	gsettings set org.gnome.gnome-system-monitor network-in-bits true
+fi
 
 # Configuring interface.
 echo "Configuring interface..."
@@ -77,38 +121,5 @@ gsettings set org.gnome.settings-daemon.plugins.color night-light-schedule-from 
 gsettings set org.gnome.settings-daemon.plugins.color night-light-schedule-to "7"
 gsettings set org.gnome.settings-daemon.plugins.color night-light-temperature 3200
 gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true
-
-# Disable auto location in Weather.
-echo "Disabling automatic location in weather..."
-gsettings set org.gnome.Weather automatic-location false
-gsettings set org.gnome.shell.weather automatic-location false
-
-# Configure apps.
-echo "Configuring Calendar..."
-gsettings set org.gnome.calendar weather-settings "(false, true, '', nothing)"
-
-echo "Configuring Image viewer..."
-gsettings set org.gnome.eog.view transparency "'color'"
-gsettings set org.gnome.eog.view extrapolate false
-
-echo "Configuring Calculator..."
-gsettings set org.gnome.calculator show-thousands true
-
-echo "Configuring Geary mail..."
-gsettings set org.gnome.Geary formatting-toolbar-visible true
-gsettings set org.gnome.Geary single-key-shortcuts true
-gsettings set org.gnome.Geary startup-notifications true
-gsettings set org.gnome.Geary window-height 660
-gsettings set org.gnome.Geary window-width 1200
-gsettings set org.gnome.Geary window-maximize false
-
-echo "Configuring Terminal..."
-GNOME_TERMINAL_PROFILE=`gsettings get org.gnome.Terminal.ProfilesList default | awk -F \' '{print $2}'`
-gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:$GNOME_TERMINAL_PROFILE/ default-size-columns 90
-gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:$GNOME_TERMINAL_PROFILE/ default-size-rows 30
-
-echo "Configuring system monitor..."
-gsettings set org.gnome.gnome-system-monitor current-tab "resources"
-gsettings set org.gnome.gnome-system-monitor network-in-bits true
 
 # Thanks for downloading, and enjoy!
