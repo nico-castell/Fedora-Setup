@@ -15,10 +15,10 @@ unset USERNAME EMAIL BRANCH
 
 # Choose a commit editor
 printf "Please, select a default editor for commit messages:\n"
-which code  >/dev/null && GIT_EDITORS+=("vscode")
-which vim   >/dev/null && GIT_EDITORS+=("vim")
-which namo  >/dev/null && GIT_EDITORS+=("nano")
-which gedit >/dev/null && GIT_EDITORS+=("gedit")
+which code  &>/dev/null && GIT_EDITORS+=("vscode")
+which vim   &>/dev/null && GIT_EDITORS+=("vim")
+which nano  &>/dev/null && GIT_EDITORS+=("nano")
+which gedit &>/dev/null && GIT_EDITORS+=("gedit")
 select GIT_EDITOR in ${GIT_EDITORS[@]}; do
 case $GIT_EDITOR in
 	vscode) git config --global core.editor "code --wait"         ;;

@@ -248,7 +248,7 @@ done
 
 if [ -n "${TO_RPMFUSION[@]}" ]; then
 	printf "Preparing \e[01mRPM Fusion\e[00m source...\n"
-	sudo dnf install -y ${TO_RPMFUSION[@]}
+	sudo dnf install -y ${TO_RPMFUSION[@]} >/dev/null
 fi
 
 test $REPOS_ADDED -ne 0 && Separate 4

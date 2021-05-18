@@ -1,7 +1,7 @@
 # bash script to be sourced from fedora_setup.sh
 
 Separate 4
-printf "Successfully installed \e[36mtlp\e[00m, configuring..."
+printf "Successfully installed \e[36mtlp\e[00m, configuring...\n"
 
 # Conditionally execute all the steps to configure tlp.
 sudo mv /etc/tlp.conf /etc/tlp.conf-og && \
