@@ -30,7 +30,7 @@ esac; break; done
 unset GIT_EDITOR GIT_EDITORS
 
 # If vscode was installed, configure it as a git mergetool and difftool
-if which code >/dev/null; then
+if which code &>/dev/null; then
 	printf "Setting \e[36mVisual Studio Code\e[00m as a Git merge and diff tool...\n"
 	git config --global merge.tool vscode
 	git config --global mergetool.vscode.cmd 'code --wait $MERGED'
@@ -49,3 +49,26 @@ git config --global alias.slog 'log --show-signature -1'
 git config --global alias.mkst 'stash push -u'
 git config --global alias.popst 'stash pop "stash@{0}" -q'
 git config --global alias.unstage 'reset -q HEAD -- .'
+
+# Configure gpg commit signing
+if which gpg &>/dev/null; then
+	read -rp "`tput setaf 6`gpg`tput sgr0` was found, do you want to use it to sign your commits? (Y/n) "
+	if [ "${REPLY,,}" = "y" ] || [ -z $REPLY ]; then
+		read -rp "Do you want to create a new gpg key before you choose a key to sign your commits? (Y/n) "
+		if [ "${MKGPG,,}" = "y" ] || [ -z $MKGPG ]; then
+			gpg --full-generate-key
+			printf "\n"
+		fi
+
+		printf "\e[01mChoose a key to sign your commits:\e[00m\n"
+		gpg --list-secret-keys
+
+		# Let the user choose a key and only configure git if they choose one
+		read -rp "Input your key-id of choice: " GPGKEY
+		[ -n "$GPGKEY" ] && \
+		git config --global user.signingkey "$GPGKEY" && \
+		git config --global commit.gpgsign true
+
+		unset GPGKEY MKGPG
+	fi
+fi
