@@ -174,7 +174,7 @@ for d in ${LIST[@]}; do
 
 		.mydock) # Work with .mydock.
 		Animate "$d" & PID=$!
-		rsync -r --exclude 'noip*' "$d" "$DESTINATION/"
+		rsync -L -r --exclude 'noip*' "$d" "$DESTINATION/"
 		mv "$DESTINATION/$d" "$DESTINATION/${d/"."/""}"
 		kill $PID; printf "Copying \e[33m%s\e[00m, \e[32mDone\e[00m\n" $d
 		;;
@@ -201,7 +201,7 @@ for d in ${LIST[@]}; do
 
 		Documents) # Avoid copying .git folders and folders marked as 'Repo'.
 		Animate "$d" & PID=$!
-		rsync -r --exclude 'Repo' --exclude '.git' "$d" "$DESTINATION"
+		rsync -L -r --exclude 'Repo' --exclude '.git' "$d" "$DESTINATION"
 		kill $PID; printf "Copying \e[33m%s\e[00m, \e[32mDone\e[00m\n" $d
 		;;
 
@@ -216,7 +216,7 @@ for d in ${LIST[@]}; do
 		# echo ".git"         >> "`dirname "$0"`/.tmp_exclude"
 		#endregion Exclude file ============================================================
 		Animate "$d" & PID=$!
-		rsync -r --exclude-from "`dirname "$0"`/.tmp_exclude" "$d" "$DESTINATION/"
+		rsync -L -r --exclude-from "`dirname "$0"`/.tmp_exclude" "$d" "$DESTINATION/"
 		kill $PID; printf "Copying \e[33m%s\e[00m, \e[32mDone\e[00m\n" $d
 		rm "`dirname "$0"`/.tmp_exclude"
 		;;
