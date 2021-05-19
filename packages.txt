@@ -3,9 +3,12 @@ OBS_Studio obs-studio
 VLC vlc
 .NET_3.1 dotnet-sdk-3.1 aspnetcore-runtime-3.1
 .NET_5.0 dotnet-sdk-5.0 aspnetcore-runtime-5.0
-C/C++_development @c-development cmake clang
+C/C++_development @c-development cmake
+Clang clang clang-tools-extra
 Development_Tools @development-tools git git-lfs
+Gitg gitg git git-lfs
 GNOME_Boxes gnome-boxes
+GNOME_Builder gnome-builder gnome-software-devel
 Java_OpenJDK java-latest-openjdk
 Node.JS nodejs
 Virtual_Box VirtualBox kernel-headers kernel-devel qt5-qtx11extras @c-development

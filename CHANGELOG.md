@@ -21,6 +21,8 @@ All significant changes to **Fedora Setup** will be documented here.
   - Now you can configure `gpg` to sign your commits.
 - [back_me_up.sh](back_me_up.sh):
   - Make all the backups that use rsync follow symbolic links.
+- [packages.txt](packages.txt):
+  - Added more packages
 
 ## Released
 ### Version [1.2.1](https://github.com/nico-castell/Fedora-Setup/tree/1.2.1) - *2021-05-18*
