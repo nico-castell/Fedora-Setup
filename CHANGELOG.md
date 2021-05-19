@@ -2,6 +2,8 @@
 
 All significant changes to **Fedora Setup** will be documented here.
 
+- [Unreleased](#unreleased)
+  - [Added](#added)
 - [Released](#released)
   - [Version 1.2.1 - *2021-05-18*](#version-121---2021-05-18)
   - [Version 1.2.0 - *2021-05-18*](#version-120---2021-05-18)
@@ -10,6 +12,11 @@ All significant changes to **Fedora Setup** will be documented here.
 - [Pre releases](#pre-releases)
   - [Version 0.0.2 - *2021-05-04*](#version-002---2021-05-04)
   - [Version 0.0.1 - *2021-05-03*](#version-001---2021-05-03)
+
+## Unreleased
+### Added
+- [fedora_setup.sh](fedora_setup.sh):
+  - dnf.conf now has `installonly_limit=2`.
 
 ## Released
 ### Version [1.2.1](https://github.com/nico-castell/Fedora-Setup/tree/1.2.1) - *2021-05-18*

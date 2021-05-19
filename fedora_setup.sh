@@ -210,7 +210,8 @@ skip_if_unavailable=True
 fastestmirror=True
 max_parallel_downloads=20
 defaultyes=True
-minrate=384k"
+minrate=384k
+installonly_limit=2"
 printf "%s\n" "$DNF_CONF" | sudo tee /etc/dnf/dnf.conf >/dev/null
 unset DNF_CONF
 
