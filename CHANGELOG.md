@@ -4,6 +4,7 @@ All significant changes to **Fedora Setup** will be documented here.
 
 - [Unreleased](#unreleased)
   - [Added](#added)
+  - [Changed](#changed)
   - [Fixed](#fixed)
 - [Released](#released)
   - [Version 1.2.1 - *2021-05-18*](#version-121---2021-05-18)
@@ -24,6 +25,13 @@ All significant changes to **Fedora Setup** will be documented here.
   - Make all the backups that use rsync follow symbolic links.
 - [packages.txt](packages.txt):
   - Added more packages
+### Changed
+- [fedora_setup.sh](fedora_setup.sh):
+  - `neofetch` and `vim` are no longer "essential" packages.
+- [packages.txt](packages.txt):
+  - Neofetch and Vim were added to the list
+- [vim.sh](post-install.d/vim.sh):
+  - Now the script prints to the console and can ask the user to change the default `$EDITOR`.
 ### Fixed
 - [nodejs.sh](post-install.d/nodejs.sh):
   - Fix noisy output when `code` isn't found.

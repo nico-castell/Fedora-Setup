@@ -35,5 +35,7 @@ dconf-Editor dconf-editor
 GNOME_Power-Manager gnome-power-manager
 GNOME_Tweaks gnome-tweaks gnome-extensions-app
 GParted gparted
+Neofetch neofetch
 Passwords_and_Keys seahorse gpgme
 Tree tree
+Vim vim

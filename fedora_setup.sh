@@ -86,7 +86,7 @@ if ! $load_tmp_file; then
 	unset IFSB
 
 	# Append "essential" packages
-	TO_DNF+=("neofetch" "vim" "ufw" "xclip")
+	TO_DNF+=("ufw" "xclip")
 
 	# Store all selected packages
 	echo "TO_DNF - ${TO_DNF[@]}" >> "$choices_file"
