@@ -12,8 +12,8 @@ sudo [ ! -f /root/.zshrc ] && cat "$script_location/samples/zshrc" | sudo tee /r
 sudo pip3 install powerline-shell &>/dev/null
 
 if [ $? -eq 0 ]; then
-	sed -i "s/# user_powerline/use_powerline/" ~/.zshrc
-	sudo sed -i "s/# user_powerline/use_powerline/" /root/.zshrc
+	sed -i "s/# use_powerline/use_powerline/" ~/.zshrc
+	sudo sed -i "s/# use_powerline/use_powerline/" /root/.zshrc
 
 	mkdir -p ~/.config/powerline-shell
 	sudo mkdir -p /root/.config/powerline-shell

@@ -4,6 +4,7 @@ All significant changes to **Fedora Setup** will be documented here.
 
 - [Unreleased](#unreleased)
   - [Added](#added)
+  - [Fixed](#fixed)
 - [Released](#released)
   - [Version 1.2.1 - *2021-05-18*](#version-121---2021-05-18)
   - [Version 1.2.0 - *2021-05-18*](#version-120---2021-05-18)
@@ -23,6 +24,11 @@ All significant changes to **Fedora Setup** will be documented here.
   - Make all the backups that use rsync follow symbolic links.
 - [packages.txt](packages.txt):
   - Added more packages
+### Fixed
+- [nodejs.sh](post-install.d/nodejs.sh):
+  - Fix noisy output when `code` isn't found.
+- [zsh.sh](post-install.d/zsh.sh):
+  - Fixed typo that would enable powerline-shell after successful installation.
 
 ## Released
 ### Version [1.2.1](https://github.com/nico-castell/Fedora-Setup/tree/1.2.1) - *2021-05-18*
