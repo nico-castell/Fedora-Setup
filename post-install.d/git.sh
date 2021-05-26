@@ -54,7 +54,7 @@ git config --global alias.unstage 'reset -q HEAD -- .'
 if which gpg &>/dev/null; then
 	read -rp "`tput setaf 6`gpg`tput sgr0` was found, do you want to use it to sign your commits? (Y/n) "
 	if [ "${REPLY,,}" = "y" ] || [ -z $REPLY ]; then
-		read -rp "Do you want to create a new gpg key before you choose a key to sign your commits? (Y/n) "
+		read -rp "Do you want to create a new gpg key before you choose a key to sign your commits? (Y/n) " MKGPG
 		if [ "${MKGPG,,}" = "y" ] || [ -z $MKGPG ]; then
 			gpg --full-generate-key
 			printf "\n"
