@@ -36,10 +36,10 @@ MISSING() {
 
 choices_file=("$script_location/.tmp_choices")
 packages_file=("$script_location/packages.txt")
-modules_folder=("$script_location/modules")
+scripts_folder=("$script_location/scripts")
 postinstall_folder=("$script_location/post-install.d")
 [ -f "$packages_file"      ] || MISSING "$packages_file"
-[ -d "$modules_folder"     ] || MISSING "$modules_folder"
+[ -d "$scripts_folder"     ] || MISSING "$scripts_folder"
 [ -d "$postinstall_folder" ] || MISSING "$postinstall_folder"
 
 unset USAGE_MSG MISSING
@@ -96,7 +96,7 @@ if ! $load_tmp_file; then
 	# Check if a script is present before prompting
 	prompt_user () {
 		unset Confirmed
-		if [ -f "$modules_folder/$1" ]; then
+		if [ -f "$scripts_folder/$1" ]; then
 			read -rp "Do you want to $2 (Y/n) "
 			if [[ ${REPLY,,} == "y" ]] || [ -z $REPLY ]; then
 				Confirmed=true
@@ -296,27 +296,27 @@ fi
 # Run modules
 if [[ "$GNOME_APPEARANCE" == true   ]]; then
 	Separate 4; printf "Running \e[01mGNOME Appearance\e[00m module...\n"
-	"$modules_folder/gnome_appearance.sh"
+	"$scripts_folder/gnome_appearance.sh"
 fi
 if [[ "$GNOME_SETTINGS" == true     ]]; then
 	Separate 4; printf "Running \e[01mGNOME Settings\e[00m module...\n"
-	"$modules_folder/gnome_settings.sh"
+	"$scripts_folder/gnome_settings.sh"
 fi
 if [[ "$GNOME_EXTENSIONS" == true   ]]; then
 	Separate 4; printf "Running \e[01mGNOME Extensions\e[00m module...\n"
-	"$modules_folder/gnome_extensions.sh"
+	"$scripts_folder/gnome_extensions.sh"
 fi
 if [[ "$BUILD_MC_SERVER" == true    ]]; then
 	Separate 4; printf "Running \e[01mBuild Minecraft server\e[00m module...\n"
-	"$modules_folder/mc_server_builder.sh"
+	"$scripts_folder/mc_server_builder.sh"
 fi
 if [[ "$INSTALL_DUC" == true        ]]; then
 	Separate 4; printf "Running \e[01mInstall No-Ip's DUC\e[00m module...\n"
-	"$modules_folder/duc_noip_install.sh" -e
+	"$scripts_folder/duc_noip_install.sh" -e
 fi
 if [[ "$SYSTEMDBOOT_SWITCH" == true ]]; then
 	Separate 4; printf "Running \e[01mSwitch to systemd-boot module\e[00m...\n"
-	"$modules_folder/systemdboot_switch.sh"
+	"$scripts_folder/systemdboot_switch.sh"
 fi
 
 # Restart gnome's package kit after we've finished using the package manager
