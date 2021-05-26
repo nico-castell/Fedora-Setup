@@ -21,11 +21,12 @@ All significant changes to **Fedora Setup** will be documented here.
   - dnf.conf now has `installonly_limit=3`.
 - [git.sh](post-install.d/git.sh):
   - Now you can configure `gpg` to sign your commits.
-- [back_me_up.sh](back_me_up.sh):
-  - Make all the backups that use rsync follow symbolic links.
 - [packages.txt](packages.txt):
   - Added more packages
 ### Changed
+- [back_me_up.sh](back_me_up.sh):
+  - Rewrote the script, now it's much simpler to read, and has the capacity to keep a certain number of backups, deleting the oldest ones as you make new ones.
+  - Some edge cases where removed from it's main loop because they weren't really helpful
 - [fedora_setup.sh](fedora_setup.sh):
   - `neofetch` and `vim` are no longer "essential" packages.
 - [packages.txt](packages.txt):
