@@ -18,7 +18,7 @@ All significant changes to **Fedora Setup** will be documented here.
 ## Unreleased
 ### Added
 - [fedora_setup.sh](fedora_setup.sh):
-  - dnf.conf now has `installonly_limit=2`.
+  - dnf.conf now has `installonly_limit=3`.
 - [git.sh](post-install.d/git.sh):
   - Now you can configure `gpg` to sign your commits.
 - [back_me_up.sh](back_me_up.sh):
