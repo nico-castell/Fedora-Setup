@@ -12,6 +12,11 @@ All significant changes to **Fedora Setup** will be documented here.
   - [Version 0.0.2 - *2021-05-04*](#version-002---2021-05-04)
   - [Version 0.0.1 - *2021-05-03*](#version-001---2021-05-03)
 
+## Unreleased
+### Changed
+- [duc_noip_install.sh](scripts/duc_noip_install.sh):
+  - Changed installation location.
+
 ## Released
 ### Version [1.3.0](https://github.com/nico-castell/Fedora-Setup/tree/1.3.0) - *2021-05-26*
 The main change is the rewriting of the [back_me_up.sh](back_me_up.sh) script. However, there were other changes, new features, and a few fixes.

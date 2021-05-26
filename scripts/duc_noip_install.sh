@@ -113,100 +113,102 @@ if [ $ENTRY ]; then
 	fi
 
 	# Download the logo only if there isn't yet another one.
-	cd ~/.mydock/
+	mkdir -p ~/.local/share/icons/hicolor/256x256/apps
+	cd ~/.local/share/icons/hicolor/256x256/apps
 	if [ ! -f ~/.mydock/noiplogo.png ]; then
 		echo "Downloading logo..."
-		wget -q https://www.dropbox.com/s/g55zl9q9uc2a1pw/noiplogo.png?dl=1
-		mv ./noiplogo* ./noiplogo.png
+		wget -q https://www.dropbox.com/s/g55zl9q9uc2a1pw/noiplogo.png?dl=1 -O noiplogo.png
 	fi
 
-	if [ ! -f ./noip_duc ]; then
+	mkdir -p ~/.local/bin
+	cd ~/.local/bin
+	if [ ! -f noip_duc.sh ]; then
 		echo "Making target file..."
 		#region File ============================================================
-		echo "#!/bin/bash"                                              >> noip_duc
-		echo "# Script to start the DUC."                               >> noip_duc
-		echo                                                            >> noip_duc
-		echo "while [ -n \"\$1\" ]; do"                                 >> noip_duc
-		echo                                                            >> noip_duc
-		echo "    case \"\$1\" in"                                      >> noip_duc
-		echo                                                            >> noip_duc
-		echo "        # Show PID and wait."                             >> noip_duc
-		echo "        -s) SHOW=true ;;"                                 >> noip_duc
-		echo                                                            >> noip_duc
-		echo "        # Open to kill process."                          >> noip_duc
-		echo "        -k) KILL=true ;;"                                 >> noip_duc
-		echo                                                            >> noip_duc
-		echo "        *) echo \"Option \$1 not recognized\" && exit ;;" >> noip_duc
-		echo                                                            >> noip_duc
-		echo "    esac"                                                 >> noip_duc
-		echo                                                            >> noip_duc
-		echo "    shift"                                                >> noip_duc
-		echo                                                            >> noip_duc
-		echo "done"                                                     >> noip_duc
-		echo                                                            >> noip_duc
-		echo "# Find Process ID and kill it."                           >> noip_duc
-		echo "if [ \$KILL ]; then"                                      >> noip_duc
-		echo                                                            >> noip_duc
-		echo "    echo \"Please type your sudo password:\""             >> noip_duc
-		echo "    sudo /usr/local/bin/noip2 -S"                         >> noip_duc
-		echo "    echo"                                                 >> noip_duc
-		echo "    read -p \"Input the PID > \""                         >> noip_duc
-		echo "    sudo /usr/local/bin/noip2 -K \$REPLY"                 >> noip_duc
-		echo "    echo"                                                 >> noip_duc
-		echo "    read -p \"Press ENTER to exit.\""                     >> noip_duc
-		echo "    exit"                                                 >> noip_duc
-		echo                                                            >> noip_duc
-		echo "fi"                                                       >> noip_duc
-		echo                                                            >> noip_duc
-		echo "# Start No-Ip's DUC."                                     >> noip_duc
-		echo "echo \"Please type your sudo password:\""                 >> noip_duc
-		echo "sudo /usr/local/bin/noip2"                                >> noip_duc
-		echo "echo \"DUC Started Succesfully\""                         >> noip_duc
-		echo                                                            >> noip_duc
-		echo "# Show the PID."                                          >> noip_duc
-		echo "if [ \$SHOW ]; then"                                      >> noip_duc
-		echo                                                            >> noip_duc
-		echo "    echo"                                                 >> noip_duc
-		echo "    sudo /usr/local/bin/noip2 -S"                         >> noip_duc
-		echo "    echo"                                                 >> noip_duc
-		echo "    read -p \"Press ENTER to exit.\""                     >> noip_duc
-		echo                                                            >> noip_duc
-		echo "fi"                                                       >> noip_duc
-		echo                                                            >> noip_duc
-		echo "if [ ! \$SHOW ]; then sleep 1.5; fi"                      >> noip_duc
+		echo "#!/bin/bash"                                              > noip_duc.sh
+		echo "# Script to start the DUC."                               >> noip_duc.sh
+		echo                                                            >> noip_duc.sh
+		echo "while [ -n \"\$1\" ]; do"                                 >> noip_duc.sh
+		echo                                                            >> noip_duc.sh
+		echo "    case \"\$1\" in"                                      >> noip_duc.sh
+		echo                                                            >> noip_duc.sh
+		echo "        # Show PID and wait."                             >> noip_duc.sh
+		echo "        -s) SHOW=true ;;"                                 >> noip_duc.sh
+		echo                                                            >> noip_duc.sh
+		echo "        # Open to kill process."                          >> noip_duc.sh
+		echo "        -k) KILL=true ;;"                                 >> noip_duc.sh
+		echo                                                            >> noip_duc.sh
+		echo "        *) echo \"Option \$1 not recognized\" && exit ;;" >> noip_duc.sh
+		echo                                                            >> noip_duc.sh
+		echo "    esac"                                                 >> noip_duc.sh
+		echo                                                            >> noip_duc.sh
+		echo "    shift"                                                >> noip_duc.sh
+		echo                                                            >> noip_duc.sh
+		echo "done"                                                     >> noip_duc.sh
+		echo                                                            >> noip_duc.sh
+		echo "# Find Process ID and kill it."                           >> noip_duc.sh
+		echo "if [ \$KILL ]; then"                                      >> noip_duc.sh
+		echo                                                            >> noip_duc.sh
+		echo "    echo \"Please type your sudo password:\""             >> noip_duc.sh
+		echo "    sudo /usr/local/bin/noip2 -S"                         >> noip_duc.sh
+		echo "    echo"                                                 >> noip_duc.sh
+		echo "    read -p \"Input the PID > \""                         >> noip_duc.sh
+		echo "    sudo /usr/local/bin/noip2 -K \$REPLY"                 >> noip_duc.sh
+		echo "    echo"                                                 >> noip_duc.sh
+		echo "    read -p \"Press ENTER to exit.\""                     >> noip_duc.sh
+		echo "    exit"                                                 >> noip_duc.sh
+		echo                                                            >> noip_duc.sh
+		echo "fi"                                                       >> noip_duc.sh
+		echo                                                            >> noip_duc.sh
+		echo "# Start No-Ip's DUC."                                     >> noip_duc.sh
+		echo "echo \"Please type your sudo password:\""                 >> noip_duc.sh
+		echo "sudo /usr/local/bin/noip2"                                >> noip_duc.sh
+		echo "echo \"DUC Started Succesfully\""                         >> noip_duc.sh
+		echo                                                            >> noip_duc.sh
+		echo "# Show the PID."                                          >> noip_duc.sh
+		echo "if [ \$SHOW ]; then"                                      >> noip_duc.sh
+		echo                                                            >> noip_duc.sh
+		echo "    echo"                                                 >> noip_duc.sh
+		echo "    sudo /usr/local/bin/noip2 -S"                         >> noip_duc.sh
+		echo "    echo"                                                 >> noip_duc.sh
+		echo "    read -p \"Press ENTER to exit.\""                     >> noip_duc.sh
+		echo                                                            >> noip_duc.sh
+		echo "fi"                                                       >> noip_duc.sh
+		echo                                                            >> noip_duc.sh
+		echo "if [ ! \$SHOW ]; then sleep 1.5; fi"                      >> noip_duc.sh
 		#endregion File ============================================================
 	fi
-	chmod +x ./noip_duc
+	chmod +x ./noip_duc.sh
 
 	# This will create the .desktop file.
-	cd /usr/share/applications/
-	if [ ! -f ./noip_duc.desktop ]; then
+	cd ~/.local/share/applications
+	if [ ! -f noip_duc.desktop ]; then
 		echo "Creating noip_duc.desktop file..."
 		#region File ============================================================
-		echo "[Desktop Entry]"                          | sudo tee -a ./noip_duc.desktop >/dev/null
-		echo "Name=No-Ip DUC"                           | sudo tee -a ./noip_duc.desktop >/dev/null
-		echo "Comment=Start the dynamic update client." | sudo tee -a ./noip_duc.desktop >/dev/null
-		echo "GenericName=DUC;"                         | sudo tee -a ./noip_duc.desktop >/dev/null
-		echo "Exec=/home/$USER/.mydock/noip_duc"        | sudo tee -a ./noip_duc.desktop >/dev/null
-		echo "Icon=/home/$USER/.mydock/noiplogo.png"    | sudo tee -a ./noip_duc.desktop >/dev/null
-		echo "Type=Application"                         | sudo tee -a ./noip_duc.desktop >/dev/null
-		echo "StartupNotify=false"                      | sudo tee -a ./noip_duc.desktop >/dev/null
-		echo "Terminal=true"                            | sudo tee -a ./noip_duc.desktop >/dev/null
-		echo "Categories=Network;Server;"               | sudo tee -a ./noip_duc.desktop >/dev/null
-		echo "Actions=open-showing;open-killing;"       | sudo tee -a ./noip_duc.desktop >/dev/null
-		echo "Keywords=Network;Minecraft;Server;"       | sudo tee -a ./noip_duc.desktop >/dev/null
-		echo                                            | sudo tee -a ./noip_duc.desktop >/dev/null
-		echo "X-Desktop-File-Install-Version=0.24"      | sudo tee -a ./noip_duc.desktop >/dev/null
-		echo                                            | sudo tee -a ./noip_duc.desktop >/dev/null
-		echo "[Desktop Action open-showing]"            | sudo tee -a ./noip_duc.desktop >/dev/null
-		echo "Name=Open showing PID"                    | sudo tee -a ./noip_duc.desktop >/dev/null
-		echo "Exec=/home/$USER/.mydock/noip_duc -s"     | sudo tee -a ./noip_duc.desktop >/dev/null
-		echo "Icon=/home/$USER/.mydock/noiplogo.png"    | sudo tee -a ./noip_duc.desktop >/dev/null
-		echo                                            | sudo tee -a ./noip_duc.desktop >/dev/null
-		echo "[Desktop Action open-killing]"            | sudo tee -a ./noip_duc.desktop >/dev/null
-		echo "Name=Open to end process"                 | sudo tee -a ./noip_duc.desktop >/dev/null
-		echo "Exec=/home/$USER/.mydock/noip_duc -k"     | sudo tee -a ./noip_duc.desktop >/dev/null
-		echo "Icon=/home/$USER/.mydock/noiplogo.png"    | sudo tee -a ./noip_duc.desktop >/dev/null
+		echo "[Desktop Entry]"                            > ./noip_duc.desktop
+		echo "Name=No-Ip DUC"                             >> ./noip_duc.desktop
+		echo "Comment=Start the dynamic update client."   >> ./noip_duc.desktop
+		echo "GenericName=DUC;"                           >> ./noip_duc.desktop
+		echo "Exec=/home/$USER/.local/bin/noip_duc.sh"    >> ./noip_duc.desktop
+		echo "Icon=noiplogo"                              >> ./noip_duc.desktop
+		echo "Type=Application"                           >> ./noip_duc.desktop
+		echo "StartupNotify=false"                        >> ./noip_duc.desktop
+		echo "Terminal=true"                              >> ./noip_duc.desktop
+		echo "Categories=Network;Server;"                 >> ./noip_duc.desktop
+		echo "Actions=open-showing;open-killing;"         >> ./noip_duc.desktop
+		echo "Keywords=Network;Minecraft;Server;"         >> ./noip_duc.desktop
+		echo                                              >> ./noip_duc.desktop
+		echo "X-Desktop-File-Install-Version=0.24"        >> ./noip_duc.desktop
+		echo                                              >> ./noip_duc.desktop
+		echo "[Desktop Action open-showing]"              >> ./noip_duc.desktop
+		echo "Name=Open showing PID"                      >> ./noip_duc.desktop
+		echo "Exec=/home/$USER/.local/bin/noip_duc.sh -s" >> ./noip_duc.desktop
+		echo "Icon=noiplogo"                              >> ./noip_duc.desktop
+		echo                                              >> ./noip_duc.desktop
+		echo "[Desktop Action open-killing]"              >> ./noip_duc.desktop
+		echo "Name=Open to end process"                   >> ./noip_duc.desktop
+		echo "Exec=/home/$USER/.local/bin/noip_duc.sh -k" >> ./noip_duc.desktop
+		echo "Icon=noiplogo"                              >> ./noip_duc.desktop
 		#endregion File ============================================================
 	fi
 	echo "Press 'Alt+F2' and run 'r' if the entry doesn't yet load."
