@@ -2,11 +2,8 @@
 
 All significant changes to **Fedora Setup** will be documented here.
 
-- [Unreleased](#unreleased)
-  - [Added](#added)
-  - [Changed](#changed)
-  - [Fixed](#fixed)
 - [Released](#released)
+  - [Version 1.3.0 - *2021-05-26*](#version-130---2021-05-26)
   - [Version 1.2.1 - *2021-05-18*](#version-121---2021-05-18)
   - [Version 1.2.0 - *2021-05-18*](#version-120---2021-05-18)
   - [Version 1.1.0 - *2021-05-12*](#version-110---2021-05-12)
@@ -15,15 +12,19 @@ All significant changes to **Fedora Setup** will be documented here.
   - [Version 0.0.2 - *2021-05-04*](#version-002---2021-05-04)
   - [Version 0.0.1 - *2021-05-03*](#version-001---2021-05-03)
 
-## Unreleased
-### Added
+## Released
+### Version [1.3.0](https://github.com/nico-castell/Fedora-Setup/tree/1.3.0) - *2021-05-26*
+The main change is the rewriting of the [back_me_up.sh](back_me_up.sh) script. However, there were other changes, new features, and a few fixes.
+#### Added
 - [fedora_setup.sh](fedora_setup.sh):
   - dnf.conf now has `installonly_limit=3`.
 - [git.sh](post-install.d/git.sh):
   - Now you can configure `gpg` to sign your commits.
 - [packages.txt](packages.txt):
   - Added more packages
-### Changed
+- [vim.sh](post-install.d/vim.sh):
+  - Now the script prints to the console and can ask the user to change the default `$EDITOR`.
+#### Changed
 - [back_me_up.sh](back_me_up.sh):
   - Rewrote the script, now it's much simpler to read, and has the capacity to keep a certain number of backups, deleting the oldest ones as you make new ones.
   - Some edge cases where removed from it's main loop because they weren't really helpful
@@ -31,15 +32,12 @@ All significant changes to **Fedora Setup** will be documented here.
   - `neofetch` and `vim` are no longer "essential" packages.
 - [packages.txt](packages.txt):
   - Neofetch and Vim were added to the list
-- [vim.sh](post-install.d/vim.sh):
-  - Now the script prints to the console and can ask the user to change the default `$EDITOR`.
-### Fixed
+#### Fixed
 - [nodejs.sh](post-install.d/nodejs.sh):
   - Fix noisy output when `code` isn't found.
 - [zsh.sh](post-install.d/zsh.sh):
   - Fixed typo that would enable powerline-shell after successful installation.
 
-## Released
 ### Version [1.2.1](https://github.com/nico-castell/Fedora-Setup/tree/1.2.1) - *2021-05-18*
 #### Added
 - [gnome_settings.sh](modules/gnome_settings.sh):
