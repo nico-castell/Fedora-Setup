@@ -35,7 +35,7 @@ I'm assuming you have just installed [fedora](https://getfedora.org/en/workstati
 	    └── theme
 	        └── theme.tar.gz
 	```
-4. (Optional) If you plan on building a [minecraft server](modules/mc_server_builder.sh), you should check that the `$download_link` and `$version` variables are up to date.
+4. (Optional) If you plan on building a [minecraft server](scripts/mc_server_builder.sh), you should check that the `$download_link` and `$version` variables are up to date.
 5. Run the [fedora_setup.sh](fedora_setup.sh) script.
   ```shell
   $ cd /path/to/cloned_repo
@@ -52,8 +52,8 @@ I'm assuming you have just installed [fedora](https://getfedora.org/en/workstati
 
 <h2 align="center">Known issues</h2>
 
-1. [duc_noip_install.sh](modules/duc_noip_install.sh): The installer can't seem to understand symbols when typing a password in the terminal, at least on my tests, this script opens *gedit* for you to copy/paste your password and work around the issue.
-2. [mc_server_builder.sh](modules/mc_server_builder.sh): The link to download the latest version of the server must be manually updated for every minecraft release. You'll find the download_link and version under a TODO in the script.
+1. [duc_noip_install.sh](scripts/duc_noip_install.sh): The installer can't seem to understand symbols when typing a password in the terminal, at least on my tests, this script opens *gedit* for you to copy/paste your password and work around the issue.
+2. [mc_server_builder.sh](scripts/mc_server_builder.sh): The link to download the latest version of the server must be manually updated for every minecraft release. You'll find the download_link and version under a TODO in the script.
 
 <h2 align="center">About</h2>
 
