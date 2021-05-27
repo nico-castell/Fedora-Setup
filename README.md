@@ -22,9 +22,9 @@ I'm assuming you have just installed [fedora](https://getfedora.org/en/workstati
   $ git checkout $(git describe --tags --abbrev=0) # Go to the last tag
   $ git checkout main                              # Go back to main
   ```
-3. (Optional) Look at the instuctions in the [gnome_apperance.sh](modules/gnome_appearance.sh) script, and configure the file structure for the script to set up the GNOME appearance with your themes.
+3. (Optional) Look at the instuctions in the [gnome_apperance.sh](scripts/gnome_appearance.sh) script, and configure the file structure for the script to set up the GNOME appearance with your themes.
 	```
-	modules
+	scripts
 	└── themes
 	    ├── background
 	    │   └── image.png
