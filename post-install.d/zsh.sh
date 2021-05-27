@@ -9,12 +9,9 @@ printf "Successfully installed \e[36mzsh\e[00m, configuring...\n"
 sudo [ ! -f /root/.zshrc ] && cat "$script_location/samples/zshrc" | sudo tee /root/.zshrc /root/.zshrc-og >/dev/null
 
 # Prepare powerline shell
-sudo pip3 install powerline-shell &>/dev/null
+sudo pip3 install powerline-shell &>/dev/null; O=$?
 
-if [ $? -eq 0 ]; then
-	sed -i "s/# use_powerline/use_powerline/" ~/.zshrc
-	sudo sed -i "s/# use_powerline/use_powerline/" /root/.zshrc
-
+if [ $O -eq 0 ]; then
 	mkdir -p ~/.config/powerline-shell
 	sudo mkdir -p /root/.config/powerline-shell
 
@@ -39,6 +36,16 @@ if [ $? -eq 0 ]; then
 	printf "%s\n" "$FILE" | sudo tee /root/.config/powerline-shell/config.json | tee ~/.config/powerline-shell/config.json >/dev/null
 	unset FILE
 fi
+
+printf "Choose the prompt style you prefer: \n"
+select s in $(cat "$HOME/.zshrc" | grep "# Choose a prompt style between" | sed -e 's/\s*#.*: //'); do
+	if [ $O -ne 0 ] && [ $s = "powerline" ]; then
+		printf "Sorry, powerline was not successfully installed, choose another style\n"
+		continue
+	fi
+	sed -i "s/prompt_style=.*$/prompt_style=$s/" ~/.zshrc
+	break
+done
 
 # Ensure zsh aliases file exists
      [ -f ~/.zsh_aliases ] || printf "# zsh aliases file\n" |      tee ~/.zsh_aliases     >/dev/null

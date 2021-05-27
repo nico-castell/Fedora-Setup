@@ -2,6 +2,9 @@
 
 All significant changes to **Fedora Setup** will be documented here.
 
+- [Unreleased](#unreleased)
+  - [Added](#added)
+  - [Changed](#changed)
 - [Released](#released)
   - [Version 1.3.0 - *2021-05-26*](#version-130---2021-05-26)
   - [Version 1.2.1 - *2021-05-18*](#version-121---2021-05-18)
@@ -13,6 +16,11 @@ All significant changes to **Fedora Setup** will be documented here.
   - [Version 0.0.1 - *2021-05-03*](#version-001---2021-05-03)
 
 ## Unreleased
+### Added
+- [.zshrc](samples/zshrc):
+  - User can now choose a style by setting the `prompt_style` variable.
+- [zsh.sh](post-install.d/zsh.sh):
+  - The user is now offered a choice between multiple prompt styles to use.
 ### Changed
 - [duc_noip_install.sh](scripts/duc_noip_install.sh):
   - Changed installation location.

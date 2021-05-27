@@ -93,13 +93,56 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 # Find a git branch, and add it to the prompt.
-find_branch () {
+git_info () {
 	_branch="$(git branch 2>/dev/null | sed -e "/^\s/d" -e "s/^\*\s//")"
-	[ ! -z $_branch ] && printf " - %s" $_branch
+	[ ! -z $_branch   ] && PR="${1}${_branch}%%f"
+
+	if [ ! -z $_branch ]; then
+		_changes=$(git status --porcelain=v1 2>/dev/null | wc -l)
+		[ $_changes -ne 0 ] && PR+=" ✎"
+
+		_behind=$(git status -sb | grep behind &>/dev/null; printf "%i" $?)
+		[ $_behind -eq 0  ] && PR+=" ↓"
+		_ahead=$(git status -sb | grep ahead &>/dev/null; printf "%i" $?)
+		[ $_ahead -eq 0   ] && PR+=" ↑"
+	fi
+
+	printf "$PR"
+}
+
+# Powerline syle shell
+use_powerline () {
+	if [ $color_prompt ]; then
+		function powerline_precmd() {
+			PS1="$(powerline-shell --shell zsh $?)"
+		}
+		function install_powerline_precmd() {
+			for s in "${precmd_functions[@]}"; do
+				if [ "$s" = "powerline_precmd" ]; then
+					return
+				fi
+			done
+			precmd_functions+=(powerline_precmd)
+		}
+		if [ "$TERM" != "linux" ]; then
+			install_powerline_precmd
+		fi
+	fi
 }
 
 if [ "$color_prompt" = yes ]; then
-	PROMPT="[%B%n@%m%b %1~\$(find_branch)]%# "
+	# Default prompt
+	PROMPT="[%n@%m %1~]%# "
+
+	# Choose a prompt style between: fedora ubuntu kali powerline
+	prompt_style=fedora
+	case $prompt_style in
+		fedora) PROMPT=$'[%n@%m %1~\$(git_info " - ")]%# ' ;;
+		ubuntu) PROMPT=$'%B%F{%(#.red.green)}%n@%m%f%b:\$(git_info " %%F{%%(#.blue.yellow)}") %B%F{%(#.yellow.blue)}%~%f%b%# ' ;;
+		kali) PROMPT=$'%F{%(#.red.blue)}┌──(%B%F{%(#.red.cyan)}%n%(#.🕱.@)%m%f%b%F{%(#.red.blue)})-[%B%F{%(#.yellow.green)}%2~%f%b%F{%(#.red.blue)}]%(1j. %F{grey}⚙%f.)%F{%(#.red.blue)}\$(git_info " - %%F{%%(#.blue.yellow)}")\n%F{%(#.red.blue)}└─%#%f ' ;;
+		powerline) use_powerline ;;
+	esac
+	RPROMPT=$'%(?.. %F{red}%? ✘%f)'
 
 	# enable syntax-highlighting
 	if [ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] && [ "$color_prompt" = yes ]; then
@@ -148,33 +191,10 @@ if [ "$color_prompt" = yes ]; then
 	ZSH_HIGHLIGHT_STYLES[cursor-matchingbracket]=standout
 	fi
 
-	# Powerline syle shell
-	use_powerline () {
-		if [ $color_prompt ]; then
-			function powerline_precmd() {
-				PS1="$(powerline-shell --shell zsh $?)"
-			}
-			function install_powerline_precmd() {
-				for s in "${precmd_functions[@]}"; do
-					if [ "$s" = "powerline_precmd" ]; then
-						return
-					fi
-				done
-				precmd_functions+=(powerline_precmd)
-			}
-			if [ "$TERM" != "linux" ]; then
-				install_powerline_precmd
-			fi
-		fi
-	}
-	# Uncomment this to start using powerline style shell. Requires you install
-	# "powerline-shell" using pip3: sudo pip3 install powerline-shell
-	# use_powerline
-
 else
-	PROMPT="[%n@%m %1~\$(find_branch)]%# "
+	PROMPT="[%n@%m %1~]%# "
+	RPROMPT=$'%(?.. %F{red}%? x%f)'
 fi
-RPROMPT="%(?..%B%F{red}%?%b%f)"
 
 unset color_prompt force_color_prompt
 
