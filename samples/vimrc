@@ -51,6 +51,19 @@ set shiftwidth=0
 set number
 set nowrap
 
+" Vertical Split
+hi clear VertSplit
+hi VertSplit ctermbg=234 ctermfg=250
+set fillchars+=vert:\┇
+
 " Statusline:
-set statusline=%#PmenuSel#%t:\ %l:%c\ /\ %l%=%r\ %y\ %p%%
+hi clear Statusline
+hi Statusline term=bold cterm=bold gui=bold ctermfg=15 ctermbg=234 guibg=DarkGrey
+set statusline=%#Statusline#\ %t:\ %l:%c\ /\ %l%=%r\ %y\ %p%%\ 
 set laststatus=2
+
+" Tabline
+hi clear TabLine TabLineFill TabLineSel
+hi TabLine ctermfg=15 ctermbg=234 guifg=White guibg=DarkGrey
+hi TabLineFill ctermfg=0 ctermbg=234 guibg=DarkGrey
+hi TabLineSel cterm=bold ctermfg=15 ctermbg=237 guibg=Grey
