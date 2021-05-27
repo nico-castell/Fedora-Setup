@@ -100,7 +100,7 @@ printf "Backing up in \e[36m%s\e[00m\n" "$DRIVE"
 destination="$destination/Backings"
 mkdir -p "$destination"
 
-# Set the destination folder name and update $destination
+# Set the final destination folder name
 TODAY=$(date +"%Y-%m-%d-%H-%M")
 
 # Testing if the user is backing up again too soon.
