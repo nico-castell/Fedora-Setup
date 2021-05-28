@@ -21,9 +21,13 @@ All significant changes to **Fedora Setup** will be documented here.
   - User can now choose a style by setting the `prompt_style` variable.
 - [zsh.sh](post-install.d/zsh.sh):
   - The user is now offered a choice between multiple prompt styles to use.
+- [.vimrc](samples/vimrc):
+  - The file now adds some light styling to the vim editor.
 ### Changed
 - [duc_noip_install.sh](scripts/duc_noip_install.sh):
   - Changed installation location.
+- [fedora_setup.sh](fedora_setup.sh):
+  - Fixed $SYSTEMDBOOT_SWITCH not being loaded from the choices file.
 
 ## Released
 ### Version [1.3.0](https://github.com/nico-castell/Fedora-Setup/tree/1.3.0) - *2021-05-26*
