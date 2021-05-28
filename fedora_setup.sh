@@ -153,11 +153,12 @@ if $load_tmp_file; then
 	# Load module scripts to run
 	Modules=$(cat "$choices_file" | grep "MODULES")
 	Modules=${Modules/"MODULES - "/""}
-	[[ "$Modules" == *"GNOME_APPEARANCE"* ]] && GNOME_APPEARANCE=true
-	[[ "$Modules" == *"GNOME_SETTINGS"*   ]] && GNOME_SETTINGS=true
-	[[ "$Modules" == *"GNOME_EXTENSIONS"* ]] && GNOME_EXTENSIONS=true
-	[[ "$Modules" == *"BUILD_MC_SERVER"*  ]] && BUILD_MC_SERVER=true
-	[[ "$Modules" == *"INSTALL_DUC"*      ]] && INSTALL_DUC=true
+	[[ "$Modules" == *"GNOME_APPEARANCE"*   ]] && GNOME_APPEARANCE=true
+	[[ "$Modules" == *"GNOME_SETTINGS"*     ]] && GNOME_SETTINGS=true
+	[[ "$Modules" == *"GNOME_EXTENSIONS"*   ]] && GNOME_EXTENSIONS=true
+	[[ "$Modules" == *"BUILD_MC_SERVER"*    ]] && BUILD_MC_SERVER=true
+	[[ "$Modules" == *"INSTALL_DUC"*        ]] && INSTALL_DUC=true
+	[[ "$Modules" == *"SYSTEMDBOOT_SWITCH"* ]] && SYSTEMDBOOT_SWITCH=yes
 
 	Separate 4
 fi
