@@ -31,6 +31,8 @@ All significant changes to **Fedora Setup** will be documented here.
 ### Fixed
 - [fedora_setup.sh](fedora_setup.sh):
   - Fixed $SYSTEMDBOOT_SWITCH not being loaded from the choices file.
+- [.vimrc](samples/vimrc):
+  - Fixed the statusline showing current line instead of total lines after the `/`.
 
 ## Released
 ### Version [1.3.0](https://github.com/nico-castell/Fedora-Setup/tree/1.3.0) - *2021-05-26*
