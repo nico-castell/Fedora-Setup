@@ -2,11 +2,8 @@
 
 All significant changes to **Fedora Setup** will be documented here.
 
-- [Unreleased](#unreleased)
-  - [Added](#added)
-  - [Changed](#changed)
-  - [Fixed](#fixed)
 - [Released](#released)
+  - [Version 1.4.0 - *2021-06-02*](#version-140---2021-06-02)
   - [Version 1.3.0 - *2021-05-26*](#version-130---2021-05-26)
   - [Version 1.2.1 - *2021-05-18*](#version-121---2021-05-18)
   - [Version 1.2.0 - *2021-05-18*](#version-120---2021-05-18)
@@ -16,8 +13,10 @@ All significant changes to **Fedora Setup** will be documented here.
   - [Version 0.0.2 - *2021-05-04*](#version-002---2021-05-04)
   - [Version 0.0.1 - *2021-05-03*](#version-001---2021-05-03)
 
-## Unreleased
-### Added
+## Released
+### Version [1.4.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/1.4.0) - *2021-06-02*
+It's a small release, the main additions are the prompt styles for **zsh** and styling for **vim**.
+#### Added
 - [.zshrc](samples/zshrc):
   - User can now choose a style by setting the `prompt_style` variable.
   - Now the paths `~/.locan/bin` and `~/bin` are added to the \$PATH.
@@ -25,10 +24,10 @@ All significant changes to **Fedora Setup** will be documented here.
   - The user is now offered a choice between multiple prompt styles to use.
 - [.vimrc](samples/vimrc):
   - The file now adds some light styling to the vim editor.
-### Changed
+#### Changed
 - [duc_noip_install.sh](scripts/duc_noip_install.sh):
   - Changed installation location.
-### Fixed
+#### Fixed
 - [fedora_setup.sh](fedora_setup.sh):
   - Fixed $SYSTEMDBOOT_SWITCH not being loaded from the choices file.
 - [.vimrc](samples/vimrc):
@@ -36,8 +35,7 @@ All significant changes to **Fedora Setup** will be documented here.
 - [back_me_up.sh](back_me_up.sh):
   - Fixed trying to keep less than one backup, set the minimum to 1.
 
-## Released
-### Version [1.3.0](https://github.com/nico-castell/Fedora-Setup/tree/1.3.0) - *2021-05-26*
+### Version [1.3.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/1.3.0) - *2021-05-26*
 The main change is the rewriting of the [back_me_up.sh](back_me_up.sh) script. However, there were other changes, new features, and a few fixes.
 #### Added
 - [fedora_setup.sh](fedora_setup.sh):
