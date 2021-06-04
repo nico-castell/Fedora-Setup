@@ -3,7 +3,7 @@
 All significant changes to **Fedora Setup** will be documented here.
 
 - [Unreleased](#unreleased)
-  - [Changed](#changed)
+  - [Added](#added)
 - [Released](#released)
   - [Version 1.4.0 - *2021-06-02*](#version-140---2021-06-02)
   - [Version 1.3.0 - *2021-05-26*](#version-130---2021-05-26)
@@ -16,9 +16,10 @@ All significant changes to **Fedora Setup** will be documented here.
   - [Version 0.0.1 - *2021-05-03*](#version-001---2021-05-03)
 
 ## Unreleased
-### Changed
+### Added
 - [.zshrc](samples/zshrc):
   - The ubuntu style prompt now has path shortening when deep in a directory structure.
+  - Ubuntu and fedora style prompts now show a gear `⚙` when there are suspended jobs.
 
 ## Released
 ### Version [1.4.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/1.4.0) - *2021-06-02*

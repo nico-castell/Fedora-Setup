@@ -109,7 +109,7 @@ git_info () {
 	printf "$PR"
 }
 
-# Powerline syle shell
+# Powerline style shell
 use_powerline () {
 	if [ $color_prompt ]; then
 		function powerline_precmd() {
@@ -130,14 +130,14 @@ use_powerline () {
 }
 
 if [ "$color_prompt" = yes ]; then
-	# Default prompt
+	# Fallback prompt
 	PROMPT="[%n@%m %1~]%# "
 
 	# Choose a prompt style between: fedora ubuntu kali powerline
-	prompt_style=fedora
+	prompt_style=
 	case $prompt_style in
-		fedora) PROMPT=$'[%n@%m %1~\$(git_info " - ")]%# ' ;;
-		ubuntu) PROMPT=$'%B%F{%(#.red.green)}%n@%m%f%b:\$(git_info " %%F{%%(#.blue.yellow)}") %B%F{%(#.yellow.blue)}%(4~.%-1~/…/%2~.%3~)%f%b%# ' ;;
+		fedora) PROMPT=$'[%n@%m %1~%(1j. ⚙.)\$(git_info " - ")]%# ' ;;
+		ubuntu) PROMPT=$'%B%F{%(#.red.green)}%n@%m%f%b:%(1j. ⚙.)\$(git_info " %%F{%%(#.blue.yellow)}") %B%F{%(#.yellow.blue)}%(4~.%-1~/…/%2~.%3~)%f%b%# ' ;;
 		kali) PROMPT=$'%F{%(#.red.blue)}┌──(%B%F{%(#.red.cyan)}%n%(#.🕱.@)%m%f%b%F{%(#.red.blue)})-[%B%F{%(#.yellow.green)}%(4~.%-1~/…/%2~.%3~)%f%b%F{%(#.red.blue)}]%(1j. %F{grey}⚙%f.)%F{%(#.red.blue)}\$(git_info " - %%F{%%(#.blue.yellow)}")\n%F{%(#.red.blue)}└─%#%f ' ;;
 		powerline) use_powerline ;;
 	esac
