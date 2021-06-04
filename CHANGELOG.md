@@ -4,6 +4,7 @@ All significant changes to **Fedora Setup** will be documented here.
 
 - [Unreleased](#unreleased)
   - [Added](#added)
+  - [Changed](#changed)
 - [Released](#released)
   - [Version 1.4.0 - *2021-06-02*](#version-140---2021-06-02)
   - [Version 1.3.0 - *2021-05-26*](#version-130---2021-05-26)
@@ -20,6 +21,11 @@ All significant changes to **Fedora Setup** will be documented here.
 - [.zshrc](samples/zshrc):
   - The ubuntu style prompt now has path shortening when deep in a directory structure.
   - Ubuntu and fedora style prompts now show a gear `⚙` when there are suspended jobs.
+- [vim.sh](post-install.d/vim.sh):
+  - Added a choice to install powerline-status plugin for vim.
+### Changed
+- [zsh.sh](post-install.d/zsh.sh):
+  - Now the script will not attempt to install powerline automatically, instead, it will ask the user if they want to install it.
 
 ## Released
 ### Version [1.4.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/1.4.0) - *2021-06-02*
