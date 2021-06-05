@@ -9,7 +9,7 @@ read -rp "$(printf "Do you want to swap \e[01mnano\e[00m for \e[01mVim\e[00m as 
 read -rp "$(printf "Do you want to use \e[01mpowerline\e[00m in vim? (Y/n) ")" PWL
 
 # Swap default editor
-if [ ${SWP,,} = "y" -o -z $SWP ]; then
+if [ "${SWP,,}" = "y" -o -z "$SWP" ]; then
 	swap_editor() {
 		printf "Swapping \e[01mnano\e[00m for \e[01mVim\e[00m...\n"
 		sudo dnf swap nano-default-editor vim-default-editor -y --allowerasing >/dev/null
@@ -18,7 +18,7 @@ if [ ${SWP,,} = "y" -o -z $SWP ]; then
 fi
 
 # Install powerline for vim
-if [ ${PWL,,} = "y" -o -z $PWL ]; then
+if [ "${PWL,,}" = "y" -o -z "$PWL" ]; then
 	prepare_powerline() {
 		printf "Installing \e[01mpowerline\e[00m for Vim...\n"
 		sudo pip3 install powerline-status &>/dev/null && \
