@@ -20,10 +20,13 @@ All significant changes to **Fedora Setup** will be documented here.
 ### Added
 - [.zshrc](samples/zshrc):
   - The ubuntu style prompt now has path shortening when deep in a directory structure.
-  - Ubuntu and fedora style prompts now show a gear `⚙` when there are suspended jobs.
+  - Ubuntu and fedora style prompts now show a gear (`⚙`) when there are suspended jobs.
+  - There is a new prompt style designed for Visual Studio Code, it's a very simple, modern looking prompt that remains easy to render by vscode's GPU accelerated prompt.
 - [vim.sh](post-install.d/vim.sh):
   - Added a choice to install powerline-status plugin for vim.
 ### Changed
+- [.zshrc](samples/zshrc):
+  - The kali style prompt has new softer edges: `╭──` instead of `┌──`.
 - [zsh.sh](post-install.d/zsh.sh):
   - Now the script will not attempt to install powerline automatically, instead, it will ask the user if they want to install it.
 
