@@ -50,6 +50,22 @@ I'm assuming you have just installed [fedora](https://getfedora.org/en/workstati
 - You **must** have an internet connection to run the script.
 - The script has no support for NVIDIA, meaning no drivers, no configurations, nothing, nada.
 
+<h2 align="center">Biggest features</h2>
+
+This project can set up some powerful features, such as:
+
+- Advanced, stylized prompts for the **Z-Shell**:
+  <p align="center"><img width="600" height="272" src="assets/prompts.png"></p>
+- Powerline plugin for the **Vim** editor:
+  <p align="center"><img width="600" height="390" src="assets/vim-powerline.png"></p>
+- Setting up **GnuPG** to sign **Git** commits:
+  <p align="center"><img width="600" height="326" src="assets/seahorse.png"></p>
+- An easily expandable list of packages for the script to install: [packages.txt](packages.txt)
+- Desktop entry files that you can add at your convenience.
+- A [script](scripts/systemdboot_switch.sh) to switch from **grub** to **systemd-boot**.
+- A [script](scripts/mc_server_builder.sh) to set up a minecraft server.
+- A [script](back_me_up.sh) to back up your home directory.
+
 <h2 align="center">Known issues</h2>
 
 1. [duc_noip_install.sh](scripts/duc_noip_install.sh): The installer can't seem to understand symbols when typing a password in the terminal, at least on my tests, this script opens *gedit* for you to copy/paste your password and work around the issue.
@@ -59,7 +75,7 @@ I'm assuming you have just installed [fedora](https://getfedora.org/en/workstati
 
 This project started as a heavily reworked version of [Pop!_OS Setup](https://github.com/nico-castell/PopOS-Setup), adapted to work in [Fedora](https://getfedora.org/en/workstation/download/).
 
-This repository, and all contributions to this repository, are under the [MIT License](LICENSE). This software can also install packages under different licenses, this project's license doesn't apply to them, see each package.
+This repository, and all contributions to this repository, are under the [MIT License](LICENSE). This software can also install software under different licenses, this project's license doesn't apply to them, refer to the license of that software.
 
 > *Live long, and prosper.*  
 > *Spock*

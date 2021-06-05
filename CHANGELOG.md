@@ -2,10 +2,8 @@
 
 All significant changes to **Fedora Setup** will be documented here.
 
-- [Unreleased](#unreleased)
-  - [Added](#added)
-  - [Changed](#changed)
 - [Released](#released)
+  - [Version 1.5.0 - *2021-06-05*](#version-150---2021-06-05)
   - [Version 1.4.0 - *2021-06-02*](#version-140---2021-06-02)
   - [Version 1.3.0 - *2021-05-26*](#version-130---2021-05-26)
   - [Version 1.2.1 - *2021-05-18*](#version-121---2021-05-18)
@@ -16,8 +14,10 @@ All significant changes to **Fedora Setup** will be documented here.
   - [Version 0.0.2 - *2021-05-04*](#version-002---2021-05-04)
   - [Version 0.0.1 - *2021-05-03*](#version-001---2021-05-03)
 
-## Unreleased
-### Added
+## Released
+### Version [1.5.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/1.5.0) - *2021-06-05*
+This is another minor version, the main update is the introduction of *powerline* for **Vim**, but there are other updates to the git setup and zsh prompts.
+#### Added
 - [.zshrc](samples/zshrc):
   - The ubuntu style prompt now has path shortening when deep in a directory structure.
   - Ubuntu and fedora style prompts now show a gear (`⚙`) when there are suspended jobs.
@@ -26,7 +26,7 @@ All significant changes to **Fedora Setup** will be documented here.
   - Added a choice to install powerline-status plugin for vim.
 - [git.sh](post-install.d/git.sh):
   - Added alias `now-ignored` to find files that should be untracked after updating `.gitignore`.
-### Changed
+#### Changed
 - [.zshrc](samples/zshrc):
   - The kali style prompt has new softer edges: `╭──` instead of `┌──`.
 - [zsh.sh](post-install.d/zsh.sh):
@@ -35,7 +35,6 @@ All significant changes to **Fedora Setup** will be documented here.
   - Changed the order of operations.
   - Alias `unstage` now takes paths as arguments.
 
-## Released
 ### Version [1.4.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/1.4.0) - *2021-06-02*
 It's a small release, the main additions are the prompt styles for **zsh** and styling for **vim**.
 #### Added
