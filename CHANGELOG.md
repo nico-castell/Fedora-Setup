@@ -34,6 +34,8 @@ All significant changes to **Fedora Setup** will be documented here.
   - Switch from user installation of powerline-status to system installation.
 - [zsh.sh](post-install.d/zsh.sh):
   - Switch from user installation of powerline-shell to system installation.
+- [.zshrc](sapmles/zshrc):
+  - Improved performance and eliminated edge cases for the git info.
 - [packages.txt](packages.txt):
   - Separated **CMake** from **C/C++ development**.
 ### Fixed
