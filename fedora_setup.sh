@@ -5,8 +5,8 @@
 # Read the included LICENSE file for more information
 
 # Set up script variables for later
-load_tmp_file=false
-persist_at_the_end=false
+load_tmp_file=no
+persist_at_the_end=no
 
 USAGE_MSG () {
 	printf "Usage: \e[01m./%s (-f)\e[00m
@@ -15,8 +15,8 @@ USAGE_MSG () {
 
 while [ -n "$1" ]; do
 	case "$1" in
-		-f) load_tmp_file=true         ;; # Load previous choices
-		-p) persist_at_the_end=true    ;; # Persist open at the end of the script
+		-f) load_tmp_file=yes          ;; # Load previous choices
+		-p) persist_at_the_end=yes     ;; # Persist open at the end of the script
 		-h | --help) USAGE_MSG; exit 0 ;; # Help
 		*) printf "Option \"%s\" not recognized.\n" $1
 		USAGE_MSG
@@ -44,13 +44,6 @@ postinstall_folder=("$script_location/post-install.d")
 
 unset USAGE_MSG MISSING
 
-# Prepare module variables
-GNOME_APPEARANCE=false
-GNOME_SETTINGS=false
-GNOME_EXTENSIONS=false
-BUILD_MC_SERVER=false
-INSTALL_DUC=false
-
 # Function to draw a line across the width of the console.
 Separate () {
 	if [ ! -z $1 ]; then tput setaf $1; fi
@@ -61,12 +54,21 @@ Separate () {
 # Aquire root privileges now
 sudo echo >/dev/null || exit 1
 
-printf "Welcome to \e[01mFedora Setup\e[00m version %s!\n" $(git describe --tags --abbrev=0)
-printf "Follow the instructions and you should be up and running soon\n";
-printf "THE SOFTWARE IS PROVIDED \"AS IS\", read the license for more information\n\n"
+# Give the welcome message and license disclaimer
+commit="$(git log -1 --format='%h' 2>/dev/null)"
+version="$(git describe --tags --abbrev=0 2>/dev/null)"
+[ -n "$version" ] && \
+	version=" version $version"
+[ -z "$version" -a -n "$commit" ] && \
+	version=" at commit $commit"
+
+printf "Welcome to \e[36;01mFedora Setup\e[00m%s!
+Follow the instructions and you should be up and running soon
+THE SOFTWARE IS PROVIDED \"AS IS\", read the license for more information\n\n" "$version"
+unset version commit
 
 #region Prompting the user for their choices
-if ! $load_tmp_file; then
+if [ "$load_tmp_file" = "no" ]; then
 	# We're about to make a new choices file
 	[ -f "$choices_file" ] && rm "$choices_file"
 
@@ -92,32 +94,22 @@ if ! $load_tmp_file; then
 	echo "TO_DNF - ${TO_DNF[@]}" >> "$choices_file"
 	Separate 4
 
-	printf "Choose some extra scripts to run:\n"
-	# Check if a script is present before prompting
-	prompt_user () {
-		unset Confirmed
-		if [ -f "$scripts_folder/$1" ]; then
-			read -rp "Do you want to $2 (Y/n) "
-			if [[ ${REPLY,,} == "y" ]] || [ -z $REPLY ]; then
-				Confirmed=true
-			else Confimed=false; fi
-		else Confimed=false; fi
-	}
-
 	# Load extra scripts to run
+	printf "Choose some extra scripts to run:\n"
 	for i in $(ls "$scripts_folder" | grep \.sh$); do
 		read -rp "$(printf "Do you want to run the \e[01m%s\e[00m extra script? (Y/n) " "${i/".sh"/""}")"
 		[ "${REPLY,,}" = "y" -o -z "$REPLY" ] && \
 			SCRIPTS+=("$i")
 	done
 
+	# Store selected scripts
 	echo "SCRIPTS - ${SCRIPTS[@]}" >> "$choices_file"
 	Separate 4
 fi
 #endregion
 
 #region Loading choices from file
-if $load_tmp_file; then
+if [ "$load_tmp_file" = "yes" ]; then
 	# Error if there aren't previous choices
 	if [ -f "$choices_file" ]; then
 		printf "\e[01mLoading previous choices\e[00m\n"
@@ -175,8 +167,9 @@ if [ ! $? -eq 0 ]; then
 fi
 
 # Configure dnf now, before we start using it
-sudo mv /etc/dnf/dnf.conf /etc/dnf/dnf.conf-og
-DNF_CONF="[main]
+[ ! -f /etc/dnf/dnf.conf-og ] && \
+	sudo cp /etc/dnf/dnf.conf /etc/dnf/dnf.conf-og
+printf "[main]
 gpgcheck=1
 installonly_limit=3
 clean_requirements_on_remove=True
@@ -186,28 +179,27 @@ fastestmirror=True
 max_parallel_downloads=20
 defaultyes=True
 minrate=384k
-installonly_limit=3"
-printf "%s\n" "$DNF_CONF" | sudo tee /etc/dnf/dnf.conf >/dev/null
+installonly_limit=3\n" | sudo tee /etc/dnf/dnf.conf >/dev/null
 unset DNF_CONF
 
 # Stop GNOME's packagekit to avoid problems while the package manager is being used.
 sudo systemctl stop packagekit
 
 # Set up extra sources now
-REPOS_ADDED=0
-RPMFUSION_NONFREE_QUEUED=false
-RPMFUSION_FREE_QUEUED=false
+REPOS_ADDED=no
+RPMFUSION_NONFREE_QUEUED=no
+RPMFUSION_FREE_QUEUED=no
 for i in ${TO_DNF[@]}; do
 case $i in
 	code)
-	REPOS_ADDED=1
+	REPOS_ADDED=yes
 	printf "Preparing \e[01mVisual Studio Code\e[00m source...\n"
 	sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 	printf "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc\n" | sudo tee /etc/yum.repos.d/vscode.repo >/dev/null
 	;;
 
 	brave-browser)
-	REPOS_ADDED=1
+	REPOS_ADDED=yes
 	printf "Preparing \e[01mBrave Browser\e[00m source...\n"
 	sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
 	printf "[brave-browser-rpm-release.s3.brave.com_x86_64_]\nname=Brave Browser\nbaseurl=https://brave-browser-rpm-release.s3.brave.com/x86_64/\nenabled=1\ngpgkey=https://brave-browser-rpm-release.s3.brave.com/brave-core.asc\ngpgcheck=1\n" | sudo tee /etc/yum.repos.d/brave-browser.repo >/dev/null
@@ -215,18 +207,18 @@ case $i in
 
 	# TODO: Find a way to avoid hard-coding RPM-Fusion
 	obs-studio|VirtualBox|vlc)
-	if ! $RPMFUSION_FREE_QUEUED; then
-		REPOS_ADDED=1
+	if [ "$RPMFUSION_FREE_QUEUED" = "no" ]; then
+		REPOS_ADDED=yes
 		TO_RPMFUSION+=("https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm")
-		RPMFUSION_FREE_QUEUED=true
+		RPMFUSION_FREE_QUEUED=yes
 	fi
 	;;
 
 	discord|steam)
-	if ! $RPMFUSION_NONFREE_QUEUED; then
-		REPOS_ADDED=1
+	if [ "$RPMFUSION_NONFREE_QUEUED" = "no" ]; then
+		REPOS_ADDED=yes
 		TO_RPMFUSION+=("https://mirrors.rpmfusion.org/free/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm")
-		RPMFUSION_NONFREE_QUEUED=true
+		RPMFUSION_NONFREE_QUEUED=yes
 	fi
 	;;
 esac
@@ -237,7 +229,7 @@ if [[ "${TO_RPMFUSION[@]}" ]]; then
 	sudo dnf install -y ${TO_RPMFUSION[@]} >/dev/null
 fi
 
-test $REPOS_ADDED -ne 0 && Separate 4
+[ "$REPOS_ADDED" = "yes" ] && Separate 4
 unset REPOS_ADDED RPMFUSION_FREE_QUEUED RPMFUSION_NONFREE_QUEUED TO_RPMFUSION
 
 printf "Updating repositories...\n"
@@ -245,6 +237,7 @@ sudo dnf check-update --refresh # Exit code will be 100 if upgrades are availabl
 
 # If upgrades are available, offer the user a chance to install them now.
 if [ $? -eq 100 ]; then
+	Separate 4
 	printf "Upgrades are available, do you want to update now? (\e[35mY\e[00m)\n"
 	printf "Or do you want to skip and proceed to install your packages? (\e[35mN\e[00m)\n"
 	read -rp "You answer (default is Y): "

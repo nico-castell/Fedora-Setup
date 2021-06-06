@@ -21,6 +21,7 @@ All significant changes to **Fedora Setup** will be documented here.
 ### Changed
 - [fedora_setup.sh](fedora_setup.sh):
   - Extra scripts are now executed through loops, this is much more expandable (and reliable) than the previous system.
+  - Changed `true` and `false` for `yes` and `no` for compatibility with `test` command.
 - [vim.sh](post-install.d/vim.sh):
   - Switch from user installation of powerline-status to system installation.
 - [zsh.sh](post-install.d/zsh.sh):
@@ -32,6 +33,7 @@ All significant changes to **Fedora Setup** will be documented here.
   - Missing space when prompting the user.
 - [fedora_setup.sh](fedora_setup.sh):
   - Fixed error in **RPM Fusion** setup.
+  - Fixed errors when in the welcome message when running from a shallow git clone or the .git folder is missing.
 
 ## Released
 ### Version [1.5.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/1.5.0) - *2021-06-05*
