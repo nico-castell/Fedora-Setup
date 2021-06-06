@@ -104,34 +104,14 @@ if ! $load_tmp_file; then
 		else Confimed=false; fi
 	}
 
-	# Start prompting the user
-	prompt_user "gnome_appearance.sh" "configure the appearance of gnome"
-	GNOME_APPEARANCE=$Confirmed
-	test $GNOME_APPEARANCE && Modules+=("GNOME_APPEARANCE")
+	# Load extra scripts to run
+	for i in $(ls "$scripts_folder" | grep \.sh$); do
+		read -rp "$(printf "Do you want to run the \e[01m%s\e[00m extra script? (Y/n) " "${i/".sh"/""}")"
+		[ "${REPLY,,}" = "y" -o -z "$REPLY" ] && \
+			SCRIPTS+=("$i")
+	done
 
-	prompt_user "gnome_settings.sh" "modify some of gnome's configurations"
-	GNOME_SETTINGS=$Confirmed
-	test $GNOME_SETTINGS && Modules+=("GNOME_SETTINGS")
-
-	prompt_user "gnome_extensions.sh" "install some gnome extensions"
-	GNOME_EXTENSIONS=$Confirmed
-	test $GNOME_EXTENSIONS && Modules+=("GNOME_EXTENSIONS")
-
-	if [[ ${TO_DNF[@]} == *"java"* ]]; then
-		prompt_user "mc_server_builder.sh" "build a minecraft server"
-		BUILD_MC_SERVER=$Confirmed
-		test $BUILD_MC_SERVER && Modules+=("BUILD_MC_SERVER")
-	fi
-
-	prompt_user "duc_noip_install.sh" "install No-Ip's DUC"
-	INSTALL_DUC=$Confirmed
-	test $INSTALL_DUC && Modules+=("INSTALL_DUC")
-
-	prompt_user "systemdboot_switch.sh" "switch to systemd-boot"
-	SYSTEMDBOOT_SWITCH=$Confirmed
-	test $SYSTEMDBOOT_SWITCH && Modules+=("SYSTEMDBOOT_SWITCH")
-
-	echo "MODULES - ${Modules[@]}" >> "$choices_file"
+	echo "SCRIPTS - ${SCRIPTS[@]}" >> "$choices_file"
 	Separate 4
 fi
 #endregion
@@ -150,15 +130,9 @@ if $load_tmp_file; then
 	TO_DNF=$(cat "$choices_file" | grep "TO_DNF")
 	TO_DNF=${TO_DNF/"TO_DNF - "/""}
 
-	# Load module scripts to run
-	Modules=$(cat "$choices_file" | grep "MODULES")
-	Modules=${Modules/"MODULES - "/""}
-	[[ "$Modules" == *"GNOME_APPEARANCE"*   ]] && GNOME_APPEARANCE=true
-	[[ "$Modules" == *"GNOME_SETTINGS"*     ]] && GNOME_SETTINGS=true
-	[[ "$Modules" == *"GNOME_EXTENSIONS"*   ]] && GNOME_EXTENSIONS=true
-	[[ "$Modules" == *"BUILD_MC_SERVER"*    ]] && BUILD_MC_SERVER=true
-	[[ "$Modules" == *"INSTALL_DUC"*        ]] && INSTALL_DUC=true
-	[[ "$Modules" == *"SYSTEMDBOOT_SWITCH"* ]] && SYSTEMDBOOT_SWITCH=yes
+	# Load extra scripts to run
+	SCRIPTS=$(cat "$choices_file" | grep "SCRIPTS")
+	SCRIPTS=${SCRIPTS/"SCRIPTS - "/""}
 
 	Separate 4
 fi
@@ -294,31 +268,12 @@ if [ $? -eq 0 ]; then
 	done
 fi
 
-# Run modules
-if [[ "$GNOME_APPEARANCE" == true   ]]; then
-	Separate 4; printf "Running \e[01mGNOME Appearance\e[00m module...\n"
-	"$scripts_folder/gnome_appearance.sh"
-fi
-if [[ "$GNOME_SETTINGS" == true     ]]; then
-	Separate 4; printf "Running \e[01mGNOME Settings\e[00m module...\n"
-	"$scripts_folder/gnome_settings.sh"
-fi
-if [[ "$GNOME_EXTENSIONS" == true   ]]; then
-	Separate 4; printf "Running \e[01mGNOME Extensions\e[00m module...\n"
-	"$scripts_folder/gnome_extensions.sh"
-fi
-if [[ "$BUILD_MC_SERVER" == true    ]]; then
-	Separate 4; printf "Running \e[01mBuild Minecraft server\e[00m module...\n"
-	"$scripts_folder/mc_server_builder.sh"
-fi
-if [[ "$INSTALL_DUC" == true        ]]; then
-	Separate 4; printf "Running \e[01mInstall No-Ip's DUC\e[00m module...\n"
-	"$scripts_folder/duc_noip_install.sh" -e
-fi
-if [[ "$SYSTEMDBOOT_SWITCH" == true ]]; then
-	Separate 4; printf "Running \e[01mSwitch to systemd-boot module\e[00m...\n"
-	"$scripts_folder/systemdboot_switch.sh"
-fi
+# Run extra scripts
+for i in ${SCRIPTS[@]}; do
+	Separate 4
+	printf "Running \e[01m%s\e[00m extra script...\n" "${i/".sh"/""}"
+	"$scripts_folder/$i"
+done
 
 # Restart gnome's package kit after we've finished using the package manager
 sudo systemctl restart packagekit

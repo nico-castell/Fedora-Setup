@@ -19,6 +19,8 @@ All significant changes to **Fedora Setup** will be documented here.
 
 ## Unreleased
 ### Changed
+- [fedora_setup.sh](fedora_setup.sh):
+  - Extra scripts are now executed through loops, this is much more expandable (and reliable) than the previous system.
 - [vim.sh](post-install.d/vim.sh):
   - Switch from user installation of powerline-status to system installation.
 - [zsh.sh](post-install.d/zsh.sh):
