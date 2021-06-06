@@ -3,16 +3,20 @@ OBS_Studio obs-studio
 VLC vlc
 .NET_3.1 dotnet-sdk-3.1 aspnetcore-runtime-3.1
 .NET_5.0 dotnet-sdk-5.0 aspnetcore-runtime-5.0
-C/C++_development @c-development cmake
+C/C++_development @c-development
 Clang clang clang-tools-extra
+CMake cmake cmake-gui
 Development_Tools @development-tools git git-lfs
+Eclipse_IDE_(for_Java) @eclipse
 Gitg gitg git git-lfs
 GNOME_Boxes gnome-boxes
 GNOME_Builder gnome-builder gnome-software-devel
 Java_OpenJDK java-latest-openjdk
+Ninja_Build ninja-build
 Node.JS nodejs
 Virtual_Box VirtualBox kernel-headers kernel-devel qt5-qtx11extras @c-development
-Visual_Studio_Code code git
+Visual_Studio_Code code
+VS_Codium codium
 cmatrix cmatrix
 Discord discord
 GNOME_Chess gnome-chess
@@ -37,5 +41,6 @@ GNOME_Tweaks gnome-tweaks gnome-extensions-app
 GParted gparted
 Neofetch neofetch
 Passwords_and_Keys seahorse gpgme
+Trash_CLI trash-cli
 Tree tree
 Vim vim

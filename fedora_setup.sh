@@ -198,6 +198,13 @@ case $i in
 	printf "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc\n" | sudo tee /etc/yum.repos.d/vscode.repo >/dev/null
 	;;
 
+	codium)
+	REPOS_ADDED=yes
+	printf "Preparing \e[01mVS Codium\e[00m source...\n"
+	sudo rpm --import https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/-/raw/master/pub.gpg
+	printf "[gitlab.com_paulcarroty_vscodium_repo]\nname=VS Codium\nbaseurl=https://paulcarroty.gitlab.io/vscodium-deb-rpm-repo/rpms/\nenabled=1\ngpgcheck=1\ngpgcheck=1\ngpgkey=https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/-/raw/master/pub.gpg\n" | sudo tee -a /etc/yum.repos.d/vscodium.repo >/dev/null
+	;;
+
 	brave-browser)
 	REPOS_ADDED=yes
 	printf "Preparing \e[01mBrave Browser\e[00m source...\n"

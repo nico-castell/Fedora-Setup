@@ -3,6 +3,7 @@
 All significant changes to **Fedora Setup** will be documented here.
 
 - [Unreleased](#unreleased)
+  - [Added](#added)
   - [Changed](#changed)
   - [Fixed](#fixed)
 - [Released](#released)
@@ -18,6 +19,11 @@ All significant changes to **Fedora Setup** will be documented here.
   - [Version 0.0.1 - *2021-05-03*](#version-001---2021-05-03)
 
 ## Unreleased
+### Added
+- [packages.txt](packages.txt):
+  - Added [**Eclipse IDE**](https://www.eclipse.org/downloads/) and [**VS Codium**](https://vscodium.com/).
+- [fedora_setup.sh](fedora_setup.sh):
+  - Added **VS Codium** source.
 ### Changed
 - [fedora_setup.sh](fedora_setup.sh):
   - Extra scripts are now executed through loops, this is much more expandable (and reliable) than the previous system.
@@ -26,6 +32,8 @@ All significant changes to **Fedora Setup** will be documented here.
   - Switch from user installation of powerline-status to system installation.
 - [zsh.sh](post-install.d/zsh.sh):
   - Switch from user installation of powerline-shell to system installation.
+- [packages.txt](packages.txt):
+  - Separated **CMake** from **C/C++ development**.
 ### Fixed
 - [vim.sh](post-install.d/vim.sh):
   - Excessive arguments error.
