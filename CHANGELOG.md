@@ -25,6 +25,8 @@ All significant changes to **Fedora Setup** will be documented here.
 - [fedora_setup.sh](fedora_setup.sh):
   - Added **VS Codium** source.
 ### Changed
+- [duc_noip_install.sh](scripts/duc_noip_install.sh):
+  - Rewrote the script to be much more reliable and simple to edit.
 - [fedora_setup.sh](fedora_setup.sh):
   - Extra scripts are now executed through loops, this is much more expandable (and reliable) than the previous system.
   - Changed `true` and `false` for `yes` and `no` for compatibility with `test` command.
@@ -39,6 +41,8 @@ All significant changes to **Fedora Setup** will be documented here.
   - Excessive arguments error.
 - [zsh.sh](post-install.d/zsh.sh):
   - Missing space when prompting the user.
+- [git.sh](post-install.d/git.sh):
+  - Fixed faulty config for the vim editor.
 - [fedora_setup.sh](fedora_setup.sh):
   - Fixed error in **RPM Fusion** setup.
   - Fixed errors when in the welcome message when running from a shallow git clone or the .git folder is missing.
