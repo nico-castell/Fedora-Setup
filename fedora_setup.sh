@@ -258,7 +258,7 @@ case $i in
 esac
 done
 
-if [ -n "${TO_RPMFUSION[@]}" ]; then
+if [[ "${TO_RPMFUSION[@]}" ]]; then
 	printf "Preparing \e[01mRPM Fusion\e[00m source...\n"
 	sudo dnf install -y ${TO_RPMFUSION[@]} >/dev/null
 fi

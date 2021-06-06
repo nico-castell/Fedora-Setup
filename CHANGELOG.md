@@ -28,6 +28,8 @@ All significant changes to **Fedora Setup** will be documented here.
   - Excessive arguments error.
 - [zsh.sh](post-install.d/zsh.sh):
   - Missing space when prompting the user.
+- [fedora_setup.sh](fedora_setup.sh):
+  - Fixed error in **RPM Fusion** setup.
 
 ## Released
 ### Version [1.5.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/1.5.0) - *2021-06-05*
