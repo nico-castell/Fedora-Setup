@@ -282,7 +282,7 @@ Separate 4
 # Clean up after we're done
 [ -f "$choices_file" ] && rm "$choices_file"
 
-if $persist_at_the_end; then
+if [ "$persist_at_the_end" = "yes" ]; then
 	read -p "Press any key to finish. " -n 1
 fi
 
