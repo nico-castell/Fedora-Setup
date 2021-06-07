@@ -30,6 +30,7 @@ All significant changes to **Fedora Setup** will be documented here.
 - [fedora_setup.sh](fedora_setup.sh):
   - Extra scripts are now executed through loops, this is much more expandable (and reliable) than the previous system.
   - Changed `true` and `false` for `yes` and `no` for compatibility with `test` command.
+  - Renamed `load_tmp_file` variable to `load_choices_file` to avoid confusion.
 - [vim.sh](post-install.d/vim.sh):
   - Switch from user installation of powerline-status to system installation.
 - [zsh.sh](post-install.d/zsh.sh):

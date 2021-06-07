@@ -5,7 +5,7 @@
 # Read the included LICENSE file for more information
 
 # Set up script variables for later
-load_tmp_file=no
+load_choices_file=no
 persist_at_the_end=no
 
 USAGE_MSG () {
@@ -15,7 +15,7 @@ USAGE_MSG () {
 
 while [ -n "$1" ]; do
 	case "$1" in
-		-f) load_tmp_file=yes          ;; # Load previous choices
+		-f) load_choices_file=yes      ;; # Load previous choices
 		-p) persist_at_the_end=yes     ;; # Persist open at the end of the script
 		-h | --help) USAGE_MSG; exit 0 ;; # Help
 		*) printf "Option \"%s\" not recognized.\n" $1
@@ -68,7 +68,7 @@ THE SOFTWARE IS PROVIDED \"AS IS\", read the license for more information\n\n" "
 unset version commit
 
 #region Prompting the user for their choices
-if [ "$load_tmp_file" = "no" ]; then
+if [ "$load_choices_file" = "no" ]; then
 	# We're about to make a new choices file
 	[ -f "$choices_file" ] && rm "$choices_file"
 
@@ -109,7 +109,7 @@ fi
 #endregion
 
 #region Loading choices from file
-if [ "$load_tmp_file" = "yes" ]; then
+if [ "$load_choices_file" = "yes" ]; then
 	# Error if there aren't previous choices
 	if [ -f "$choices_file" ]; then
 		printf "\e[01mLoading previous choices\e[00m\n"
