@@ -24,6 +24,8 @@ All significant changes to **Fedora Setup** will be documented here.
   - Added [**Eclipse IDE**](https://www.eclipse.org/downloads/) and [**VS Codium**](https://vscodium.com/).
 - [fedora_setup.sh](fedora_setup.sh):
   - Added **VS Codium** source.
+- [.zshrc](samples/zshrc):
+  - Added info about staged and untracked files in the git prompt.
 ### Changed
 - [duc_noip_install.sh](scripts/duc_noip_install.sh):
   - Rewrote the script to be much more reliable and simple to edit.
