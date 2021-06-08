@@ -22,10 +22,12 @@ All significant changes to **Fedora Setup** will be documented here.
 ### Added
 - [packages.txt](packages.txt):
   - Added [**Eclipse IDE**](https://www.eclipse.org/downloads/) and [**VS Codium**](https://vscodium.com/).
+  - Added support for [**Golang**](https://golang.org/), this required some modifications to the **Z-Shell** setup.
 - [fedora_setup.sh](fedora_setup.sh):
   - Added **VS Codium** source.
 - [.zshrc](samples/zshrc):
   - Added info about staged and untracked files in the git prompt.
+  - Aliases and configs are now sourced from files under the `~/.zshrc.d` folder, as well as from a `~/.zsh_aliases` file.
 ### Changed
 - [duc_noip_install.sh](scripts/duc_noip_install.sh):
   - Rewrote the script to be much more reliable and simple to edit.
@@ -51,6 +53,9 @@ All significant changes to **Fedora Setup** will be documented here.
 - [fedora_setup.sh](fedora_setup.sh):
   - Fixed error in **RPM Fusion** setup.
   - Fixed errors when in the welcome message when running from a shallow git clone or the .git folder is missing.
+### Deprecated
+- [.zshrc](samples/zshrc):
+  - This file will continue sourcing the `~/.zsh_aliases` file, but it will be fully replaced by `~/.zshrc.d` in an upcoming release. Because of this, the `~/.zsh_aliases` file will no longer be automatically created.
 
 ## Released
 ### Version [1.5.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/1.5.0) - *2021-06-05*

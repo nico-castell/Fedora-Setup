@@ -263,5 +263,11 @@ if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
 	fi
 fi
 
-# Put all your aliases in ~/.zsh_aliases
-[ -f ~/.zsh_aliases ] && . ~/.zsh_aliases
+# Put all your aliases and configs in files under the ~/.zshrc.d folder
+[ -d ~/.zshrc.d ] && \
+	for i in $(ls ~/.zshrc.d); do
+		. ~/.zshrc.d/$i
+	done
+
+# DEPRECATED: Put aliases and configs in the ~/.zsh_aliases file
+[ -f ~/.zsh_alises ] && . ~/.zsh_aliases

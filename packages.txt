@@ -11,6 +11,7 @@ Eclipse_IDE_(for_Java) @eclipse
 Gitg gitg git git-lfs
 GNOME_Boxes gnome-boxes
 GNOME_Builder gnome-builder gnome-software-devel
+Go_Language golang
 Java_OpenJDK java-latest-openjdk
 Ninja_Build ninja-build
 Node.JS nodejs
