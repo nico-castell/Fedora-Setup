@@ -31,14 +31,41 @@ if [ -n "$force_color_prompt" ]; then
 	fi
 fi
 
-# Git branch in command line
-find_branch () {
-	_branch="$(git branch 2>/dev/null | sed -e "/^\s/d" -e "s/^\*\s//")"
-	[ ! -z $_branch ] && printf " - %s" $_branch
+# Find info about git and add it to the prompt.
+git_info () {
+	# Don't run this code if it's not going to be useful
+	[ ! -d .git ] && return
+
+	# Get easy to parse info
+	_status="$(git status -b --porcelain=v2 2>/dev/null)"
+
+	# Prepare branch name (or commit name)
+	_branch="$(echo "$_status" | grep "^#\sbranch\.head" | rev | cut -d ' ' -f 1 | rev)"
+	[ "$_branch" = "(detached)" ] && \
+		_branch="$(echo "$_status" | grep "^#\sbranch\.oid" | rev | cut -d ' ' -f 1 | rev | colrm 8)"
+	[ -n "$_branch" ] && branch="$_branch"
+
+	# Process info
+	_commiting="$(echo "$_status" | grep "^[0-9]\s[MADRCU]." | wc -l)"
+	_ahead="$(echo "$_status"     | grep "^#\sbranch.ab"     | rev | cut -d ' ' -f 2 | rev | sed -e "s/\+//")"
+	_behind="$(echo "$_status"    | grep "^#\sbranch.ab"     | rev | cut -d ' ' -f 1 | rev | sed -e "s/\-//")"
+	_modified="$(echo "$_status"  | grep "^[0-9]\s.[MADRCU]" | wc -l)"
+	_untracked="$(echo "$_status" | grep "^\?"               | wc -l)"
+
+	# Prepare simbols for the reader
+	[ -n "$_commiting" ] && [ "$_commiting" -gt 0 ] && info+=" +"
+	[ -n "$_ahead"     ] && [ "$_ahead"     -gt 0 ] && info+=" ↑"
+	[ -n "$_behind"    ] && [ "$_behind"    -gt 0 ] && info+=" ↓"
+	[ -n "$_modified"  ] && [ "$_modified"  -gt 0 ] && info+=" ✎"
+	[ -n "$_untracked" ] && [ "$_untracked" -gt 0 ] && info+=" ?"
+
+	# Build the prompt info
+	[ -n "$branch" ] && printf "%s%s%s" "$1" "$branch" "$info"
+	unset branch _branch _ahead _behind _modified _untracked _status info
 }
 
 if [ "$color_prompt" = yes ]; then
-	PS1="[\[\033[01m\]\u@\h\[\033[00m\] \W\$(find_branch)]\$ "
+	PS1="[\[\033[01m\]\u@\h\[\033[00m\] \W\$(git_info ' - ')]\$ "
 
 	# Color out some more stuff
 	alias grep='grep --color=auto'
@@ -47,7 +74,7 @@ if [ "$color_prompt" = yes ]; then
 	alias diff='diff --color=auto'
 	alias ip='ip --color=auto'
 else
-	PS1="[\u@\h \W\$(find_branch)]\$ "
+	PS1="[\u@\h \W]\$ "
 fi
 
 # Some ls aliases
@@ -64,8 +91,6 @@ new() {
 # User specific aliases and functions
 if [ -d ~/.bashrc.d ]; then
 	for rc in ~/.bashrc.d/*; do
-		if [ -f "$rc" ]; then
-			. "$rc"
-		fi
+		[ -f "$rc" ] && . "$rc"
 	done
 fi

@@ -29,6 +29,8 @@ All significant changes to **Fedora Setup** will be documented here.
 - [.zshrc](samples/zshrc):
   - Added info about staged and untracked files in the git prompt.
   - Aliases and configs are now sourced from files under the `~/.zshrc.d` folder, as well as from a `~/.zsh_aliases` file.
+- [.bashrc](samples/bashrc):
+  - The improved git info for the prompt was brought to this file too.
 - [back_me_up.sh](back_me_up.sh):
   - The scripts now also looks to back up the following folders and files: `~/.zshrc.d`, `~/.bashrc.d` and `~/.bash_aliases`.
 ### Changed
