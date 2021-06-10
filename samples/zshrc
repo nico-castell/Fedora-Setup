@@ -273,4 +273,4 @@ fi
 	done
 
 # DEPRECATED: Put aliases and configs in the ~/.zsh_aliases file
-[ -f ~/.zsh_alises ] && . ~/.zsh_aliases
+[ -f ~/.zsh_aliases ] && . ~/.zsh_aliases
