@@ -224,7 +224,7 @@ case $i in
 	discord|steam)
 	if [ "$RPMFUSION_NONFREE_QUEUED" = "no" ]; then
 		REPOS_ADDED=yes
-		TO_RPMFUSION+=("https://mirrors.rpmfusion.org/free/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm")
+		TO_RPMFUSION+=("https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm")
 		RPMFUSION_NONFREE_QUEUED=yes
 	fi
 	;;

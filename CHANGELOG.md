@@ -26,6 +26,8 @@ All significant changes to **Fedora Setup** will be documented here.
 ### Fixed
 - [.zshrc](samples/zshrc):
   - Fixed prompt starting with error code 1 when `~/.zsh_aliases` is missing.
+- [fedora_setup.sh](fedora_setup.sh):
+  - Fixed a typo in RPM Fusion nonfree
 
 ## Released
 ### Version [1.6.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/1.6.0) - *2021-06-11*
