@@ -2,6 +2,9 @@
 
 All significant changes to **Fedora Setup** will be documented here.
 
+- [Unreleased](#unreleased)
+  - [Changed](#changed)
+  - [Fixed](#fixed)
 - [Released](#released)
   - [Version 1.6.0 - *2021-06-11*](#version-160---2021-06-11)
   - [Version 1.5.0 - *2021-06-05*](#version-150---2021-06-05)
@@ -14,6 +17,15 @@ All significant changes to **Fedora Setup** will be documented here.
 - [Pre releases](#pre-releases)
   - [Version 0.0.2 - *2021-05-04*](#version-002---2021-05-04)
   - [Version 0.0.1 - *2021-05-03*](#version-001---2021-05-03)
+
+## Unreleased
+### Changed
+- [.zshrc](samples/zshrc):
+  - The **vscode prompt** can now be chosen by assigning the value `vscode` to the `prompt_style` variable.
+  - Made **vscode prompt** trigger when `$VSCODE_GIT_IPC_HANDLE` is set, instead of `"$VSCODE_TERM" == "yes"`. This means the user won't have to manually set the variable from the vscode settings.
+### Fixed
+- [.zshrc](samples/zshrc):
+  - Fixed prompt starting with error code 1 when `~/.zsh_aliases` is missing.
 
 ## Released
 ### Version [1.6.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/1.6.0) - *2021-06-11*
