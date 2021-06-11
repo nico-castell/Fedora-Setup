@@ -2,12 +2,8 @@
 
 All significant changes to **Fedora Setup** will be documented here.
 
-- [Unreleased](#unreleased)
-  - [Added](#added)
-  - [Changed](#changed)
-  - [Fixed](#fixed)
-  - [Deprecated](#deprecated)
 - [Released](#released)
+  - [Version 1.6.0 - *2021-06-11*](#version-160---2021-06-11)
   - [Version 1.5.0 - *2021-06-05*](#version-150---2021-06-05)
   - [Version 1.4.0 - *2021-06-02*](#version-140---2021-06-02)
   - [Version 1.3.0 - *2021-05-26*](#version-130---2021-05-26)
@@ -19,8 +15,14 @@ All significant changes to **Fedora Setup** will be documented here.
   - [Version 0.0.2 - *2021-05-04*](#version-002---2021-05-04)
   - [Version 0.0.1 - *2021-05-03*](#version-001---2021-05-03)
 
-## Unreleased
-### Added
+## Released
+### Version [1.6.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/1.6.0) - *2021-06-11*
+This version is made up of a few improvements, a rewritten script, and fixes. The most significant additions are:
+- Added **Eclipse IDE** and **VS Codium** packages.
+- Added **Golang** with a post-installation script to set up the `$GOPATH` to the `~/.local/golang` path.
+- Improved and faster **git info in the prompt**.
+- Rewriting of the **duc_noip_install.sh** script.
+#### Added
 - [packages.txt](packages.txt):
   - Added [**Eclipse IDE**](https://www.eclipse.org/downloads/) and [**VS Codium**](https://vscodium.com/).
   - Added support for [**Golang**](https://golang.org/), this required some modifications to the **Z-Shell** setup.
@@ -33,7 +35,7 @@ All significant changes to **Fedora Setup** will be documented here.
   - The improved git info for the prompt was brought to this file too.
 - [back_me_up.sh](back_me_up.sh):
   - The scripts now also looks to back up the following folders and files: `~/.zshrc.d`, `~/.bashrc.d` and `~/.bash_aliases`.
-### Changed
+#### Changed
 - [duc_noip_install.sh](scripts/duc_noip_install.sh):
   - Rewrote the script to be much more reliable and simple to edit.
 - [fedora_setup.sh](fedora_setup.sh):
@@ -48,7 +50,7 @@ All significant changes to **Fedora Setup** will be documented here.
   - Improved performance and eliminated edge cases for the git info.
 - [packages.txt](packages.txt):
   - Separated **CMake** from **C/C++ development**.
-### Fixed
+#### Fixed
 - [vim.sh](post-install.d/vim.sh):
   - Excessive arguments error.
 - [zsh.sh](post-install.d/zsh.sh):
@@ -58,11 +60,10 @@ All significant changes to **Fedora Setup** will be documented here.
 - [fedora_setup.sh](fedora_setup.sh):
   - Fixed error in **RPM Fusion** setup.
   - Fixed errors when in the welcome message when running from a shallow git clone or the .git folder is missing.
-### Deprecated
+#### Deprecated
 - [.zshrc](samples/zshrc):
   - This file will continue sourcing the `~/.zsh_aliases` file, but it will be fully replaced by `~/.zshrc.d` in an upcoming release. Because of this, the `~/.zsh_aliases` file will no longer be automatically created.
 
-## Released
 ### Version [1.5.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/1.5.0) - *2021-06-05*
 This is another minor version, the main update is the introduction of *powerline* for **Vim**, but there are other updates to the git setup and zsh prompts.
 #### Added
