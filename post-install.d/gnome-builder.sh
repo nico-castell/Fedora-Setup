@@ -1,0 +1,15 @@
+# bash script to be sourced from fedora_setup.sh
+
+if which flatpak &>/dev/null; then
+	Separate 4
+	printf "Successfully installed \e[36mGNOME Builder\e[00m\n"
+
+	# Install the GNOME SDK for GNOME Builder
+	read -rp "$(printf "Do you want to install the \e[01mGNOME SDK\e[00m from Flathub now? (y/N)
+It weighs about 1 GiB with its dependencies
+Your answer (default is: N): ")"
+	if [ "${REPLY,,}" = "y" ]; then
+		printf "Installing...\n"
+		flatpak install --user -y flathub org.gnome.Sdk/$(lscpu | grep "^Architecture" | awk '{print $2}')/$(gnome-shell --version | rev | cut -d ' ' -f 1 | sed -e "s/.\.//" | rev)
+	fi
+fi

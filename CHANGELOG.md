@@ -19,6 +19,9 @@ All significant changes to **Fedora Setup** will be documented here.
   - [Version 0.0.1 - *2021-05-03*](#version-001---2021-05-03)
 
 ## Unreleased
+### Added
+- [gnome-builder.sh](post-install.d/gnome-builder.sh):
+  - Added the file, it gives the user a choice to install the **GNOME SDK** when **flatpak** was also installed.
 ### Changed
 - [.zshrc](samples/zshrc):
   - The **vscode prompt** can now be chosen by assigning the value `vscode` to the `prompt_style` variable.
