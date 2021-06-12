@@ -65,7 +65,7 @@ git_info () {
 }
 
 if [ "$color_prompt" = yes ]; then
-	PS1="[\[\033[01m\]\u@\h\[\033[00m\] \W\$(git_info ' - ')]\$ "
+	PS1="[\u@\h \W\$(git_info ' - ')]\$ "
 
 	# Color out some more stuff
 	alias grep='grep --color=auto'
@@ -89,8 +89,7 @@ new() {
 }
 
 # User specific aliases and functions
-if [ -d ~/.bashrc.d ]; then
-	for rc in ~/.bashrc.d/*; do
-		[ -f "$rc" ] && . "$rc"
+[ -d ~/.bashrc.d ] && \
+	for i in $(ls ~/.bashrc.d); do
+		. ~/.bashrc.d/$i
 	done
-fi
