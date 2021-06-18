@@ -27,6 +27,8 @@ All significant changes to **Fedora Setup** will be documented here.
   - Added [Kitty Terminal](https://sw.kovidgoyal.net/kitty/) package.
 - [.zshrc](samples/zshrc):
   - Added support for Kitty terminal.
+- [.vimrc](samples/vimrc):
+  - Added line highlighting.
 ### Changed
 - [.zshrc](samples/zshrc):
   - The **vscode prompt** can now be chosen by assigning the value `vscode` to the `prompt_style` variable.
