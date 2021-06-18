@@ -33,6 +33,7 @@ All significant changes to **Fedora Setup** will be documented here.
 - [.zshrc](samples/zshrc):
   - The **vscode prompt** can now be chosen by assigning the value `vscode` to the `prompt_style` variable.
   - Made **vscode prompt** trigger when `$VSCODE_GIT_IPC_HANDLE` is set, instead of `"$VSCODE_TERM" == "yes"`. This means the user won't have to manually set the variable from the vscode settings.
+  - The **user environment** section now edits the `$PATH` more carefully.
 ### Fixed
 - [vim.sh](post-install.d/vim.sh):
   - Fixed root user not getting powerline when the user installs it.
