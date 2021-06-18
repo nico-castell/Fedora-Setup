@@ -3,6 +3,7 @@
 All significant changes to **Fedora Setup** will be documented here.
 
 - [Unreleased](#unreleased)
+  - [Added](#added)
   - [Changed](#changed)
   - [Fixed](#fixed)
 - [Released](#released)
@@ -22,6 +23,10 @@ All significant changes to **Fedora Setup** will be documented here.
 ### Added
 - [gnome-builder.sh](post-install.d/gnome-builder.sh):
   - Added the file, it gives the user a choice to install the **GNOME SDK** when **flatpak** was also installed.
+- [packages.txt](packages.txt):
+  - Added [Kitty Terminal](https://sw.kovidgoyal.net/kitty/) package.
+- [.zshrc](samples/zshrc):
+  - Added support for Kitty terminal.
 ### Changed
 - [.zshrc](samples/zshrc):
   - The **vscode prompt** can now be chosen by assigning the value `vscode` to the `prompt_style` variable.
