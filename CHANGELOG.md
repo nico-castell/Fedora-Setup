@@ -2,11 +2,8 @@
 
 All significant changes to **Fedora Setup** will be documented here.
 
-- [Unreleased](#unreleased)
-  - [Added](#added)
-  - [Changed](#changed)
-  - [Fixed](#fixed)
 - [Released](#released)
+  - [Version 2.0.0 - *2021-06-19*](#version-200---2021-06-19)
   - [Version 1.6.0 - *2021-06-11*](#version-160---2021-06-11)
   - [Version 1.5.0 - *2021-06-05*](#version-150---2021-06-05)
   - [Version 1.4.0 - *2021-06-02*](#version-140---2021-06-02)
@@ -19,8 +16,13 @@ All significant changes to **Fedora Setup** will be documented here.
   - [Version 0.0.2 - *2021-05-04*](#version-002---2021-05-04)
   - [Version 0.0.1 - *2021-05-03*](#version-001---2021-05-03)
 
-## Unreleased
-### Added
+## Released
+### Version [2.0.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/2.0.0) - *2021-06-19*
+This version, while it doesn't bring much new, reworked an important step of the main script, the installation of **dnf repositories**, to be much more expandable than before, without requiring to edit the main script to modify the step. However, some small features were added, such as:
+- New packages in the installation list.
+- Line highlighting in Vim
+- A post-install script to set up the GNOME Sdk
+#### Added
 - [sources.d](sources.d):
   - This folder will contain sources to be added before installing packages.
 - [gnome-builder.sh](post-install.d/gnome-builder.sh):
@@ -31,7 +33,7 @@ All significant changes to **Fedora Setup** will be documented here.
   - Added support for Kitty terminal.
 - [.vimrc](samples/vimrc):
   - Added line highlighting.
-### Changed
+#### Changed
 - [fedora_setup.sh](fedora_setup.sh):
   - Changed methodology for adding repositories. Now the [sources.d](sources.d) folder contains the sources in files named according to the package that needs the source.
 - [.zshrc](samples/zshrc):
@@ -40,9 +42,7 @@ All significant changes to **Fedora Setup** will be documented here.
   - The **user environment** section now edits the `$PATH` more carefully.
 - [golang.sh](post-install.d/golang.sh):
   - Changed how we manipulate the `$PATH` environment variable.
-- [gnome-builder.sh](post-install.d/gnome-builder.sh):
-  - Use a better command to get processor architecture.
-### Fixed
+#### Fixed
 - [vim.sh](post-install.d/vim.sh):
   - Fixed root user not getting powerline when the user installs it.
 - [.zshrc](samples/zshrc):
@@ -51,7 +51,6 @@ All significant changes to **Fedora Setup** will be documented here.
   - Fixed a typo in RPM Fusion nonfree
   - No longer reading an unused variable when installing user-selected packages.
 
-## Released
 ### Version [1.6.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/1.6.0) - *2021-06-11*
 This version is made up of a few improvements, a rewritten script, and fixes. The most significant additions are:
 - Added **Eclipse IDE** and **VS Codium** packages.

@@ -13,7 +13,7 @@
 
 I'm assuming you have just installed [fedora](https://getfedora.org/en/workstation/download/) successfully.
 
-1. Close this repo
+1. Close this repo, you can do a shallow clone if you wish (by adding `--depth=1` to the following command).
   ```shell
   $ git clone https://github.com/nico-castell/Fedora-Setup.git
   ```
