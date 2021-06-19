@@ -9,7 +9,7 @@ if ! [[ "${REPOS_CONFIGURED[@]}" =~ "$URL" ]]; then
 
 	# Configure the repository
 	sudo rpm --import "$KEY"
-	printf "[gitlab.com_paulcarroty_vscodium_repo]\nname=VS Codium\nbaseurl=%s\nenabled=1\ngpgcheck=1\ngpgcheck=1\ngpgkey=%s\n" "$URL" "$KEY" | sudo tee /etc/yum.repos.d/vscode.repo >/dev/null
+	printf "[gitlab.com_paulcarroty_vscodium_repo]\nname=VS Codium\nbaseurl=%s\nenabled=1\ngpgcheck=1\ngpgcheck=1\ngpgkey=%s\n" "$URL" "$KEY" | sudo tee /etc/yum.repos.d/vscodium.repo >/dev/null
 
 	# List is as already configured
 	REPOS_CONFIGURED+=("$URL")
