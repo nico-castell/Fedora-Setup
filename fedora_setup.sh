@@ -202,7 +202,7 @@ if [[ "${TO_RPMFUSION[@]}" ]]; then
 fi
 
 [[ "${REPOS_CONFIGURED[@]}" ]] && Separate 4
-unset REPOS_CONFIGURED
+unset REPOS_CONFIGURED URL KEY
 
 printf "Updating repositories...\n"
 sudo dnf check-update --refresh # Exit code will be 100 if upgrades are available

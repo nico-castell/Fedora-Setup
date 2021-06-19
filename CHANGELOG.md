@@ -21,6 +21,8 @@ All significant changes to **Fedora Setup** will be documented here.
 
 ## Unreleased
 ### Added
+- [sources.d](sources.d):
+  - This folder will contain sources to be added before installing packages.
 - [gnome-builder.sh](post-install.d/gnome-builder.sh):
   - Added the file, it gives the user a choice to install the **GNOME SDK** when **flatpak** was also installed.
 - [packages.txt](packages.txt):
@@ -30,6 +32,8 @@ All significant changes to **Fedora Setup** will be documented here.
 - [.vimrc](samples/vimrc):
   - Added line highlighting.
 ### Changed
+- [fedora_setup.sh](fedora_setup.sh):
+  - Changed methodology for adding repositories. Now the [sources.d](sources.d) folder contains the sources in files named according to the package that needs the source.
 - [.zshrc](samples/zshrc):
   - The **vscode prompt** can now be chosen by assigning the value `vscode` to the `prompt_style` variable.
   - Made **vscode prompt** trigger when `$VSCODE_GIT_IPC_HANDLE` is set, instead of `"$VSCODE_TERM" == "yes"`. This means the user won't have to manually set the variable from the vscode settings.
