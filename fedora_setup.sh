@@ -38,9 +38,11 @@ choices_file=("$script_location/.tmp_choices")
 packages_file=("$script_location/packages.txt")
 scripts_folder=("$script_location/scripts")
 postinstall_folder=("$script_location/post-install.d")
+sources_folder=("$script_location/sources.d")
 [ -f "$packages_file"      ] || MISSING "$packages_file"
 [ -d "$scripts_folder"     ] || MISSING "$scripts_folder"
 [ -d "$postinstall_folder" ] || MISSING "$postinstall_folder"
+[ -d "$sources_folder"     ] || MISSING "$sources_folder"
 
 unset USAGE_MSG MISSING
 
@@ -185,59 +187,22 @@ unset DNF_CONF
 # Stop GNOME's packagekit to avoid problems while the package manager is being used.
 sudo systemctl stop packagekit
 
-# Set up extra sources now
-REPOS_ADDED=no
-RPMFUSION_NONFREE_QUEUED=no
-RPMFUSION_FREE_QUEUED=no
-for i in ${TO_DNF[@]}; do
-case $i in
-	code)
-	REPOS_ADDED=yes
-	printf "Preparing \e[01mVisual Studio Code\e[00m source...\n"
-	sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
-	printf "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc\n" | sudo tee /etc/yum.repos.d/vscode.repo >/dev/null
-	;;
-
-	codium)
-	REPOS_ADDED=yes
-	printf "Preparing \e[01mVS Codium\e[00m source...\n"
-	sudo rpm --import https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/-/raw/master/pub.gpg
-	printf "[gitlab.com_paulcarroty_vscodium_repo]\nname=VS Codium\nbaseurl=https://paulcarroty.gitlab.io/vscodium-deb-rpm-repo/rpms/\nenabled=1\ngpgcheck=1\ngpgcheck=1\ngpgkey=https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/-/raw/master/pub.gpg\n" | sudo tee -a /etc/yum.repos.d/vscodium.repo >/dev/null
-	;;
-
-	brave-browser)
-	REPOS_ADDED=yes
-	printf "Preparing \e[01mBrave Browser\e[00m source...\n"
-	sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
-	printf "[brave-browser-rpm-release.s3.brave.com_x86_64_]\nname=Brave Browser\nbaseurl=https://brave-browser-rpm-release.s3.brave.com/x86_64/\nenabled=1\ngpgkey=https://brave-browser-rpm-release.s3.brave.com/brave-core.asc\ngpgcheck=1\n" | sudo tee /etc/yum.repos.d/brave-browser.repo >/dev/null
-	;;
-
-	# TODO: Find a way to avoid hard-coding RPM-Fusion
-	obs-studio|VirtualBox|vlc)
-	if [ "$RPMFUSION_FREE_QUEUED" = "no" ]; then
-		REPOS_ADDED=yes
-		TO_RPMFUSION+=("https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm")
-		RPMFUSION_FREE_QUEUED=yes
-	fi
-	;;
-
-	discord|steam)
-	if [ "$RPMFUSION_NONFREE_QUEUED" = "no" ]; then
-		REPOS_ADDED=yes
-		TO_RPMFUSION+=("https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm")
-		RPMFUSION_NONFREE_QUEUED=yes
-	fi
-	;;
-esac
+# Source all the files containing extra sources now.
+for i in $(ls "$sources_folder" | grep \.sh$); do
+	[[ "${TO_DNF[@]}" == *"${i/".sh"/""}"* ]] && \
+		source "$sources_folder/$i"
 done
 
+# RPM Fusion repositories have to be installed using dnf. We cannot just use
+# rpm --import and write the repository file. Instead, we queue the
+# repositories for installation in the previous loop, and install them now.
 if [[ "${TO_RPMFUSION[@]}" ]]; then
 	printf "Preparing \e[01mRPM Fusion\e[00m source...\n"
 	sudo dnf install -y ${TO_RPMFUSION[@]} >/dev/null
 fi
 
-[ "$REPOS_ADDED" = "yes" ] && Separate 4
-unset REPOS_ADDED RPMFUSION_FREE_QUEUED RPMFUSION_NONFREE_QUEUED TO_RPMFUSION
+[[ "${REPOS_CONFIGURED[@]}" ]] && Separate 4
+unset REPOS_CONFIGURED
 
 printf "Updating repositories...\n"
 sudo dnf check-update --refresh # Exit code will be 100 if upgrades are available
