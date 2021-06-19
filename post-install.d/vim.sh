@@ -24,6 +24,10 @@ if [ "${PWL,,}" = "y" -o -z "$PWL" ]; then
 		sudo pip3 install powerline-status &>/dev/null && \
 			printf "
 if &term !=? 'linux'
+	\" Disable dynamic statusline
+	augroup statusline
+		au!
+	augroup end
 	\" Powerline
 	set rtp+=%s
 	set laststatus=2

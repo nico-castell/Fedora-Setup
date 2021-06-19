@@ -57,11 +57,34 @@ hi VertSplit ctermbg=234 ctermfg=250
 set fillchars+=vert:\│
 
 " Statusline:
-hi clear Statusline
-hi Statusline term=bold cterm=bold gui=bold ctermbg=234 guibg=DarkGrey
+hi clear StatusLine
+hi clear StatusLineNC
+hi StatusLine   term=bold cterm=bold gui=bold ctermbg=234 guibg=DarkGrey
+hi StatusMode   term=bold cterm=bold gui=bold ctermbg=234 guibg=DarkGrey ctermfg=34
+hi StatusLineNC ctermbg=232 guibg=DarkGrey
 if $USER == 'root' | hi Statusline ctermfg=124 | else | hi Statusline ctermfg=15 | endif
-set statusline=%#Statusline#\ %t:\ %l:%c\ /\ %L%=%r\ %y\ %p%%\ 
 set laststatus=2
+
+let g:currentmode={
+	\ 'n' : 'NORMAL',
+	\ 'v' : 'VISUAL',
+	\ 'V' : 'V-LINE',
+	\ '': 'V-BLOCK',
+	\ 's' : 'SELECT',
+	\ 'S' : 'S-LINE',
+	\ '': 'S-BLOCK',
+	\ 'i' : 'INSERT',
+	\ 'R' : 'REPLACE',
+	\ 'Rv': 'V-REPLACE',
+	\ 'c' : 'COMMAND',
+	\}
+
+" Dinamically set the statusline based on active/inactive split.
+augroup statusline
+	autocmd!
+	autocmd WinEnter,BufEnter * setlocal statusline=%#StatusMode#\ %{g:currentmode[mode()]}\ »%#StatusLine#\ %t:\ %l:%c\ /\ %L%=%r\ %y\ %p%%\ 
+	autocmd WinLeave,BufLeave * setlocal statusline=%#StatusLineNC#\ %t%=%r\ %y\ %p%%\ 
+augroup end
 
 " Cursor line:
 hi clear CursorLine

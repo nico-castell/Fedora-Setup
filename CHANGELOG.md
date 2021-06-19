@@ -2,6 +2,8 @@
 
 All significant changes to **Fedora Setup** will be documented here.
 
+- [Unreleased](#unreleased)
+  - [Added](#added)
 - [Released](#released)
   - [Version 2.0.0 - *2021-06-19*](#version-200---2021-06-19)
   - [Version 1.6.0 - *2021-06-11*](#version-160---2021-06-11)
@@ -15,6 +17,11 @@ All significant changes to **Fedora Setup** will be documented here.
 - [Pre releases](#pre-releases)
   - [Version 0.0.2 - *2021-05-04*](#version-002---2021-05-04)
   - [Version 0.0.1 - *2021-05-03*](#version-001---2021-05-03)
+
+## Unreleased
+### Added
+- [.vimrc](samples/vimrc):
+  - A dynamic statusline for non-powerline vim editors. It changes based on wether the user is an active or inactive split.
 
 ## Released
 ### Version [2.0.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/2.0.0) - *2021-06-19*
