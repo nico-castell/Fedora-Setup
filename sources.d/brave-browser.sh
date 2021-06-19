@@ -9,7 +9,7 @@ if ! [[ "${REPOS_CONFIGURED[@]}" =~ "$URL" ]]; then
 
 	# Configure the repository
 	sudo rpm --import "$KEY"
-	printf "[brave-browser-rpm-release.s3.brave.com_x86_64_]\nname=Brave Browser\nbaseurl=%s\nenabled=1\ngpgkey=%s\ngpgcheck=1\n" "$URL" "$KEY" | sudo tee /etc/yum.repos.d/vscode.repo >/dev/null
+	printf "[brave-browser-rpm-release.s3.brave.com_x86_64_]\nname=Brave Browser\nbaseurl=%s\nenabled=1\ngpgkey=%s\ngpgcheck=1\n" "$URL" "$KEY" | sudo tee /etc/yum.repos.d/brave.repo >/dev/null
 
 	# List is as already configured
 	REPOS_CONFIGURED+=("$URL")
