@@ -26,7 +26,7 @@ All significant changes to **Fedora Setup** will be documented here.
 - [gnome-builder.sh](post-install.d/gnome-builder.sh):
   - Added the file, it gives the user a choice to install the **GNOME SDK** when **flatpak** was also installed.
 - [packages.txt](packages.txt):
-  - Added [Kitty Terminal](https://sw.kovidgoyal.net/kitty/) package.
+  - Added [Kitty Terminal](https://sw.kovidgoyal.net/kitty/), [Alacritty](https://github.com/alacritty/alacritty), and [Visual Studio Code Insiders](https://code.visualstudio.com/insiders/) packages.
 - [.zshrc](samples/zshrc):
   - Added support for Kitty terminal.
 - [.vimrc](samples/vimrc):

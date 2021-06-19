@@ -17,6 +17,7 @@ Ninja_Build ninja-build
 Node.JS nodejs
 Virtual_Box VirtualBox kernel-headers kernel-devel qt5-qtx11extras @c-development
 Visual_Studio_Code code
+Visual_Studio_Code_Insiders code-insiders
 VS_Codium codium
 cmatrix cmatrix
 Discord discord
@@ -36,6 +37,7 @@ LM_Sensors lm_sensors hddtemp
 TLP tlp powertop
 Z-Shell zsh zsh-syntax-highlighting zsh-autosuggestions python3-pip util-linux-user
 7zip p7zip
+Alacritty alacritty
 dconf-Editor dconf-editor
 GNOME_Power-Manager gnome-power-manager
 GNOME_Tweaks gnome-tweaks gnome-extensions-app
