@@ -38,6 +38,10 @@ All significant changes to **Fedora Setup** will be documented here.
   - The **vscode prompt** can now be chosen by assigning the value `vscode` to the `prompt_style` variable.
   - Made **vscode prompt** trigger when `$VSCODE_GIT_IPC_HANDLE` is set, instead of `"$VSCODE_TERM" == "yes"`. This means the user won't have to manually set the variable from the vscode settings.
   - The **user environment** section now edits the `$PATH` more carefully.
+- [golang.sh](post-install.d/golang.sh):
+  - Changed how we manipulate the `$PATH` environment variable.
+- [gnome-builder.sh](post-install.d/gnome-builder.sh):
+  - Use a better command to get processor architecture.
 ### Fixed
 - [vim.sh](post-install.d/vim.sh):
   - Fixed root user not getting powerline when the user installs it.
@@ -45,6 +49,7 @@ All significant changes to **Fedora Setup** will be documented here.
   - Fixed prompt starting with error code 1 when `~/.zsh_aliases` is missing.
 - [fedora_setup.sh](fedora_setup.sh):
   - Fixed a typo in RPM Fusion nonfree
+  - No longer reading an unused variable when installing user-selected packages.
 
 ## Released
 ### Version [1.6.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/1.6.0) - *2021-06-11*

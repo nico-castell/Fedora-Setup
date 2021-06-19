@@ -223,7 +223,7 @@ Separate 4
 
 # Install user-selected packages now:
 printf "Installing user-selected packages...\n"
-sudo dnf install ${TO_DNF[@]} ${APPEND_DNF[@]}
+sudo dnf install ${TO_DNF[@]}
 
 # Source the post-installation scripts for the packages we've installed
 if [ $? -eq 0 ]; then
