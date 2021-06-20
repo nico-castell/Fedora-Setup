@@ -17,16 +17,23 @@ All significant changes to **Fedora Setup** will be documented here.
   - [Version 1.0.0 - *2021-05-06*](#version-100---2021-05-06)
 - [Pre releases](#pre-releases)
   - [Version 0.0.2 - *2021-05-04*](#version-002---2021-05-04)
-  - [Version 0.0.1 - *2021-05-03*](#version-001---2021-05-03)
 
 ## Unreleased
 ### Added
+- [packages.txt](packages.txt):
+  - Added [Neovim](https://neovim.io/) package.
+- [nvim.vim](samples/nvim.vim):
+  - Added a config file for neovim with many of the features of the current [.vimrc](samples/vimrc).
+- [neovim.sh](post-install.d/neovim.sh):
+  - Added file to let user configure **Neovim** after installing it.
 - [.vimrc](samples/vimrc):
   - A dynamic statusline for non-powerline vim editors. It changes based on wether the user is an active or inactive split.
   - Set a scroll-offset of 5 lines to keep your sight further from the edges of the screen.
 ### Changed
 - [.vimrc](samples/vimrc):
   - Put backup, undo, and swap files in `~/.cache/vim`, and set their permissions so other users cannot read them.
+- [vim.sh](post-install.d/vim.sh):
+  - Reworded some prompts to avoid confusion with neovim.
 
 ## Released
 ### Version [2.0.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/2.0.0) - *2021-06-19*
@@ -295,6 +302,3 @@ This version introduces mainly a new way to load packages from [packages.txt](pa
 #### Removed
 - [mc_server_builder.sh](modules/mc_server_builder.sh):
   - Removed `update-desktop-database` commands as these commands don't run on Wayland.
-
-### Version [0.0.1](https://github.com/nico-castell/Fedora-Setup/tree/0.0.1) - *2021-05-03*
-This project is a heavily reworked version of [Pop!_OS Setup](https://github.com/nico-castell/PopOS-Setup), adapted to work in [Fedora](https://getfedora.org/en/workstation/download/).

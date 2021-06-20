@@ -2,16 +2,18 @@
 
 # Install .vimrc
 Separate 4
-printf "Installing a \e[01m.vimrc\e[00m...\n"
-cat "$script_location/samples/vimrc" | sudo tee /root/.vimrc /root/.vimrc-og | tee ~/.vimrc ~/.vimrc-og >/dev/null
+printf "Successfully installed \e[36mVim\e[00m, configuring...\n"
+cat "$script_location/samples/vimrc"     | \
+	sudo tee /root/.vimrc /root/.vimrc-og | \
+	tee ~/.vimrc ~/.vimrc-og >/dev/null
 
-read -rp "$(printf "Do you want to swap \e[01mnano\e[00m for \e[01mVim\e[00m as the default \e[35m\$EDITOR\e[00m? (Y/n) ")" SWP
+read -rp "$(printf "Do you want to make \e[01mVim\e[00m the default \e[35m\$EDITOR\e[00m? (Y/n) ")" SWP
 read -rp "$(printf "Do you want to use \e[01mpowerline\e[00m in vim? (Y/n) ")" PWL
 
 # Swap default editor
 if [ "${SWP,,}" = "y" -o -z "$SWP" ]; then
 	swap_editor() {
-		printf "Swapping \e[01mnano\e[00m for \e[01mVim\e[00m...\n"
+		printf "Making \e[01mVim\e[00m the new default editor...\n"
 		sudo dnf swap nano-default-editor vim-default-editor -y --allowerasing >/dev/null
 	}
 	swap_editor &
