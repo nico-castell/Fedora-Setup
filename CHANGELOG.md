@@ -24,14 +24,17 @@ All significant changes to **Fedora Setup** will be documented here.
   - Added [Neovim](https://neovim.io/) package.
 - [nvim.vim](samples/nvim.vim):
   - Added a config file for neovim with many of the features of the current [.vimrc](samples/vimrc).
-  - Can write a special function to the config file to check which editor you're running when you also install **Vim**.
 - [neovim.sh](post-install.d/neovim.sh):
   - Added file to let user configure **Neovim** after installing it.
+  - Can write a special function to the config file to check which editor you're running when you also install **Vim**.
 - [.vimrc](samples/vimrc):
   - A dynamic statusline for non-powerline vim editors. It changes based on wether the user is an active or inactive split.
   - Set a scroll-offset of 5 lines to keep your sight further from the edges of the screen.
 - [vim.sh](post-install.d/vim.sh):
   - Can write a special function to the config file to check which editor you're running when you also install **Neovim**.
+- [git.sh](post-install.d/git.sh):
+  - The new alias `eflog` will show a log of commits with commiter emails.
+  - Now it can more deeply integrate editors such as **Vim** and **Nvim** with Git.
 ### Changed
 - [.vimrc](samples/vimrc):
   - Put backup, undo, and swap files in `~/.cache/vim`, and set their permissions so other users cannot read them.
