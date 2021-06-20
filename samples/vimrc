@@ -12,14 +12,14 @@ source $VIMRUNTIME/defaults.vim
 " Configure directories for backups
 set undofile
 set backup
-let &directory = expand('~/.vimdata/swap//')
-let &backupdir = expand('~/.vimdata/backup//')
-let &undodir   = expand('~/.vimdata/undo//')
+let &directory = expand('~/.cache/vim/swap//')
+let &backupdir = expand('~/.cache/vim/backup//')
+let &undodir   = expand('~/.cache/vim/undo//')
 
-" Make sure the directories exist
-if !isdirectory(&directory) | call mkdir(&directory, "p") | endif
-if !isdirectory(&backupdir) | call mkdir(&backupdir, "p") | endif
-if !isdirectory(&undodir)   | call mkdir(&undodir, "p")   | endif
+" Create directories and set their permissions
+if !isdirectory(&directory) | call mkdir(&directory, "p", "0700") | endif
+if !isdirectory(&backupdir) | call mkdir(&backupdir, "p", "0700") | endif
+if !isdirectory(&undodir)   | call mkdir(&undodir, "p", "0700")   | endif
 
 if &t_Co > 2 || has("gui_running")
   " Switch on highlighting the last used search pattern.
@@ -50,6 +50,7 @@ set shiftwidth=0
 "set expandtab
 set number
 set nowrap
+set scrolloff=5
 
 " Vertical Split
 hi clear VertSplit

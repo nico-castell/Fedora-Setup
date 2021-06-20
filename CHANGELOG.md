@@ -4,6 +4,7 @@ All significant changes to **Fedora Setup** will be documented here.
 
 - [Unreleased](#unreleased)
   - [Added](#added)
+  - [Changed](#changed)
 - [Released](#released)
   - [Version 2.0.0 - *2021-06-19*](#version-200---2021-06-19)
   - [Version 1.6.0 - *2021-06-11*](#version-160---2021-06-11)
@@ -22,6 +23,10 @@ All significant changes to **Fedora Setup** will be documented here.
 ### Added
 - [.vimrc](samples/vimrc):
   - A dynamic statusline for non-powerline vim editors. It changes based on wether the user is an active or inactive split.
+  - Set a scroll-offset of 5 lines to keep your sight further from the edges of the screen.
+### Changed
+- [.vimrc](samples/vimrc):
+  - Put backup, undo, and swap files in `~/.cache/vim`, and set their permissions so other users cannot read them.
 
 ## Released
 ### Version [2.0.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/2.0.0) - *2021-06-19*
