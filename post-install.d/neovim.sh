@@ -37,4 +37,15 @@ fi\n" $(which nvim) | sudo tee /etc/profile.d/nvim-default-editor.csh >/dev/null
 
 fi
 
+# If vim was also installed, write some code so the user can check the editor
+# they're running
+which vim &>/dev/null && printf "
+\" Simple check to see if you're in nvim or vim
+function! Checkeditor()
+	if has('nvim') | echo 'nvim' | else | echo 'vim' | endif
+endfunction
+command! Checkeditor call Checkeditor()\n" | \
+	sudo tee -a "/root/$LOCATION"           | \
+	tee -a "$HOME/$LOCATION" >/dev/null
+
 unset SWP LOCATION

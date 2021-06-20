@@ -42,6 +42,17 @@ endif\n" "$(pip3 show powerline-status 2>/dev/null | grep Location | cut -d ' ' 
 	prepare_powerline &
 fi
 
+# If neovim was also installed, write some code so the user can check the
+# editor they're running
+which nvim &>/dev/null && printf "
+\" Simple check to see if you're in nvim or vim
+function! Checkeditor()
+	if has('nvim') | echo 'nvim' | else | echo 'vim' | endif
+endfunction
+command! Checkeditor call Checkeditor()\n" | \
+	sudo tee -a "/root/.vimrc"              | \
+	tee -a "$HOME/.vimrc" >/dev/null
+
 # Wait for subprocesses to be over, and unset vars and functions to avoid contamination
 wait
 unset SWP PWL swap_editor prepare_powerline
