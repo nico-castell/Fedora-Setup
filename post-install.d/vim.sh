@@ -14,7 +14,7 @@ read -rp "$(printf "Do you want to use \e[01mpowerline\e[00m in vim? (Y/n) ")" P
 if [ "${SWP,,}" = "y" -o -z "$SWP" ]; then
 	swap_editor() {
 		printf "Making \e[01mVim\e[00m the new default editor...\n"
-		sudo dnf swap nano-default-editor vim-default-editor -y --allowerasing >/dev/null
+		sudo dnf swap nano-default-editor vim-default-editor -y --allowerasing &>/dev/null
 	}
 	swap_editor &
 fi
