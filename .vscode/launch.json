@@ -6,6 +6,7 @@
 			"request": "launch",
 			"name": "Bash-Debug: Active file",
 			"cwd": "${workspaceFolder}",
+			"terminalKind": "integrated",
 			"program": "${file}",
 			"args": [
 				"${input:ARGS}"
