@@ -8,9 +8,7 @@
 			"cwd": "${workspaceFolder}",
 			"terminalKind": "integrated",
 			"program": "${file}",
-			"args": [
-				"${input:ARGS}"
-			]
+			"args": ["${input:ARGS}"]
 		}
 	],
 	"compounds": [],

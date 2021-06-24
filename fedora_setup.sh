@@ -90,7 +90,7 @@ if [ "$load_choices_file" = "no" ]; then
 	unset IFSB
 
 	# Append "essential" packages
-	TO_DNF+=("ufw" "xclip")
+	TO_DNF+=("ufw" "xclip" "rpmconf")
 
 	# Store all selected packages
 	echo "TO_DNF - ${TO_DNF[@]}" >> "$choices_file"

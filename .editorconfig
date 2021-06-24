@@ -2,6 +2,12 @@
 end_of_line = lf
 insert_final_newline = true
 
+[*.json]
+charset = utf-8
+indent_style = tab
+indent_size = 3
+trim_trailing_whitespace = true
+
 [*.sh]
 charset = utf-8
 indent_style = tab

@@ -20,6 +20,8 @@ All significant changes to **Fedora Setup** will be documented here.
 
 ## Unreleased
 ### Added
+- [fedora_setup.sh](fedora_setup.sh):
+  - Added package [`rpmconf`](https://src.fedoraproject.org/rpms/rpmconf) to the list of *"essentials"*. It helps you manage configuration files after updating packages.
 - [back_me_up.sh](back_me_up.sh):
   - Added `-r` flag, which tells the script to replace the latest backup.
 - [packages.txt](packages.txt):
