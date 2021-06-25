@@ -42,6 +42,11 @@ All significant changes to **Fedora Setup** will be documented here.
   - The new alias `eflog` will show a log of commits with commiter emails.
   - Now it can more deeply integrate editors such as **Vim** and **Nvim** with Git.
 ### Changed
+- [fedora_setup.sh](fedora_setup.sh):
+  - Changed how extra sources are processed, making it a lot simpler to keep adding sources.
+- [sources.d](sources.d):
+  - Files are no longer "small" shellscripts, but *.txt* files that [fedora_setup.sh](fedora_setup.sh) sources to get the variables it has to process.
+  - [fedora_setup.sh](fedora_setup.sh) will handle the configuration of each source, while the files in this folder just give it the required information.
 - [.vimrc](samples/vimrc):
   - Put backup, undo, and swap files in `~/.cache/vim`, and set their permissions so other users cannot read them.
   - Reconfigured some of the coloring to be more consistent on terminal and gui.

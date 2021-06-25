@@ -189,8 +189,22 @@ sudo systemctl stop packagekit
 
 # Source all the files containing extra sources now.
 for i in $(ls "$sources_folder" | grep \.sh$); do
-	[[ "${TO_DNF[@]}" == *"${i/".sh"/""}"* ]] && \
+	if [[ "${TO_DNF[@]}" == *"${i/".sh"/""}"* ]];then
 		source "$sources_folder/$i"
+		if ! [[ "${REPOS_CONFIGURED[@]}" =~ "$URL" ]]; then
+			# Configure the repository
+			if [[ "$URL" =~ "rpmfusion" ]]; then
+				TO_RPMFUSION+=("$URL")
+			else
+				printf "Preparing \e[01m%s\e[00m source...\n" "$NAME"
+				rpm --import "$KEY"
+				printf "%s\n" "$CONF" | sudo tee "/etc/yum.repos.d/$CONF_FILE" >/dev/null
+			fi
+
+			# List it as already configured
+			REPOS_CONFIGURED+=("$URL")
+		fi
+	fi
 done
 
 # RPM Fusion repositories have to be installed using dnf. We cannot just use
@@ -202,7 +216,7 @@ if [[ "${TO_RPMFUSION[@]}" ]]; then
 fi
 
 [[ "${REPOS_CONFIGURED[@]}" ]] && Separate 4
-unset REPOS_CONFIGURED URL KEY
+unset REPOS_CONFIGURED URL KEY NAME CONF CONF_FILE
 
 printf "Updating repositories...\n"
 sudo dnf check-update --refresh # Exit code will be 100 if upgrades are available
