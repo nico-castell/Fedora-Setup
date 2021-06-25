@@ -24,6 +24,8 @@ All significant changes to **Fedora Setup** will be documented here.
   - Added package [`rpmconf`](https://src.fedoraproject.org/rpms/rpmconf) to the list of *"essentials"*. It helps you manage configuration files after updating packages.
 - [back_me_up.sh](back_me_up.sh):
   - Added `-r` flag, which tells the script to replace the latest backup.
+- [golang.sh](post-install.d/golang.sh):
+  - Added the choice to install development tools for Visual Studio Code.
 - [packages.txt](packages.txt):
   - Added [Neovim](https://neovim.io/) package.
 - [nvim.vim](samples/nvim.vim):
