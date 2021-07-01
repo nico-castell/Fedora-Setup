@@ -31,7 +31,7 @@ if $PROCEED; then
 
 	# Find some necessary packages
 	for i in blkid sed awk cut cat sudo grep kernel-install; do
-		if ! which $i >/dev/null; then
+		if ! which $i &>/dev/null; then
 			printf "Missing required package: %s\n" $i
 			exit 3
 		fi
