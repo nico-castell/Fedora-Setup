@@ -50,6 +50,7 @@ All significant changes to **Fedora Setup** will be documented here.
   - [fedora_setup.sh](fedora_setup.sh) will handle the configuration of each source, while the files in this folder just give it the required information.
 - [.vimrc](samples/vimrc):
   - Put backup, undo, and swap files in `~/.cache/vim`, and set their permissions so other users cannot read them.
+  - Changed textwidth for *plain text* and *markdown* to 100 characters
   - Reconfigured some of the coloring to be more consistent on terminal and gui.
 - [vim.sh](post-install.d/vim.sh):
   - Reworded some prompts to avoid confusion with neovim.
