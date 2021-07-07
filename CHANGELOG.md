@@ -15,8 +15,6 @@ All significant changes to **Fedora Setup** will be documented here.
   - [Version 1.2.0 - *2021-05-18*](#version-120---2021-05-18)
   - [Version 1.1.0 - *2021-05-12*](#version-110---2021-05-12)
   - [Version 1.0.0 - *2021-05-06*](#version-100---2021-05-06)
-- [Pre releases](#pre-releases)
-  - [Version 0.0.2 - *2021-05-04*](#version-002---2021-05-04)
 
 ## Unreleased
 ### Added
@@ -37,6 +35,7 @@ All significant changes to **Fedora Setup** will be documented here.
 - [.vimrc](samples/vimrc):
   - A dynamic statusline for non-powerline vim editors. It changes based on wether the user is an active or inactive split.
   - Set a scroll-offset of 5 lines to keep your sight further from the edges of the screen.
+  - Integrate with the system clipboard.
 - [vim.sh](post-install.d/vim.sh):
   - Can write a special function to the config file to check which editor you're running when you also install **Neovim**.
 - [git.sh](post-install.d/git.sh):
@@ -298,27 +297,3 @@ This version introduces mainly a new way to load packages from [packages.txt](pa
   - Many syntax errors were fixed.
 - [vscode.sh](vscode.sh):
   - Fixed how the script would offer configurations even if it wasn't sourced properly.
-
-## Pre releases
-
-### Version [0.0.2](https://github.com/nico-castell/Fedora-Setup/tree/0.0.2) - *2021-05-04*
-#### Added
-- [back_me_up.sh](back_me_up.sh):
-  - Support for Fedora auto-mounting directory.
-- [fedora_setup.sh](fedora_setup.sh):
-  - Now the .zsh_aliases file for the root user will be created automatically.
-#### Changed
-- [.vimrc](samples/vimrc):
-  - Configure statusline in just one line
-  - Store backup, undo, and swap files in a centralized ~/.vimdata directory.
-- [fedora_setup.sh](fedora_setup.sh):
-  - New method to obtain the latest git tag.
-  - Removed `mkdir` commands for vim setup, the .vimrc file can now do it itself.
-  - Improved the configuration of the dnf.conf file.
-#### Fixed
-- [fedora_setup.sh](fedora_setup.sh):
-  - Fixed a few typos.
-  - Fixed wrongly named brave browser gpg key.
-#### Removed
-- [mc_server_builder.sh](modules/mc_server_builder.sh):
-  - Removed `update-desktop-database` commands as these commands don't run on Wayland.
