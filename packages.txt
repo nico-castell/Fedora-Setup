@@ -44,7 +44,7 @@ GNOME_Tweaks gnome-tweaks gnome-extensions-app
 GParted gparted
 Kitty_Terminal kitty
 Neofetch neofetch
-Neovim nvim
+Neovim neovim
 Passwords_and_Keys seahorse gpgme
 Trash_CLI trash-cli
 Tree tree

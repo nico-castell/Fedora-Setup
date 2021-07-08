@@ -188,8 +188,8 @@ unset DNF_CONF
 sudo systemctl stop packagekit
 
 # Source all the files containing extra sources now.
-for i in $(ls "$sources_folder" | grep \.sh$); do
-	if [[ "${TO_DNF[@]}" == *"${i/".sh"/""}"* ]];then
+for i in $(ls "$sources_folder" | grep \.txt$); do
+	if [[ "${TO_DNF[@]}" == *"${i/".txt"/""}"* ]];then
 		source "$sources_folder/$i"
 		if ! [[ "${REPOS_CONFIGURED[@]}" =~ "$URL" ]]; then
 			# Configure the repository
@@ -197,8 +197,8 @@ for i in $(ls "$sources_folder" | grep \.sh$); do
 				TO_RPMFUSION+=("$URL")
 			else
 				printf "Preparing \e[01m%s\e[00m source...\n" "$NAME"
-				rpm --import "$KEY"
-				printf "%s\n" "$CONF" | sudo tee "/etc/yum.repos.d/$CONF_FILE" >/dev/null
+				sudo rpm --import "$KEY"
+				printf "$CONF\n" | sudo tee "/etc/yum.repos.d/$CONF_FILE" >/dev/null
 			fi
 
 			# List it as already configured
