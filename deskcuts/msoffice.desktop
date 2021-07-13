@@ -3,8 +3,8 @@ Type=Application
 Name=Microsoft Office
 GenericName=Office
 Comment=Access the Microsoft Office web apps.
-Icon=msoffice
-# Place all .svg icons in ~/.local/share/icons/hicolor/scalable
+Icon=ms-office
+# Place all .svg icons in ~/.local/share/icons/hicolor/scalable/apps
 Exec=xdg-open https://www.office.com/?auth=1
 Categories=Office;
 Actions=word;excel;powerpoint;onedrive;onenote;outlook;
@@ -12,30 +12,30 @@ Keywords=Office;Microsoft;excel;onedrive;onenote;outlook;powerpoint;word;
 
 [Desktop Action word]
 Name=Word
-Icon=msword
+Icon=ms-word
 Exec=xdg-open https://www.office.com/launch/word?auth=1
 
 [Desktop Action excel]
 Name=Excel
-Icon=msexcel
+Icon=ms-excel
 Exec=xdg-open https://www.office.com/launch/excel?auth=1
 
 [Desktop Action powerpoint]
 Name=PowerPoint
-Icon=mspowerpoint
+Icon=ms-powerpoint
 Exec=xdg-open https://www.office.com/launch/powerpoint?auth=1
 
 [Desktop Action onedrive]
 Name=OneDrive
-Icon=msonedrive
+Icon=ms-onedrive
 Exec=xdg-open https://onedrive.live.com/
 
 [Desktop Action onenote]
 Name=OneNote
-Icon=msonenote
+Icon=ms-onenote
 Exec=xdg-open https://www.onenote.com/notebooks?auth=1
 
 [Desktop Action outlook]
 Name=Outlook
-Icon=msoutlook
+Icon=ms-outlook
 Exec=xdg-open https://office.live.com/start/Outlook.aspx?ui=en%2DUS&rs=US
