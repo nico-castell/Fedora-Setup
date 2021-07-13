@@ -3,18 +3,18 @@
 All significant changes to **Fedora Setup** will be documented here.
 
 - [Unreleased](#unreleased)
-  - [Added](#added)
-  - [Changed](#changed)
+	- [Added](#added)
+	- [Changed](#changed)
 - [Released](#released)
-  - [Version 2.0.0 - *2021-06-19*](#version-200---2021-06-19)
-  - [Version 1.6.0 - *2021-06-11*](#version-160---2021-06-11)
-  - [Version 1.5.0 - *2021-06-05*](#version-150---2021-06-05)
-  - [Version 1.4.0 - *2021-06-02*](#version-140---2021-06-02)
-  - [Version 1.3.0 - *2021-05-26*](#version-130---2021-05-26)
-  - [Version 1.2.1 - *2021-05-18*](#version-121---2021-05-18)
-  - [Version 1.2.0 - *2021-05-18*](#version-120---2021-05-18)
-  - [Version 1.1.0 - *2021-05-12*](#version-110---2021-05-12)
-  - [Version 1.0.0 - *2021-05-06*](#version-100---2021-05-06)
+	- [Version 2.0.0 - *2021-06-19*](#version-200---2021-06-19)
+	- [Version 1.6.0 - *2021-06-11*](#version-160---2021-06-11)
+	- [Version 1.5.0 - *2021-06-05*](#version-150---2021-06-05)
+	- [Version 1.4.0 - *2021-06-02*](#version-140---2021-06-02)
+	- [Version 1.3.0 - *2021-05-26*](#version-130---2021-05-26)
+	- [Version 1.2.1 - *2021-05-18*](#version-121---2021-05-18)
+	- [Version 1.2.0 - *2021-05-18*](#version-120---2021-05-18)
+	- [Version 1.1.0 - *2021-05-12*](#version-110---2021-05-12)
+	- [Version 1.0.0 - *2021-05-06*](#version-100---2021-05-06)
 
 ## Unreleased
 ### Added
@@ -23,6 +23,8 @@ All significant changes to **Fedora Setup** will be documented here.
 - [back_me_up.sh](back_me_up.sh):
   - Added `-r` flag, which tells the script to replace the latest backup.
   - Added `-s` flag, which tells the script to backup the `~/.safe` and `~/.ssh` folders.
+- [mc_server_builder.sh](scripts/mc_server_builder.sh):
+	- Added `-nf` flag to set up a server without sudo privileges by not configuring the firewall.
 - [golang.sh](post-install.d/golang.sh):
   - Added the choice to install development tools for Visual Studio Code.
 - [packages.txt](packages.txt):

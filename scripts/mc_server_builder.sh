@@ -7,6 +7,7 @@
 # Get script variables now, use them later.
 delete_server=false
 hide_mc_folder=true
+setup_firewall=true
 
 cWGET=$(which wget)
 cJAVA=$(which java)
@@ -22,10 +23,11 @@ script_location="$(pwd)"
 #region Options
 while [ -n "$1" ]; do
 	case "$1" in
-		-d | --delete) delete_server=true ;;         # Delete the server
-		-mc | --no-hide-mc) hide_mc_folder=false ;;  # Don't hide server folder
+		-d | --delete)       delete_server=true   ;; # Delete the server
+		-mc | --no-hide-mc)  hide_mc_folder=false ;; # Don't hide server folder
+		-nf | --no-firewall) setup_firewall=false ;; # Don't add firewall rules
 		-h | --help)                                 # Brief help menu
-			printf "This script deploys a Minecraft Java server and utilities.\nOptions are:\n  -d  | --delete    ) Delete the server\n  -mc | --no-hide-mc) Don't hide server folder\n"
+			printf "This script deploys a Minecraft Java server and utilities.\nOptions are:\n  -d  | --delete     ) Delete the server\n  -mc | --no-hide-mc ) Don't hide server folder\n  -nf | --no-firewall) Don't add firewall rules (also no sudoing)\n"
 			exit 0
 		;;
 
@@ -34,9 +36,8 @@ esac; shift; done
 #endregion Options
 
 # Request root privileges now
-sudo echo >/dev/null
-if [ ! $? -eq 0 ]; then
-	exit 1
+if $setup_firewall; then
+	sudo echo >/dev/null || exit 1
 fi
 
 # Define script variables here, use them later.
@@ -87,13 +88,15 @@ if $delete_server; then
 			fi
 
 			# Delete firewall rules (user assisted)
-			printf "Choose the rules for port 25565 # MC-SERVER, press ENTER without typing a rule when you're done."
-			sudo ufw status numbered
-			while [ true ]; do
-				read -p "> "
-				if [ -z $REPLY ]; then break; fi
-				sudo ufw delete $REPLY
-			done
+			if $setup_firewall; then
+				printf "Choose the rules for port 25565 # MC-SERVER, press ENTER without typing a rule when you're done."
+				sudo ufw status numbered
+				while [ true ]; do
+					read -p "> "
+					if [ -z $REPLY ]; then break; fi
+					sudo ufw delete $REPLY
+				done
+			fi
 		fi
 	fi
 	exit 0
@@ -306,8 +309,10 @@ chmod -x "$mc_entry"
 
 # Allow Minecraft port through firewall
 code_6=0
-sudo ufw allow 25565 comment 'MC-SERVER' &>/dev/null ; code_6=$?
-sudo ufw reload &>/dev/null
+if $setup_firewall; then
+	sudo ufw allow 25565 comment 'MC-SERVER' &>/dev/null ; code_6=$?
+	sudo ufw reload &>/dev/null
+fi
 
 # Run the server for the first time and perform initial settings.
 java -jar server.jar --nogui --initSettings &>/dev/null
