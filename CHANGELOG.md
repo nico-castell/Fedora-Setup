@@ -29,6 +29,8 @@ All significant changes to **Fedora Setup** will be documented here.
   - Added the choice to install development tools for Visual Studio Code.
 - [packages.txt](packages.txt):
   - Added [Neovim](https://neovim.io/) package.
+- [.zshrc](samples/zshrc):
+  - Added `lz` and `llz` aliases to easily see SELinux tags when listing files.
 - [nvim.vim](samples/nvim.vim):
   - Added a config file for neovim with many of the features of the current [.vimrc](samples/vimrc).
 - [neovim.sh](post-install.d/neovim.sh):
@@ -49,6 +51,8 @@ All significant changes to **Fedora Setup** will be documented here.
 - [sources.d](sources.d):
   - Files are no longer "small" shellscripts, but *.txt* files that [fedora_setup.sh](fedora_setup.sh) sources to get the variables it has to process.
   - [fedora_setup.sh](fedora_setup.sh) will handle the configuration of each source, while the files in this folder just give it the required information.
+- [.zshrc](samples/zshrc):
+  - Use `awk` commands instead of combining `grep`, `rev` and `cut` for the git prompt. (Less subprocesses)
 - [.vimrc](samples/vimrc):
   - Put backup, undo, and swap files in `~/.cache/vim`, and set their permissions so other users cannot read them.
   - Changed textwidth for *plain text* and *markdown* to 100 characters
