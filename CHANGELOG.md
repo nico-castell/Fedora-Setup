@@ -2,11 +2,8 @@
 
 All significant changes to **Fedora Setup** will be documented here.
 
-- [Unreleased](#unreleased)
-	- [Added](#added)
-	- [Changed](#changed)
-	- [Fixed](#fixed)
 - [Released](#released)
+	- [Version 2.1.0 - *2021-07-15*](#version-210---2021-07-15)
 	- [Version 2.0.0 - *2021-06-19*](#version-200---2021-06-19)
 	- [Version 1.6.0 - *2021-06-11*](#version-160---2021-06-11)
 	- [Version 1.5.0 - *2021-06-05*](#version-150---2021-06-05)
@@ -17,8 +14,14 @@ All significant changes to **Fedora Setup** will be documented here.
 	- [Version 1.1.0 - *2021-05-12*](#version-110---2021-05-12)
 	- [Version 1.0.0 - *2021-05-06*](#version-100---2021-05-06)
 
-## Unreleased
-### Added
+## Released
+### Version [2.1.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/2.1.0) - *2021-07-15*
+This update came after 29 commits, many more than usual, it focused mainly on the Vim editor, but there were many more changes:
+- The configuration of **Vim** was heavily improved (specially the statusline) and **Neovim** was added with a similar config.
+- The [mc_server_builder.sh](scripts/mc_server_builder.sh) script was reworked to be more stable (and updated to 1.17.1).
+- There are two new flags available for the [back_me_up.sh](back_me_up.sh) script: `-r` and `-s`.
+- The [sources.d](sources.d) folder was simplified by letting the main script handle setting up the sources, while the files in the folder just give it variables.
+#### Added
 - [fedora_setup.sh](fedora_setup.sh):
   - Added package [`rpmconf`](https://src.fedoraproject.org/rpms/rpmconf) to the list of *"essentials"*. It helps you manage configuration files after updating packages.
 - [back_me_up.sh](back_me_up.sh):
@@ -43,8 +46,8 @@ All significant changes to **Fedora Setup** will be documented here.
   - Can write a special function to the config file to check which editor you're running when you also install **Neovim**.
 - [git.sh](post-install.d/git.sh):
   - The new alias `eflog` will show a log of commits with commiter emails.
-  - Now it can more deeply integrate editors such as **Vim** and **Nvim** with Git.
-### Changed
+  - Now it can more deeply integrate editors such as **Vim** and **Neovim** with Git.
+#### Changed
 - [fedora_setup.sh](fedora_setup.sh):
   - Changed how extra sources are processed, making it a lot simpler to keep adding sources.
 - [sources.d](sources.d):
@@ -66,11 +69,10 @@ All significant changes to **Fedora Setup** will be documented here.
   - Reconfigured some of the coloring to be more consistent on terminal and gui.
 - [vim.sh](post-install.d/vim.sh):
   - Reworded some prompts to avoid confusion with neovim.
-### Fixed
+#### Fixed
 - [mc_server_builder.sh](scripts/mc_server_builder.sh):
 	- The animation does no longer lingers in your shell if you interrupt the script (*^C*).
 
-## Released
 ### Version [2.0.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/2.0.0) - *2021-06-19*
 This version, while it doesn't bring much new, reworked an important step of the main script, the installation of **dnf repositories**, to be much more expandable than before, without requiring to edit the main script to modify the step. However, some small features were added, such as:
 - New packages in the installation list.
