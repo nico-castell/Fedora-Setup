@@ -5,6 +5,7 @@ All significant changes to **Fedora Setup** will be documented here.
 - [Unreleased](#unreleased)
 	- [Added](#added)
 	- [Changed](#changed)
+	- [Fixed](#fixed)
 - [Released](#released)
 	- [Version 2.0.0 - *2021-06-19*](#version-200---2021-06-19)
 	- [Version 1.6.0 - *2021-06-11*](#version-160---2021-06-11)
@@ -23,8 +24,6 @@ All significant changes to **Fedora Setup** will be documented here.
 - [back_me_up.sh](back_me_up.sh):
   - Added `-r` flag, which tells the script to replace the latest backup.
   - Added `-s` flag, which tells the script to backup the `~/.safe` and `~/.ssh` folders.
-- [mc_server_builder.sh](scripts/mc_server_builder.sh):
-	- Added `-nf` flag to set up a server without sudo privileges by not configuring the firewall.
 - [golang.sh](post-install.d/golang.sh):
   - Added the choice to install development tools for Visual Studio Code.
 - [packages.txt](packages.txt):
@@ -51,6 +50,14 @@ All significant changes to **Fedora Setup** will be documented here.
 - [sources.d](sources.d):
   - Files are no longer "small" shellscripts, but *.txt* files that [fedora_setup.sh](fedora_setup.sh) sources to get the variables it has to process.
   - [fedora_setup.sh](fedora_setup.sh) will handle the configuration of each source, while the files in this folder just give it the required information.
+- [mc_server_builder.sh](scripts/mc_server_builder.sh):
+	- The script was heavily modified to make it more stable.
+	- It no longer sets up the firewall by default.
+	- Option `-mc` is now `-v` (for *visible*).
+	- You now use the `-f` flag to tell the script to configure the firewall.
+	- It no longer needs user assistance to delete firewall rules.
+	- The download link is now at the top of the script for it to be easy to update.
+	- There's a list of possible exit codes and their meanings.
 - [.zshrc](samples/zshrc):
   - Use `awk` commands instead of combining `grep`, `rev` and `cut` for the git prompt. (Less subprocesses)
 - [.vimrc](samples/vimrc):
@@ -59,6 +66,9 @@ All significant changes to **Fedora Setup** will be documented here.
   - Reconfigured some of the coloring to be more consistent on terminal and gui.
 - [vim.sh](post-install.d/vim.sh):
   - Reworded some prompts to avoid confusion with neovim.
+### Fixed
+- [mc_server_builder.sh](scripts/mc_server_builder.sh):
+	- The animation does no longer lingers in your shell if you interrupt the script (*^C*).
 
 ## Released
 ### Version [2.0.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/2.0.0) - *2021-06-19*
