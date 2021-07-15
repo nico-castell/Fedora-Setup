@@ -157,7 +157,9 @@ cd "$mc_folder"
 wget -q "$download_link" -O "server-${version}.jar" || status=bad
 
 # 2. Copy server icon
-cp "$script_location/../assets/mcserver/server-icon.png" . || status=bad
+if [ -f "$script_location/../assets/mcserver/server-icon.png" ] ; then
+	cp "$script_location/../assets/mcserver/server-icon.png" . || status=bad
+fi
 
 # 3. Write run script
 cat <<EOF > run.sh || status=bad
@@ -347,6 +349,9 @@ ask_setting "What will be the difficulty of the world?"      "normal"           
 ask_setting "What will be the maximum ammount of players?"   "2"                  "max-players"
 ask_setting "What will be the view distance?"                "7"                  "view-distance"
 ask_setting "What will be the player idle timeout?"          "14"                 "player-idle-timeout"
+
+# Clear all trailing whitespace in properties file
+sed -i 's/\s*$//g' server.properties
 
 printf "\n\e[01;32mCongratulations! \e[00;32mYou now have a minecraft server.\e[00m\n"
 exit 0
