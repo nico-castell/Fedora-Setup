@@ -7,6 +7,7 @@
 # Set up script variables for later
 load_choices_file=no
 persist_at_the_end=no
+run_as_root=no
 
 USAGE_MSG () {
 	printf "Usage: \e[01m./%s (-f)\e[00m
@@ -17,6 +18,7 @@ while [ -n "$1" ]; do
 	case "$1" in
 		-f) load_choices_file=yes      ;; # Load previous choices
 		-p) persist_at_the_end=yes     ;; # Persist open at the end of the script
+		-s) run_as_root=yes            ;; # Don't stop if run as sudo
 		-h | --help) USAGE_MSG; exit 0 ;; # Help
 		*) printf "Option \"%s\" not recognized.\n" $1
 		USAGE_MSG
@@ -52,6 +54,14 @@ Separate () {
 	printf "\n\n%`tput cols`s\n" |tr " " "="
 	tput sgr0
 }
+
+# The script should not be run as root
+if [ "$(id -u)" == 0 -a "$run_as_root" = "no" ]; then
+	printf "\e[31mThe script should not be run as root, as some things might break\e[00m
+Instead, run it as your user and let the script ask for root privileges
+To force the script to run as root, use the -s flag\n" >&2
+	exit 1
+fi
 
 # Aquire root privileges now
 sudo echo >/dev/null || exit 1
