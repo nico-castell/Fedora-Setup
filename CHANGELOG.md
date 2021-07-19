@@ -2,6 +2,8 @@
 
 All significant changes to **Fedora Setup** will be documented here.
 
+- [Unreleased](#unreleased)
+	- [Added](#added)
 - [Released](#released)
 	- [Version 2.1.0 - *2021-07-15*](#version-210---2021-07-15)
 	- [Version 2.0.0 - *2021-06-19*](#version-200---2021-06-19)
@@ -13,6 +15,16 @@ All significant changes to **Fedora Setup** will be documented here.
 	- [Version 1.2.0 - *2021-05-18*](#version-120---2021-05-18)
 	- [Version 1.1.0 - *2021-05-12*](#version-110---2021-05-12)
 	- [Version 1.0.0 - *2021-05-06*](#version-100---2021-05-06)
+
+## Unreleased
+### Added
+- [fedora_setup.sh](fedora_setup.sh):
+	- The script now stops if you run it as root, you should run it as your user. You can use the `-s`
+		flag to override and run it as root, which is not tested, so it may cause problems.
+- [duc_noip_install.sh](scripts/duc_noip_install.sh):
+	- If you run the script as root, the "supporting" files such as No-IP's icon and the desktop entry
+		will be placed in `/usr/local` instead of `~/.local`.
+	- The script now shows the status of the installation as *Success* or *Failed* when it finishes.
 
 ## Released
 ### Version [2.1.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/2.1.0) - *2021-07-15*
