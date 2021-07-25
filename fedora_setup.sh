@@ -11,7 +11,8 @@ run_as_root=no
 
 USAGE_MSG () {
 	printf "Usage: \e[01m./%s (-f)\e[00m
-	-f ) Load previous choices\n" "$(basename "$0")"
+	-f ) Load previous choices
+	-s ) Run as root (not recommended)\n" "$(basename "$0")"
 }
 
 while [ -n "$1" ]; do
