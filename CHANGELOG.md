@@ -4,6 +4,7 @@ All significant changes to **Fedora Setup** will be documented here.
 
 - [Unreleased](#unreleased)
 	- [Added](#added)
+	- [Changed](#changed)
 - [Released](#released)
 	- [Version 2.1.0 - *2021-07-15*](#version-210---2021-07-15)
 	- [Version 2.0.0 - *2021-06-19*](#version-200---2021-06-19)
@@ -25,6 +26,12 @@ All significant changes to **Fedora Setup** will be documented here.
 	- If you run the script as root, the "supporting" files such as No-IP's icon and the desktop entry
 		will be placed in `/usr/local` instead of `~/.local`.
 	- The script now shows the status of the installation as *Success* or *Failed* when it finishes.
+	- The script now writes an installation log to `/usr/local/src` to help system admins delete the
+		program if they no longer need it.
+### Changed
+- [tlp.sh](post-install.d/tlp.sh):
+	- The script now offers many more configuration choices for handling the lid switch.
+	- The script now restarts the *systemd-logind* service after writing to the config file.
 
 ## Released
 ### Version [2.1.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/2.1.0) - *2021-07-15*
