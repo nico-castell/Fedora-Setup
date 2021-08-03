@@ -23,6 +23,8 @@ All significant changes to **Fedora Setup** will be documented here.
 	- The script now stops if you run it as root, you should run it as your user. You can use the `-s`
 		flag to override and run it as root, which is not tested, so it may cause problems.
 - [duc_noip_install.sh](scripts/duc_noip_install.sh):
+	- Now, if you pass the `-s` flag to the script, it will set up a systemd service and a systemd
+		timer so it runs every time you boot the computer.
 	- If you run the script as root, the "supporting" files such as No-IP's icon and the desktop entry
 		will be placed in `/usr/local` instead of `~/.local`.
 	- The script now shows the status of the installation as *Success* or *Failed* when it finishes.
