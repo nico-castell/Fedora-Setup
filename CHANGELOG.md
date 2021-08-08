@@ -34,6 +34,8 @@ All significant changes to **Fedora Setup** will be documented here.
 - [tlp.sh](post-install.d/tlp.sh):
 	- The script now offers many more configuration choices for handling the lid switch.
 	- The script now restarts the *systemd-logind* service after writing to the config file.
+- [fedora_setup.sh](fedora_setup.sh):
+	- Use `cat <<EOF` instead of `printf "[..]" | tee" to write to `dnf.conf`.
 
 ## Released
 ### Version [2.1.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/2.1.0) - *2021-07-15*

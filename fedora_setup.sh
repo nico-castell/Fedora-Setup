@@ -182,7 +182,8 @@ fi
 # Configure dnf now, before we start using it
 [ ! -f /etc/dnf/dnf.conf-og ] && \
 	sudo cp /etc/dnf/dnf.conf /etc/dnf/dnf.conf-og
-printf "[main]
+	sudo cat <<EOF > /etc/dnf/dnf.conf
+[main]
 gpgcheck=1
 installonly_limit=3
 clean_requirements_on_remove=True
@@ -192,8 +193,8 @@ fastestmirror=True
 max_parallel_downloads=20
 defaultyes=True
 minrate=384k
-installonly_limit=3\n" | sudo tee /etc/dnf/dnf.conf >/dev/null
-unset DNF_CONF
+installonly_limit=3
+EOF
 
 # Stop GNOME's packagekit to avoid problems while the package manager is being used.
 sudo systemctl stop packagekit
