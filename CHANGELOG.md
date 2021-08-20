@@ -34,8 +34,15 @@ All significant changes to **Fedora Setup** will be documented here.
 - [tlp.sh](post-install.d/tlp.sh):
 	- The script now offers many more configuration choices for handling the lid switch.
 	- The script now restarts the *systemd-logind* service after writing to the config file.
+- [zsh.sh](post-install.d/zsh.sh):
+	- The script now writes to `/etc/zshenv` code to add `~/.local/bin` to the $PATH for all users.
+- [.zshrc](post-install.d/zshrc):
+	- The file no longer modifies the $PATH. As that is now handled by `/etc/zshenv`.
 - [fedora_setup.sh](fedora_setup.sh):
-	- Use `cat <<EOF` instead of `printf "[..]" | tee" to write to `dnf.conf`.
+	- Use `cat <<EOF` instead of `printf "[..]" | tee"` to write to `dnf.conf`.
+### Removed
+- [.zshrc](post-install.d/zshrc):
+	- The file no longer reads `~/.zsh_aliases`.
 
 ## Released
 ### Version [2.1.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/2.1.0) - *2021-07-15*
