@@ -5,6 +5,7 @@ All significant changes to **Fedora Setup** will be documented here.
 - [Unreleased](#unreleased)
 	- [Added](#added)
 	- [Changed](#changed)
+	- [Removed](#removed)
 - [Released](#released)
 	- [Version 2.1.0 - *2021-07-15*](#version-210---2021-07-15)
 	- [Version 2.0.0 - *2021-06-19*](#version-200---2021-06-19)
@@ -15,7 +16,6 @@ All significant changes to **Fedora Setup** will be documented here.
 	- [Version 1.2.1 - *2021-05-18*](#version-121---2021-05-18)
 	- [Version 1.2.0 - *2021-05-18*](#version-120---2021-05-18)
 	- [Version 1.1.0 - *2021-05-12*](#version-110---2021-05-12)
-	- [Version 1.0.0 - *2021-05-06*](#version-100---2021-05-06)
 
 ## Unreleased
 ### Added
@@ -30,6 +30,9 @@ All significant changes to **Fedora Setup** will be documented here.
 	- The script now shows the status of the installation as *Success* or *Failed* when it finishes.
 	- The script now writes an installation log to `/usr/local/src` to help system admins delete the
 		program if they no longer need it.
+- [mc_server_builder.sh](scripts/mc_server_builder.sh):
+	- The `compress.sh` script written by this script now shows a progress percentage while creating
+		backups of the server.
 ### Changed
 - [tlp.sh](post-install.d/tlp.sh):
 	- The script now offers many more configuration choices for handling the lid switch.
@@ -305,43 +308,3 @@ The variable APPEND_DNF was removed, along with **vscode.sh**. The instructions 
   - Removed `APPEND_DNF` as it is no longer useful
 - **vscode.sh**:
   - The file was removed because it was no longer useful.
-
-### Version [1.0.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/1.0.0) - *2021-05-06*
-This version introduces mainly a new way to load packages from [packages.txt](packages.txt), and a module to switch to systemd-boot. But the majority of the work was debugging.
-#### Added
-- [systemdboot_switch.sh](modules/systemdboot_switch.sh):
-  - This new module can switch Fedora's bootloader from **grub** to **systemd-boot**.
-- [fedora_setup.sh](fedora_setup.sh):
-  - Introduced a new way of loading and selecting packages. The user can now see the name of the app eg **Z-Shell**, confirm the package, and load multiple packages, eg **zsh zsh-autosuggestions \+**.
-  - The script now announces that it has finished.
-- [packages.txt](packages.txt):
-  - Some new packages were added, such as **C/C++**, **GNOME Boxes**, and more.
-#### Changed
-- [packages.txt](packages.txt):
-  - Given the new way fedora_setup.sh loads packages, packages.txt was given a new structure to accomodate this by using spaces as delimiters between the name the user sees and the packages selected. Addinionally this means APPEND_DNF is not as useful now.
-- [fedora_setup.sh](fedora_setup.sh):
-  - When the user chooses to upgrade, `dnf` will assume yes, instead of prompting for confirmation, again.
-  - PackageKit is now restarted *after* running the modules.
-- [vscode.sh](vscode.sh):
-  - Updated git aliases `flog` and `sflog`.
-- [gnome_extensions.sh](modules/gnome_extensions.sh):
-  - xdg-open was silenced
-- [gnome_settings.hs](modules/gnome_settings.sh):
-  - `favorite-apps` config was deleted, and a few other settings were regrouped.
-#### Removed
-- [fedora_setup.sh](fedora_setup.sh):
-  - Given the new way packages are loaded, the following were removed, in favor of loading them when the user selects their package (TO_DNF):
-    - **C/C++** was removed from APPEND_DNF when choosing packages to append to Visual Studio Code.
-    - **zsh** and **@development-tools** no longer contribute to APPEND_DNF.
-#### Fixed
-- **NOTE:** The project was tested on a VM to find and fix errors.
-- [mc_server_builder.sh](modules/mc_server_builder.sh):
-  - The location of the image file was fixed.
-- [fedora_setup.sh](fedora_setup.sh):
-  - The output was cleaned up.
-  - Modules are now running properly.
-  - Fixed backing up files such as *.bashrc*, *.clang-format*, *.zshrc*, *.vimrc*.
-  - Fixed Brave Browser source config outputting the .repo file to the console.
-  - Many syntax errors were fixed.
-- [vscode.sh](vscode.sh):
-  - Fixed how the script would offer configurations even if it wasn't sourced properly.
