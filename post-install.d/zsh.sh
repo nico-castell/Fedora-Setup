@@ -44,13 +44,13 @@ if [ $O -eq 0 ]; then
 fi
 
 # Modify PATH for all users
-sudo cat <<EOF >> /etc/zshenv
+cat <<EOF | sudo tee -a /etc/zshenv >/dev/null
 # User specific environment
-if ! [[ "$PATH" =~ "$HOME/.local/bin" ]]; then
-	PATH="$HOME/.local/bin:$PATH"
+if ! [[ "\$PATH" =~ "\$HOME/.local/bin" ]]; then
+	PATH="\$HOME/.local/bin:\$PATH"
 fi
-if ! [[ "$PATH" =~ "$HOME/bin" ]]; then
-	PATH="$HOME/bin:$PATH"
+if ! [[ "\$PATH" =~ "\$HOME/bin" ]]; then
+	PATH="\$HOME/bin:\$PATH"
 fi
 export PATH
 EOF

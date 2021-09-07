@@ -182,7 +182,7 @@ fi
 # Configure dnf now, before we start using it
 [ ! -f /etc/dnf/dnf.conf-og ] && \
 	sudo cp /etc/dnf/dnf.conf /etc/dnf/dnf.conf-og
-	sudo cat <<EOF > /etc/dnf/dnf.conf
+	cat <<EOF | sudo tee /etc/dnf/dnf.conf >/dev/null
 [main]
 gpgcheck=1
 installonly_limit=3

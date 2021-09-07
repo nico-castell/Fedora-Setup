@@ -9,14 +9,31 @@ if which nautilus &>/dev/null; then
 	echo "Configuring nautilus..."
 	gsettings reset org.gnome.nautilus.window-state initial-size
 	gsettings reset org.gnome.nautilus.window-state sidebar-width
+	gsettings set org.gnome.nautilus.icon-view default-zoom-level 'standard'
 	gsettings set org.gtk.Settings.FileChooser sort-directories-first true
 fi
 
 if which gedit &>/dev/null; then
 	echo "Configuring the text editor (gedit)..."
-	gsettings set org.gnome.gedit.plugins active-plugins "['sort', 'snippets', 'spell', 'quickhighlight', 'docinfo', 'time', 'filebrowser', 'modelines']"
-	gsettings set org.gnome.gedit.preferences.editor tabs-size "4"
-	gsettings set org.gnome.gedit.preferences.editor insert-spaces true
+	gsettings set org.gnome.gedit.plugins active-plugins "['time', 'spell', 'sort', 'snippets', 'quickhighlight', 'modelines', 'filebrowser', 'docinfo']"
+	gsettings set org.gnome.gedit.preferences.editor tabs-size "3"
+	gsettings set org.gnome.gedit.preferences.editor insert-spaces false
+
+	gsettings set org.gnome.gedit.preferences.editor right-margin-position 100
+	gsettings set org.gnome.gedit.preferences.editor wrap-mode 'none'
+
+	gsettings set org.gnome.gedit.preferences.ui show-tabs-mode 'auto'
+	gsettings set org.gnome.gedit.preferences.ui side-panel-visible true
+
+	gsettings set org.gnome.gedit.preferences.editor scheme 'oblivion'
+	gsettings set org.gnome.gedit.preferences.editor background-pattern 'grid'
+	gsettings set org.gnome.gedit.preferences.editor display-overview-map true
+	gsettings set org.gnome.gedit.preferences.editor display-right-margin true
+	gsettings set org.gnome.gedit.preferences.editor right-margin-position 100
+
+	gsettings set org.gnome.gedit.state.window size '(1120, 700)'
+	gsettings set org.gnome.gedit.state.window bottom-panel-size '140'
+	gsettings set org.gnome.gedit.state.window side-panel-active-page 'GeditFileBrowserPanel'
 fi
 
 if which gnome-calculator &>/dev/null; then

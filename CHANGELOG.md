@@ -5,6 +5,7 @@ All significant changes to **Fedora Setup** will be documented here.
 - [Unreleased](#unreleased)
 	- [Added](#added)
 	- [Changed](#changed)
+	- [Fixed](#fixed)
 	- [Removed](#removed)
 - [Released](#released)
 	- [Version 2.1.0 - *2021-07-15*](#version-210---2021-07-15)
@@ -34,6 +35,9 @@ All significant changes to **Fedora Setup** will be documented here.
 	- The `compress.sh` script written by this script now shows a progress percentage while creating
 		backups of the server.
 ### Changed
+- [gnome_settings.sh](scripts/gnome_settings.sh):
+	- The file now configures `gedit` in a lot more depth.
+	- Changed zoom level for Nautilus's icon view.
 - [tlp.sh](post-install.d/tlp.sh):
 	- The script now offers many more configuration choices for handling the lid switch.
 	- The script now restarts the *systemd-logind* service after writing to the config file.
@@ -43,8 +47,11 @@ All significant changes to **Fedora Setup** will be documented here.
 	- The file no longer modifies the $PATH. As that is now handled by `/etc/zshenv`.
 - [fedora_setup.sh](fedora_setup.sh):
 	- Use `cat <<EOF` instead of `printf "[..]" | tee"` to write to `dnf.conf`.
+### Fixed
+- [.zshrc](samples/zshrc):
+	- The file no longer causes the Z-Shell to start showing an error code of 1.
 ### Removed
-- [.zshrc](post-install.d/zshrc):
+- [.zshrc](samples/zshrc):
 	- The file no longer reads `~/.zsh_aliases`.
 
 ## Released
