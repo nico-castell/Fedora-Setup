@@ -16,6 +16,7 @@ Java_OpenJDK java-latest-openjdk
 Ninja_Build ninja-build
 Node.JS nodejs
 Virtual_Box VirtualBox kernel-headers kernel-devel qt5-qtx11extras @c-development
+Virt_Manager @virtualization bridge-utils
 Visual_Studio_Code code
 Visual_Studio_Code_Insiders code-insiders
 VS_Codium codium
@@ -35,7 +36,7 @@ Grub_Customizer grub-customizer os-prober
 HTOP htop
 LM_Sensors lm_sensors hddtemp
 TLP tlp powertop
-Z-Shell zsh zsh-syntax-highlighting zsh-autosuggestions python3-pip util-linux-user
+Z-Shell zsh zsh-syntax-highlighting zsh-autosuggestions
 7zip p7zip
 Alacritty alacritty
 dconf-Editor dconf-editor

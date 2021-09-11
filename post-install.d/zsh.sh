@@ -67,6 +67,6 @@ done
 
 read -rp "Do you want to make `tput setaf 6`Z-Shell`tput sgr0` your default shell? (Y/n) "
 if [[ ${REPLY,,} == "y" ]] || [ -z $REPLY ]; then
-	chsh -s $(which zsh)
-	sudo chsh -s $(which zsh)
+	sudo usermod -s $(which zsh) $USER
+	sudo usermod -s $(which zsh) root
 fi

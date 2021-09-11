@@ -23,6 +23,9 @@ All significant changes to **Fedora Setup** will be documented here.
 - [fedora_setup.sh](fedora_setup.sh):
 	- The script now stops if you run it as root, you should run it as your user. You can use the `-s`
 		flag to override and run it as root, which is not tested, so it may cause problems.
+	- The package `pxz` is now listed as essential and always installed.
+- [packages.txt](packages.txt):
+	- Some virtualization packages such as `@virtualization` and `bridge-utils` are now listed.
 - [duc_noip_install.sh](scripts/duc_noip_install.sh):
 	- Now, if you pass the `-s` flag to the script, it will set up a systemd service and a systemd
 		timer so it runs every time you boot the computer.
@@ -43,6 +46,7 @@ All significant changes to **Fedora Setup** will be documented here.
 	- The script now restarts the *systemd-logind* service after writing to the config file.
 - [zsh.sh](post-install.d/zsh.sh):
 	- The script now writes to `/etc/zshenv` code to add `~/.local/bin` to the $PATH for all users.
+	- The script no longer uses `chsh` to change the user's default shell. It now uses `usermod`.
 - [.zshrc](post-install.d/zshrc):
 	- The file no longer modifies the $PATH. As that is now handled by `/etc/zshenv`.
 - [fedora_setup.sh](fedora_setup.sh):
@@ -53,6 +57,8 @@ All significant changes to **Fedora Setup** will be documented here.
 ### Removed
 - [.zshrc](samples/zshrc):
 	- The file no longer reads `~/.zsh_aliases`.
+- [packages.txt](packages.txt):
+	- Packages `python3-pip` and `util-linux-user` are no longer listed as part of **Z-Shell**.
 
 ## Released
 ### Version [2.1.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/2.1.0) - *2021-07-15*
