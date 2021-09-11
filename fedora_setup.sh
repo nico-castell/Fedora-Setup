@@ -37,12 +37,18 @@ MISSING() {
 	exit 1
 }
 
-choices_file=("$script_location/.tmp_choices")
-packages_file=("$script_location/packages.txt")
-scripts_folder=("$script_location/scripts")
-postinstall_folder=("$script_location/post-install.d")
-sources_folder=("$script_location/sources.d")
+# Prepare and test filepaths in variables
+choices_file="$script_location/.tmp_choices"
+
+packages_file="$script_location/packages.txt"
+remove_file="$script_location/remove.txt"
+
+scripts_folder="$script_location/scripts"
+postinstall_folder="$script_location/post-install.d"
+sources_folder="$script_location/sources.d"
+
 [ -f "$packages_file"      ] || MISSING "$packages_file"
+[ -f "$remove_file"        ] || MISSING "$remove_file"
 [ -d "$scripts_folder"     ] || MISSING "$scripts_folder"
 [ -d "$postinstall_folder" ] || MISSING "$postinstall_folder"
 [ -d "$sources_folder"     ] || MISSING "$sources_folder"
@@ -85,26 +91,35 @@ if [ "$load_choices_file" = "no" ]; then
 	# We're about to make a new choices file
 	[ -f "$choices_file" ] && rm "$choices_file"
 
-	# List of packages to install (then set up)
-	printf "Confirm packages to install:\n"
-
-	# Go through a list of packages asking the user to choose which ones to
-	# install.
+	# Configure IFS to go line by line.
 	IFSB="$IFS"
 	IFS="$(echo -en "\n\b")"
+
+	# Go through a list of packages asking the user to choose wich ones to remove.
+	printf "Confirm packages to remove:\n"
+	for i in $(cat "$remove_file"); do
+		read -rp "Confirm: `tput setaf 1``printf %s $i | cut -d ' ' -f 1 | tr '_' ' '``tput sgr0` (y/N) "
+		[ "${REPLY,,}" == "y" ] && \
+			TO_REMOVE+=("$(printf %s "$i" | cut -d ' ' -f 2-)")
+	done
+	echo "TO_REMOVE - ${TO_REMOVE[@]}" >> "$choices_file"
+
+	# Go through a list of packages asking the user to choose which ones to install.
+	printf "Confirm packages to install:\n"
 	for i in $(cat "$packages_file"); do
 		read -r -p "Confirm: `tput setaf 3``printf %s $i | cut -d ' ' -f 1 | tr '_' ' '``tput sgr0` (Y/n) "
 		[[ ${REPLY,,} == "y" ]] || [ -z $REPLY ] && \
 		TO_DNF+=("$(printf %s "$i" | cut -d ' ' -f 2-)")
 	done
+	echo "TO_DNF - ${TO_DNF[@]}" >> "$choices_file"
+
+	# Return IFS to normal
 	IFS="$IFSB"
 	unset IFSB
 
 	# Append "essential" packages
 	TO_DNF+=("xclip" "rpmconf" "pxz")
 
-	# Store all selected packages
-	echo "TO_DNF - ${TO_DNF[@]}" >> "$choices_file"
 	Separate 4
 
 	# Load extra scripts to run
@@ -130,6 +145,10 @@ if [ "$load_choices_file" = "yes" ]; then
 		printf "\e[31mERROR: No previous choices file.\e[00m\n"
 		exit 1
 	fi
+
+	# Load packages to remove
+	TO_REMOVE=$(cat "$choices_file" | grep "TO_REMOVE")
+	TO_REMOVE=${TO_REMOVE/"TO_REMOVE - "/""}
 
 	# Load dnf packages
 	TO_DNF=$(cat "$choices_file" | grep "TO_DNF")
@@ -232,6 +251,13 @@ unset REPOS_CONFIGURED URL KEY NAME CONF CONF_FILE
 
 printf "Updating repositories...\n"
 sudo dnf check-update --refresh # Exit code will be 100 if upgrades are available
+
+if [ -n "$TO_REMOVE" ]; then
+	Separate 4
+	printf "Removing user-selected packages...\n"
+	sudo dnf remove ${TO_REMOVE[@]}
+	Separate 4
+fi
 
 # If upgrades are available, offer the user a chance to install them now.
 if [ $? -eq 100 ]; then

@@ -1,0 +1,8 @@
+Firefox firefox*
+GNOME_Boxes gnome-boxes
+GNOME_Help yelp
+GNOME_Logs gnome-logs
+GNOME_Maps gnome-maps
+GNOME_Tour gnome-tour
+Libre_Office libreoffice* @libreoffice
+Rhythmbox rhythmbox

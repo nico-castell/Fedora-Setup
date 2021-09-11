@@ -24,6 +24,10 @@ All significant changes to **Fedora Setup** will be documented here.
 	- The script now stops if you run it as root, you should run it as your user. You can use the `-s`
 		flag to override and run it as root, which is not tested, so it may cause problems.
 	- The package `pxz` is now listed as essential and always installed.
+	- Added a list of possible packages to remove, this helps clean some of the "bloat" Fedora that
+		comes presintalled.
+- [remove.txt](remove.txt):
+	- This new file contains a list of preinstalled packages a user may want to remove.
 - [packages.txt](packages.txt):
 	- Some virtualization packages such as `@virtualization` and `bridge-utils` are now listed.
 - [duc_noip_install.sh](scripts/duc_noip_install.sh):
