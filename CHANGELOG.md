@@ -45,6 +45,11 @@ All significant changes to **Fedora Setup** will be documented here.
 - [gnome_settings.sh](scripts/gnome_settings.sh):
 	- The file now configures `gedit` in a lot more depth.
 	- Changed zoom level for Nautilus's icon view.
+	- The terminal and top bar configurations that were in
+		[gnome_appearance.sh](scripts/gnome_appearance.sh) are now in this file.
+- [gnome_appearance.sh](scripts/gnome_appearance.sh):
+	- This file now has support for tarballs using different compression methods, such as `*.tar.xz`.
+	- This script no longer configures the appearance of the gnome terminal or the top bar.
 - [tlp.sh](post-install.d/tlp.sh):
 	- The script now offers many more configuration choices for handling the lid switch.
 	- The script now restarts the *systemd-logind* service after writing to the config file.
