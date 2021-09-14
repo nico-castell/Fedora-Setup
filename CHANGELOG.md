@@ -16,7 +16,6 @@ All significant changes to **Fedora Setup** will be documented here.
 	- [Version 1.3.0 - *2021-05-26*](#version-130---2021-05-26)
 	- [Version 1.2.1 - *2021-05-18*](#version-121---2021-05-18)
 	- [Version 1.2.0 - *2021-05-18*](#version-120---2021-05-18)
-	- [Version 1.1.0 - *2021-05-12*](#version-110---2021-05-12)
 
 ## Unreleased
 ### Added
@@ -60,6 +59,7 @@ All significant changes to **Fedora Setup** will be documented here.
 	- The file no longer modifies the $PATH. As that is now handled by `/etc/zshenv`.
 - [fedora_setup.sh](fedora_setup.sh):
 	- Use `cat <<EOF` instead of `printf "[..]" | tee"` to write to `dnf.conf`.
+	- The script now sorts its package lists and removes duplicates before doing any operations.
 ### Fixed
 - [.zshrc](samples/zshrc):
 	- The file no longer causes the Z-Shell to start showing an error code of 1.
@@ -309,24 +309,3 @@ This is a cumulative release of many minor changes and fixes, along with one big
   - Fixed typo `namo` instead of `nano`.
 - [tlp.sh](post-install.d/tlp.sh):
   - Fixed missing new-line.
-
-### Version [1.1.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/1.1.0) - *2021-05-12*
-The variable APPEND_DNF was removed, along with **vscode.sh**. The instructions of vscode.sh were added to [fedora_setup.sh](fedora_setup.sh). Also, a few packages were added to [packages.txt](packages.txt).
-#### Added
-- [fedora_setup.sh](fedora_setup.sh):
-  - The script now sets the BIOS time to UTC.
-  - The script now configures [Flathub](https://flathub.org/home) as a flatpak remote, then removes Fedora's remotes.
-  - Git configuration and vscode extension development are now part of this file
-- [geary-autostart.desktop](deskcuts/geary-autostart.desktop):
-  - Added deskcut to autostart geary service when logging in.
-- [packages.txt](packages.txt):
-  - Added `gnome-extensions-app` to be installed along with `gnome-tweaks`.
-  - .NET 5.0 and 3.1 are now listed in this file
-#### Fixed
-- [packages.txt](packages.txt):
-  - Added missing depedencies of VirtualBox.
-#### Removed
-- [fedora_setup.sh](fedora_setup.sh):
-  - Removed `APPEND_DNF` as it is no longer useful
-- **vscode.sh**:
-  - The file was removed because it was no longer useful.

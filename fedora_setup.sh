@@ -102,6 +102,7 @@ if [ "$load_choices_file" = "no" ]; then
 		[ "${REPLY,,}" == "y" ] && \
 			TO_REMOVE+=("$(printf %s "$i" | cut -d ' ' -f 2-)")
 	done
+	TO_REMOVE=($(echo "${TO_REMOVE[@]}" | tr ' ' '\n' | sort | uniq))
 	echo "TO_REMOVE - ${TO_REMOVE[@]}" >> "$choices_file"
 
 	# Go through a list of packages asking the user to choose which ones to install.
@@ -111,6 +112,7 @@ if [ "$load_choices_file" = "no" ]; then
 		[[ ${REPLY,,} == "y" ]] || [ -z $REPLY ] && \
 		TO_DNF+=("$(printf %s "$i" | cut -d ' ' -f 2-)")
 	done
+	TO_DNF=($(echo "${TO_DNF[@]}" | tr ' ' '\n' | sort | uniq))
 	echo "TO_DNF - ${TO_DNF[@]}" >> "$choices_file"
 
 	# Return IFS to normal
