@@ -29,6 +29,8 @@ All significant changes to **Fedora Setup** will be documented here.
 	- This new file contains a list of preinstalled packages a user may want to remove.
 - [packages.txt](packages.txt):
 	- Some virtualization packages such as `@virtualization` and `bridge-utils` are now listed.
+- [@virtualization.sh](post-install.d/@virtualization.sh):
+	- This file was added to configure virtualization for the user.
 - [duc_noip_install.sh](scripts/duc_noip_install.sh):
 	- Now, if you pass the `-s` flag to the script, it will set up a systemd service and a systemd
 		timer so it runs every time you boot the computer.
