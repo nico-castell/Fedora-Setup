@@ -10,3 +10,4 @@ sudo usermod -aG libvirt,qemu $USER  &>/dev/null || STATE=bad
 sudo systemctl enable --now libvirtd &>/dev/null || STATE=bad
 
 [ "$STATE" = "bad" ] && printf "ERROR preparing virtualization\n" >&2
+unset STATE
