@@ -29,6 +29,7 @@ All significant changes to **Fedora Setup** will be documented here.
 	- This new file contains a list of preinstalled packages a user may want to remove.
 - [packages.txt](packages.txt):
 	- Some virtualization packages such as `@virtualization` and `bridge-utils` are now listed.
+	- The Krita drawing software was added.
 - [@virtualization.sh](post-install.d/@virtualization.sh):
 	- This file was added to configure virtualization for the user.
 - [duc_noip_install.sh](scripts/duc_noip_install.sh):
