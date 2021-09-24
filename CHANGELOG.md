@@ -65,6 +65,10 @@ All significant changes to **Fedora Setup** will be documented here.
 ### Fixed
 - [.zshrc](samples/zshrc):
 	- The file no longer causes the Z-Shell to start showing an error code of 1.
+- [init.vim](samples/nvim.vim):
+	- Fixed error when interactively replacing text.
+- [.vimrc](samples/vimrc):
+	- Fixed error when interactively replacing text.
 ### Removed
 - [.zshrc](samples/zshrc):
 	- The file no longer reads `~/.zsh_aliases`.
