@@ -15,8 +15,8 @@ Go_Language golang
 Java_OpenJDK java-latest-openjdk
 Ninja_Build ninja-build
 Node.JS nodejs
-Virtual_Box VirtualBox kernel-headers kernel-devel qt5-qtx11extras @c-development
 Virt_Manager @virtualization bridge-utils
+Virtual_Box VirtualBox kernel-headers kernel-devel qt5-qtx11extras @c-development
 Visual_Studio_Code code
 Visual_Studio_Code_Insiders code-insiders
 VS_Codium codium
@@ -27,6 +27,7 @@ GNOME_Mines gnome-mines
 Steam steam
 GIMP gimp
 Inkscape inkscape
+Krita krita
 Brave_Browser brave-browser
 Geary_Mail geary
 Libre_Office @libreoffice
