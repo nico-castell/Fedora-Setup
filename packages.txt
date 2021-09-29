@@ -29,6 +29,7 @@ GIMP gimp
 Inkscape inkscape
 Krita krita
 Brave_Browser brave-browser
+Chromium chromium
 Geary_Mail geary
 Libre_Office @libreoffice
 Thunderbird thunderbird

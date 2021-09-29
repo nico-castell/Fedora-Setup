@@ -1,8 +1,9 @@
-Firefox firefox*
+Rhythmobx rhythmbox
 GNOME_Boxes gnome-boxes
-GNOME_Help yelp
+Firefox firefox*
+Libre_Office libreoffice* @libreoffice
 GNOME_Logs gnome-logs
+Fedora_Media_Writer mediawriter
+GNOME_Connections gnome-connections
 GNOME_Maps gnome-maps
 GNOME_Tour gnome-tour
-Libre_Office libreoffice* @libreoffice
-Rhythmbox rhythmbox

@@ -30,6 +30,7 @@ All significant changes to **Fedora Setup** will be documented here.
 - [packages.txt](packages.txt):
 	- Some virtualization packages such as `@virtualization` and `bridge-utils` are now listed.
 	- The Krita drawing software was added.
+	- The chromium browser is now in the list.
 - [@virtualization.sh](post-install.d/@virtualization.sh):
 	- This file was added to configure virtualization for the user.
 - [duc_noip_install.sh](scripts/duc_noip_install.sh):
