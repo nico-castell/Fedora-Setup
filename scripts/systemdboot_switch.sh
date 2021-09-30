@@ -10,7 +10,9 @@
 # Switching to systemd-boot required removing grub.
 printf "\e[33mSwitching to systemd-boot requires removing grub.\e[00m
 A new EFI boot entry will be created and your boot partition will be mounted at \e[01m/efi\e[00m.
-It's not recommendable to use systemd-boot if your boot partition is small (I recommend 512 MiB).\n\n"
+It's not recommendable to use systemd-boot if your boot partition is small (I recommend 512 MiB).
+
+WARNING: Do not use this script if you use separate partitions for /boot and /boot/efi.\n\n"
 
 PROCEED=false
 read -rp "Now that you understand the risk, do you still want to switch? (y/N) "
@@ -24,18 +26,16 @@ if $PROCEED; then
 	sudo echo >/dev/null
 
 	# systemd-boot is not for Legacy boot. So we can't switch if the system doesn't use UEFI.
-	if test ! -d /sys/firmware/efi; then
+	if [ ! -d /sys/firmware/efi ]; then
 		printf "YOUR SYSTEM DOESN'T USE EFI BOOT, cannot switch to systemd-boot.\n" >&2
 		exit 2
 	fi
 
 	# Find some necessary packages
-	for i in blkid sed awk cut cat sudo grep kernel-install; do
-		if ! which $i &>/dev/null; then
-			printf "Missing required package: %s\n" $i
-			exit 3
-		fi
-	done
+	if ! which blkid sed awk cut cat sudo grep kernel-install &>/dev/null; then
+		printf "Missing required packages\n"
+		exit 3
+	fi
 
 	# Prepare directory and make a backup of the /etc/fstab
 	sudo mkdir /efi
@@ -67,20 +67,19 @@ if $PROCEED; then
 
 	# Remove grub, grubby and shim
 	printf "Removing grub, \e[01;31mDO NOT REBOOT OR CANCEL\e[00m...\n"
-	[ $O -eq 0 ] && sudo rm /etc/dnf/protected.d/grub* /etc/dnf/protected.d/shim* && \
+	[ $O -eq 0 ] && sudo rm /etc/dnf/protected.d/{grub*,shim*} && \
 	sudo dnf remove -y grubby grub2* shim* memtest86* &>/dev/null && \
 	sudo rm -rf /boot/grub2 && sudo rm -rf /boot/loader
 	unset O
 
 	# Install systemd-boot
 	printf "Installing systemd-boot, \e[01;31mDO NOT REBOOT OR CANCEL\e[00m...\n"
-	cat /proc/cmdline | cut -d ' ' -f 2- | sudo tee /etc/kernel/cmdline >/dev/null
+	cut -d' ' -f2- /proc/cmdline | sudo tee /etc/kernel/cmdline >/dev/null
 	sudo bootctl install 2>&1 | grep entry
-	sudo kernel-install add $(uname -r) /lib/modules/$(uname -r)/vmlinuz
 
 	# Reinstall kernel
 	printf "Reinstalling kernel, \e[01;31mDO NOT REBOOT OR CANCEL\e[00m...\n"
-	sudo dnf reinstall kernel-core -y &>/dev/null
+	sudo kernel-install add $(uname -r) /lib/modules/$(uname -r)/vmlinuz
 
 	# Give notice the process is finished
 	[ $? -eq 0 ] && printf "\e[01;32mSuccess!\e[00m it is now safe to reboot.\n"

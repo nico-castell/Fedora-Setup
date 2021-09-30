@@ -64,6 +64,10 @@ All significant changes to **Fedora Setup** will be documented here.
 - [fedora_setup.sh](fedora_setup.sh):
 	- Use `cat <<EOF` instead of `printf "[..]" | tee"` to write to `dnf.conf`.
 	- The script now sorts its package lists and removes duplicates before doing any operations.
+- [systemdboot_switch.sh](scripts/systemdboot_switch.sh):
+	- There were a few performance improvents in this script.
+	- There's now a warning about using the script if you use separate partitions for /boot and
+		/boot/efi.
 ### Fixed
 - [.zshrc](samples/zshrc):
 	- The file no longer causes the Z-Shell to start showing an error code of 1.
