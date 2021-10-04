@@ -7,3 +7,4 @@ Fedora_Media_Writer mediawriter
 GNOME_Connections gnome-connections
 GNOME_Maps gnome-maps
 GNOME_Tour gnome-tour
+Videos totem
