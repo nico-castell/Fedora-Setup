@@ -31,6 +31,7 @@ All significant changes to **Fedora Setup** will be documented here.
 	- Some virtualization packages such as `@virtualization` and `bridge-utils` are now listed.
 	- The Krita drawing software was added.
 	- The chromium browser is now in the list.
+	- Some fun terminal commands are now in the list (figlet, cowsay, fortune, etc)
 - [@virtualization.sh](post-install.d/@virtualization.sh):
 	- This file was added to configure virtualization for the user.
 - [duc_noip_install.sh](scripts/duc_noip_install.sh):
@@ -60,6 +61,7 @@ All significant changes to **Fedora Setup** will be documented here.
 	- The script now writes to `/etc/zshenv` code to add `~/.local/bin` to the $PATH for all users.
 	- The script no longer uses `chsh` to change the user's default shell. It now uses `usermod`.
 - [.zshrc](post-install.d/zshrc):
+	- The file has a decorative header now
 	- The file no longer modifies the $PATH. As that is now handled by `/etc/zshenv`.
 - [fedora_setup.sh](fedora_setup.sh):
 	- Use `cat <<EOF` instead of `printf "[..]" | tee"` to write to `dnf.conf`.

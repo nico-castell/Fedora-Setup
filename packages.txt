@@ -25,6 +25,7 @@ Discord discord
 GNOME_Chess gnome-chess
 GNOME_Mines gnome-mines
 Steam steam
+Terminal_fun fortune-mod cowsay doge toilet figlet asciiquarium lolcat
 GIMP gimp
 Inkscape inkscape
 Krita krita

@@ -1,4 +1,8 @@
-# ~/.zshrc file for zsh interactive shells.
+#    / /_______| |__  _ __ ___
+#   / /|_  / __| '_ \| '__/ __|
+#  / /_ / /\__ \ | | | | | (__
+# /_/(_)___|___/_| |_|_|  \___|
+# file for interactive shells
 # see /usr/share/doc/zsh/examples/zshrc for examples
 
 # This zshrc is based on Kali Linux's zsh.
