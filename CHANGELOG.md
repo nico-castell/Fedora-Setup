@@ -2,6 +2,8 @@
 
 All significant changes to **Fedora Setup** will be documented here.
 
+- [Unreleased](#unreleased)
+	- [Added](#added)
 - [Released](#released)
 	- [Version 2.2.0 - *2021-10-06*](#version-220---2021-10-06)
 	- [Version 2.1.0 - *2021-07-15*](#version-210---2021-07-15)
@@ -12,6 +14,13 @@ All significant changes to **Fedora Setup** will be documented here.
 	- [Version 1.3.0 - *2021-05-26*](#version-130---2021-05-26)
 	- [Version 1.2.1 - *2021-05-18*](#version-121---2021-05-18)
 	- [Version 1.2.0 - *2021-05-18*](#version-120---2021-05-18)
+
+## Unreleased
+### Added
+- [packages.txt](packages.txt):
+	- Added an option to install kernel development tools.
+- [kernel-devel.sh](post-install.d/kernel-devel.sh):
+	- This script performs a few steps to get you running on kernel development.
 
 ## Released
 ### Version [2.2.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/2.2.0) - *2021-10-06*
