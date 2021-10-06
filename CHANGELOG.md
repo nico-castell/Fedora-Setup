@@ -2,12 +2,8 @@
 
 All significant changes to **Fedora Setup** will be documented here.
 
-- [Unreleased](#unreleased)
-	- [Added](#added)
-	- [Changed](#changed)
-	- [Fixed](#fixed)
-	- [Removed](#removed)
 - [Released](#released)
+	- [Version 2.2.0 - *2021-10-06*](#version-220---2021-10-06)
 	- [Version 2.1.0 - *2021-07-15*](#version-210---2021-07-15)
 	- [Version 2.0.0 - *2021-06-19*](#version-200---2021-06-19)
 	- [Version 1.6.0 - *2021-06-11*](#version-160---2021-06-11)
@@ -17,8 +13,16 @@ All significant changes to **Fedora Setup** will be documented here.
 	- [Version 1.2.1 - *2021-05-18*](#version-121---2021-05-18)
 	- [Version 1.2.0 - *2021-05-18*](#version-120---2021-05-18)
 
-## Unreleased
-### Added
+## Released
+### Version [2.2.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/2.2.0) - *2021-10-06*
+This version comes after 27 commits and a **very** long time. However, it comes with **many**
+improvements across the entire project. Some of the more important are:
+- The main script now handles being run as root, previously there was no defined behaviour for this.
+- The addition of the `remove.txt` file, allowing the user to remove potentially unwanted software.
+- The use of `/etc/zshenv` to configure the **$PATH** for all users.
+- Addition of Virtualization packages to `packages.txt` and a post-install script to allow the user
+	to use virtual machines in a type 1 hypervisor, the previous options were type 2.
+#### Added
 - [fedora_setup.sh](fedora_setup.sh):
 	- The script now stops if you run it as root, you should run it as your user. You can use the `-s`
 		flag to override and run it as root, which is not tested, so it may cause problems.
@@ -45,7 +49,7 @@ All significant changes to **Fedora Setup** will be documented here.
 - [mc_server_builder.sh](scripts/mc_server_builder.sh):
 	- The `compress.sh` script written by this script now shows a progress percentage while creating
 		backups of the server.
-### Changed
+#### Changed
 - [gnome_settings.sh](scripts/gnome_settings.sh):
 	- The file now configures `gedit` in a lot more depth.
 	- Changed zoom level for Nautilus's icon view.
@@ -70,20 +74,24 @@ All significant changes to **Fedora Setup** will be documented here.
 	- There were a few performance improvents in this script.
 	- There's now a warning about using the script if you use separate partitions for /boot and
 		/boot/efi.
-### Fixed
+#### Fixed
 - [.zshrc](samples/zshrc):
 	- The file no longer causes the Z-Shell to start showing an error code of 1.
 - [init.vim](samples/nvim.vim):
 	- Fixed error when interactively replacing text.
 - [.vimrc](samples/vimrc):
 	- Fixed error when interactively replacing text.
-### Removed
+#### Removed
 - [.zshrc](samples/zshrc):
 	- The file no longer reads `~/.zsh_aliases`.
 - [packages.txt](packages.txt):
 	- Packages `python3-pip` and `util-linux-user` are no longer listed as part of **Z-Shell**.
+#### Deprecated
+- [mc_server_builder.sh](scripts/mc_server_builder.sh):
+	- This script will be removed and replaced by an entirely separate repository, the project will
+		aim to create the server as a systemd service that is easy to manage while providing better
+		security.
 
-## Released
 ### Version [2.1.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/2.1.0) - *2021-07-15*
 This update came after 29 commits, many more than usual, it focused mainly on the Vim editor, but there were many more changes:
 - The configuration of **Vim** was heavily improved (specially the statusline) and **Neovim** was added with a similar config.
