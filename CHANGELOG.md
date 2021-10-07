@@ -21,6 +21,8 @@ All significant changes to **Fedora Setup** will be documented here.
 	- Added an option to install kernel development tools.
 - [kernel-devel.sh](post-install.d/kernel-devel.sh):
 	- This script performs a few steps to get you running on kernel development.
+- [kdev.sh](samples/kdev.sh):
+	- This script has a few bash functions to help users when managing kernel config files.
 
 ## Released
 ### Version [2.2.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/2.2.0) - *2021-10-06*

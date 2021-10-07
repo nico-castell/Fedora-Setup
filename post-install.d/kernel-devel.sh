@@ -5,9 +5,6 @@ printf "Successfully installed \e[36mKernel development\e[00m, configuring...\n"
 read -rep "Do you want to configure your system for developing the linux kernel? (y/N) "
 if [ ${REPLY,,} == "y" ]; then
 
-	# Add a group with special permissions
-	# TODO
-
 	# Create the directory structure and clone the stable branch of the kernel from kernel.org.
 	printf "Creating the directory structure to develop the linux kernel...\n"
 	mkdir -p ~/kernel/{built,configs}
@@ -24,8 +21,20 @@ if [ ${REPLY,,} == "y" ]; then
 		fi
 	fi
 
-	# Create a script to help in kernel development, and put it in the $PATH.
-	# TODO
+	# Offer the user a possibility to write a file allowing them extra priority with the nice command
+	# without the use of sudo
+	read -rep "$(printf "Do you want to configure a file to allow you to set processes with lower than 0 priority? (Helps a
+lot with compile times) (Y/n) ")"
+	if [ ${REPLY,,} == "y" -o -z "$REPLY" ]; then
+		cat <<EOF | sudo tee /etc/security/limits.d/$USER.conf
+# Allow user to use negative niceness
+$USER	-	nice	-20
+EOF
+	fi
+
+	# Copy the script to help in kernel development to the $PATH.
+	cp $script_location/samples/kdev.sh ~/.local/bin/kdev
+	chmod +x ~/.local/bin/kdev
 
 fi
 unset REPLY
