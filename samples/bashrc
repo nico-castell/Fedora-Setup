@@ -1,4 +1,9 @@
-# .bashrc
+#    _               _
+#   | |__   __ _ ___| |__  _ __ ___
+#   | '_ \ / _` / __| '_ \| '__/ __|
+#  _| |_) | (_| \__ \ | | | | | (__
+# (_)_.__/ \__,_|___/_| |_|_|  \___|
+# file for interactive shells
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
@@ -20,6 +25,7 @@ export PATH
 #force_color_prompt=yes
 case "$TERM" in
 	xterm-color|*-256color) color_prompt=yes ;;
+	xterm-kitty)            color_prompt=yes ;;
 esac
 
 if [ -n "$force_color_prompt" ]; then
@@ -39,18 +45,19 @@ git_info () {
 	# Get easy to parse info
 	_status="$(git status -b --porcelain=v2 2>/dev/null)"
 
-	# Prepare branch name (or commit name)
-	_branch="$(echo "$_status" | grep "^#\sbranch\.head" | rev | cut -d ' ' -f 1 | rev)"
-	[ "$_branch" = "(detached)" ] && \
-		_branch="$(echo "$_status" | grep "^#\sbranch\.oid" | rev | cut -d ' ' -f 1 | rev | colrm 8)"
-	[ -n "$_branch" ] && branch="$_branch"
+	# Prepare tag, branch name or commit hash (that's the order of priority)
+	branch="$(echo "$_status" | awk '$2 ~ /head/ {print $NF}')"
+	[ "$branch" = "(detached)" ] && \
+		branch="$(echo "$_status" | awk '$2 ~ /oid/ {print substr($NF,1,8)}')"
+	_tag=$(git describe --tags --exact-match $branch 2>/dev/null)
+	[ -n "$_tag" ] && branch=$_tag
 
 	# Process info
-	_commiting="$(echo "$_status" | grep "^[0-9]\s[MADRCU]." | wc -l)"
-	_ahead="$(echo "$_status"     | grep "^#\sbranch.ab"     | rev | cut -d ' ' -f 2 | rev | sed -e "s/\+//")"
-	_behind="$(echo "$_status"    | grep "^#\sbranch.ab"     | rev | cut -d ' ' -f 1 | rev | sed -e "s/\-//")"
-	_modified="$(echo "$_status"  | grep "^[0-9]\s.[MADRCU]" | wc -l)"
-	_untracked="$(echo "$_status" | grep "^\?"               | wc -l)"
+	_commiting="$(echo "$_status" | grep "^[0-9]\s[MADRCU]."   | wc -l)"
+	_ahead="$(echo "$_status"     | awk '$2 ~ /ab/ {print $3}' | sed -e "s/\+//")"
+	_behind="$(echo "$_status"    | awk '$2 ~ /ab/ {print $4}' | sed -e "s/\-//")"
+	_modified="$(echo "$_status"  | grep "^[0-9]\s.[MADRCU]"   | wc -l)"
+	_untracked="$(echo "$_status" | grep "^\?"                 | wc -l)"
 
 	# Prepare simbols for the reader
 	[ -n "$_commiting" ] && [ "$_commiting" -gt 0 ] && info+=" +"
@@ -61,7 +68,7 @@ git_info () {
 
 	# Build the prompt info
 	[ -n "$branch" ] && printf "%s%s%s" "$1" "$branch" "$info"
-	unset branch _branch _ahead _behind _modified _untracked _status info
+	unset branch _branch _ahead _behind _modified _untracked _status _tag info
 }
 
 if [ "$color_prompt" = yes ]; then
@@ -79,9 +86,11 @@ fi
 
 # Some ls aliases
 alias lla='ls -lahF --group-directories-first'
+alias llz='ls -lahFZ --group-directories-first'
 alias ll='ls -lABhF --group-directories-first'
 alias la='ls -ABhF'
 alias l='ls -lBhF --group-directories-first'
+alias lz='ls -lBhFZ --group-directories-first'
 
 # Create a new directory and cd into it
 new() {
@@ -92,4 +101,4 @@ new() {
 [ -d ~/.bashrc.d ] && \
 	for i in $(ls ~/.bashrc.d); do
 		. ~/.bashrc.d/$i
-	done
+	done || :

@@ -4,6 +4,7 @@ All significant changes to **Fedora Setup** will be documented here.
 
 - [Unreleased](#unreleased)
 	- [Added](#added)
+	- [Changed](#changed)
 - [Released](#released)
 	- [Version 2.2.0 - *2021-10-06*](#version-220---2021-10-06)
 	- [Version 2.1.0 - *2021-07-15*](#version-210---2021-07-15)
@@ -25,6 +26,9 @@ All significant changes to **Fedora Setup** will be documented here.
 	- This script performs a few steps to get you running on kernel development.
 - [kdev.sh](samples/kdev.sh):
 	- This script has a few bash functions to help users when managing kernel config files.
+### Changed
+- [.bashrc](samples/bashrc):
+	- Updated this file's git prompt, `ls` aliases and added `xterm-kitty` as a color terminal.
 
 ## Released
 ### Version [2.2.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/2.2.0) - *2021-10-06*
