@@ -26,7 +26,7 @@ if [ ${REPLY,,} == "y" ]; then
 	read -rep "$(printf "Do you want to configure a file to allow you to set processes with lower than 0 priority? (Helps a
 lot with compile times) (Y/n) ")"
 	if [ ${REPLY,,} == "y" -o -z "$REPLY" ]; then
-		cat <<EOF | sudo tee /etc/security/limits.d/$USER.conf
+		cat <<EOF | sudo tee /etc/security/limits.d/$USER.conf >/dev/null
 # Allow user to use negative niceness
 $USER	-	nice	-20
 EOF
@@ -35,6 +35,8 @@ EOF
 	# Copy the script to help in kernel development to the $PATH.
 	cp $script_location/samples/kdev.sh ~/.local/bin/kdev
 	chmod +x ~/.local/bin/kdev
+
+	popd >/dev/null
 
 fi
 unset REPLY

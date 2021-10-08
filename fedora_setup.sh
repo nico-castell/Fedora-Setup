@@ -214,7 +214,6 @@ fastestmirror=True
 max_parallel_downloads=20
 defaultyes=True
 minrate=384k
-installonly_limit=3
 EOF
 
 # Stop GNOME's packagekit to avoid problems while the package manager is being used.
