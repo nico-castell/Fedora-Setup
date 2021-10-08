@@ -22,6 +22,7 @@ All significant changes to **Fedora Setup** will be documented here.
 	- Added support for displaying tags in the git prompt.
 - [packages.txt](packages.txt):
 	- Added an option to install kernel development tools.
+	- Added the Archive manager (file-roller).
 - [kernel-devel.sh](post-install.d/kernel-devel.sh):
 	- This script performs a few steps to get you running on kernel development.
 - [kdev.sh](samples/kdev.sh):
