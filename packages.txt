@@ -13,7 +13,7 @@ GNOME_Boxes gnome-boxes
 GNOME_Builder gnome-builder gnome-software-devel
 Go_Language golang
 Java_OpenJDK java-latest-openjdk
-Kernel_development kernel-devel ncurses-devel rpm-build pesign openssl-devel
+Kernel_development kernel-devel ncurses-devel rpm-build pesign openssl openssl-devel
 Ninja_Build ninja-build
 Node.JS nodejs
 Virt_Manager @virtualization bridge-utils
