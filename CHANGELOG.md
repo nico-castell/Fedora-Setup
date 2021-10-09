@@ -2,11 +2,8 @@
 
 All significant changes to **Fedora Setup** will be documented here.
 
-- [Unreleased](#unreleased)
-	- [Added](#added)
-	- [Changed](#changed)
-	- [Fixed](#fixed)
 - [Released](#released)
+	- [Version 2.2.1 - *2021-10-08*](#version-221---2021-10-08)
 	- [Version 2.2.0 - *2021-10-06*](#version-220---2021-10-06)
 	- [Version 2.1.0 - *2021-07-15*](#version-210---2021-07-15)
 	- [Version 2.0.0 - *2021-06-19*](#version-200---2021-06-19)
@@ -17,8 +14,14 @@ All significant changes to **Fedora Setup** will be documented here.
 	- [Version 1.2.1 - *2021-05-18*](#version-121---2021-05-18)
 	- [Version 1.2.0 - *2021-05-18*](#version-120---2021-05-18)
 
-## Unreleased
-### Added
+## Released
+### Version [2.2.1](https://github.com/nico-castell/Fedora-Setup/releases/tag/2.2.1) - *2021-10-08*
+This is a small release, it is meant to complete version 2.2.0. These features were planned for it
+but I wanted to make a release even if it wasn't 101% ready. The main changes are:
+- Added kernel development tools to the list of programs to install.
+- Caught up the *.bashrc* with the *.zshrc*.
+- Fixed a few errors.
+#### Added
 - [.zshrc](samples/zshrc):
 	- Added support for displaying tags in the git prompt.
 - [packages.txt](packages.txt):
@@ -28,10 +31,10 @@ All significant changes to **Fedora Setup** will be documented here.
 	- This script performs a few steps to get you running on kernel development.
 - [kdev.sh](samples/kdev.sh):
 	- This script has a few bash functions to help users when managing kernel config files.
-### Changed
+#### Changed
 - [.bashrc](samples/bashrc):
 	- Updated this file's git prompt, `ls` aliases and added `xterm-kitty` as a color terminal.
-### Fixed
+#### Fixed
 - [zsh.sh](post-install.d/zsh.sh):
 	- The script now configures the chosen shell prompt for root too.
 - [golang.sh](post-install.d/golang.sh):
@@ -41,7 +44,6 @@ All significant changes to **Fedora Setup** will be documented here.
 - [@virtualization.sh](post-install.d/@virtualization.sh):
 	- The file no longer puts the user in the *qemu* group as it's not necessary.
 
-## Released
 ### Version [2.2.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/2.2.0) - *2021-10-06*
 This version comes after 27 commits and a **very** long time. However, it comes with **many**
 improvements across the entire project. Some of the more important are:
