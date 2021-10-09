@@ -5,6 +5,7 @@ All significant changes to **Fedora Setup** will be documented here.
 - [Unreleased](#unreleased)
 	- [Added](#added)
 	- [Changed](#changed)
+	- [Fixed](#fixed)
 - [Released](#released)
 	- [Version 2.2.0 - *2021-10-06*](#version-220---2021-10-06)
 	- [Version 2.1.0 - *2021-07-15*](#version-210---2021-07-15)
@@ -30,6 +31,15 @@ All significant changes to **Fedora Setup** will be documented here.
 ### Changed
 - [.bashrc](samples/bashrc):
 	- Updated this file's git prompt, `ls` aliases and added `xterm-kitty` as a color terminal.
+### Fixed
+- [zsh.sh](post-install.d/zsh.sh):
+	- The script now configures the chosen shell prompt for root too.
+- [golang.sh](post-install.d/golang.sh):
+	- The script now announces itself before asking questions (to avoid confusion).
+- [kernel-devel.sh](post-install.d/kernel-devel.sh):
+	- The script makes sure the directory `~/.local/bin` exists before writing a file in it.
+- [@virtualization.sh](post-install.d/@virtualization.sh):
+	- The file no longer puts the user in the *qemu* group as it's not necessary.
 
 ## Released
 ### Version [2.2.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/2.2.0) - *2021-10-06*

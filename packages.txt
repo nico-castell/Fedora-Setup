@@ -43,7 +43,7 @@ TLP tlp powertop
 Z-Shell zsh zsh-syntax-highlighting zsh-autosuggestions
 7zip p7zip
 Alacritty alacritty
-Archive Manager file-roller file-roller-nautilus
+Archive_Manager file-roller file-roller-nautilus
 dconf-Editor dconf-editor
 GNOME_Power-Manager gnome-power-manager
 GNOME_Tweaks gnome-tweaks gnome-extensions-app

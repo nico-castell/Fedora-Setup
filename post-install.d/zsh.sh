@@ -62,6 +62,7 @@ select s in $(cat "$HOME/.zshrc" | grep "# Choose a prompt style between" | sed 
 		continue
 	fi
 	sed -i "s/^	prompt_style=.*$/	prompt_style=$s/" ~/.zshrc
+	sudo sed -i "s/^	prompt_style=.*$/	prompt_style=$s/" /root/.zshrc
 	break
 done
 

@@ -33,6 +33,7 @@ EOF
 	fi
 
 	# Copy the script to help in kernel development to the $PATH.
+	mkdir -p ~/.local/bin
 	cp $script_location/samples/kdev.sh ~/.local/bin/kdev
 	chmod +x ~/.local/bin/kdev
 
