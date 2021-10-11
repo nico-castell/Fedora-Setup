@@ -37,8 +37,8 @@ cursor_name=""
 if [ -d "$location/themes/cursor" ]; then
 	cd "$location/themes/cursor"
 	f="$(ls)"
-	mkdir -p ~/.icons
-	tar -C ~/.icons -xf "$f"
+	mkdir -p ~/.local/share/icons
+	tar -C ~/.local/share/icons -xf "$f"
 	cursor_name="${f/.tar.*/}"
 fi
 unset f
@@ -47,8 +47,8 @@ icons_name=""
 if [ -d "$location/themes/icons" ]; then
 	cd "$location/themes/icons"
 	f="$(ls)"
-	mkdir -p ~/.icons
-	tar -C ~/.icons -xf "$f"
+	mkdir -p ~/.local/share/icons
+	tar -C ~/.local/share/icons -xf "$f"
 	icons_name="${f/.tar.*/}"
 fi
 unset f
@@ -57,8 +57,8 @@ theme_name=""
 if [ -d "$location/themes/theme" ]; then
 	cd "$location/themes/theme"
 	f="$(ls)"
-	mkdir -p ~/.themes
-	tar -C ~/.themes -xf "$f"
+	mkdir -p ~/.local/share/themes
+	tar -C ~/.local/share/themes -xf "$f"
 	theme_name="${f/.tar.*/}"
 fi
 unset f

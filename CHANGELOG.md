@@ -14,6 +14,12 @@ All significant changes to **Fedora Setup** will be documented here.
 	- [Version 1.2.1 - *2021-05-18*](#version-121---2021-05-18)
 	- [Version 1.2.0 - *2021-05-18*](#version-120---2021-05-18)
 
+## Unreleased
+### Changed
+- [gnome_apperance.sh](scripts/gnome_appearance.sh):
+	- The script now installs the themes and icons in `~/.local/share` instead of `~/.themes` or
+		`~/.icons`.
+
 ## Released
 ### Version [2.2.1](https://github.com/nico-castell/Fedora-Setup/releases/tag/2.2.1) - *2021-10-08*
 This is a small release, it is meant to complete version 2.2.0. These features were planned for it
