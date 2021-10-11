@@ -2,6 +2,8 @@
 
 All significant changes to **Fedora Setup** will be documented here.
 
+- [Unreleased](#unreleased)
+	- [Changed](#changed)
 - [Released](#released)
 	- [Version 2.2.1 - *2021-10-08*](#version-221---2021-10-08)
 	- [Version 2.2.0 - *2021-10-06*](#version-220---2021-10-06)
@@ -19,6 +21,8 @@ All significant changes to **Fedora Setup** will be documented here.
 - [gnome_apperance.sh](scripts/gnome_appearance.sh):
 	- The script now installs the themes and icons in `~/.local/share` instead of `~/.themes` or
 		`~/.icons`.
+- [.zshrc](samples/zshrc):
+	- Tweaked the final character of the vscode prompt.
 
 ## Released
 ### Version [2.2.1](https://github.com/nico-castell/Fedora-Setup/releases/tag/2.2.1) - *2021-10-08*
