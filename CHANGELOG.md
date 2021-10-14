@@ -4,6 +4,7 @@ All significant changes to **Fedora Setup** will be documented here.
 
 - [Unreleased](#unreleased)
 	- [Changed](#changed)
+	- [Fixed](#fixed)
 - [Released](#released)
 	- [Version 2.2.1 - *2021-10-08*](#version-221---2021-10-08)
 	- [Version 2.2.0 - *2021-10-06*](#version-220---2021-10-06)
@@ -23,6 +24,11 @@ All significant changes to **Fedora Setup** will be documented here.
 		`~/.icons`.
 - [.zshrc](samples/zshrc):
 	- Tweaked the final character of the vscode prompt.
+### Fixed
+- [.zshrc](samples/zshrc):
+	- The git prompt now doesn't dissapear if you're not in the root folder of a repository.
+- [.bashrc](samples/bashrc):
+	- The git prompt now doesn't dissapear if you're not in the root folder of a repository.
 
 ## Released
 ### Version [2.2.1](https://github.com/nico-castell/Fedora-Setup/releases/tag/2.2.1) - *2021-10-08*
