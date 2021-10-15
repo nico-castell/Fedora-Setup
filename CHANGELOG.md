@@ -22,6 +22,8 @@ All significant changes to **Fedora Setup** will be documented here.
 - [gnome_apperance.sh](scripts/gnome_appearance.sh):
 	- The script now installs the themes and icons in `~/.local/share` instead of `~/.themes` or
 		`~/.icons`.
+- [systemdboot_switch.sh](scripts/systemdboot_switch.sh):
+	- Tweaked the file to give a little more info to the user and be more maintainable.
 - [kdev.sh](samples/kdev.sh):
 	- The script's *config* function was updated to avoid modifying the Makefile as that could
 		trigger unnecessary complete recompiles of the kernel.

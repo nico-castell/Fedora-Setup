@@ -48,7 +48,7 @@ if $PROCEED; then
 	ID=${ID//\"/}
 
 	# Get the current mountpoint of the boot partition
-	MOUNT=$(cat /etc/fstab | grep "$ID" | awk '{print $2}')
+	MOUNT=$(awk "\$0 ~ /$ID/ {print \$2}" /etc/fstab)
 
 	# Move the partition to /efi only if it's not already there
 	if ! [[ "$MOUNT" == '/efi' ]]; then
@@ -58,6 +58,7 @@ if $PROCEED; then
 
 		if [ $? -eq 0 ]; then
 			sudo umount $MOUNT
+			sudo systemctl daemon-reload
 			sudo mount /efi
 		fi
 	fi
@@ -67,9 +68,10 @@ if $PROCEED; then
 
 	# Remove grub, grubby and shim
 	printf "Removing grub, \e[01;31mDO NOT REBOOT OR CANCEL\e[00m...\n"
-	[ $O -eq 0 ] && sudo rm /etc/dnf/protected.d/{grub*,shim*} && \
-	sudo dnf remove -y grubby grub2* shim* memtest86* &>/dev/null && \
-	sudo rm -rf /boot/grub2 && sudo rm -rf /boot/loader
+	[ $O -eq 0 ]                                                     && \
+		sudo rm /etc/dnf/protected.d/{grub*,shim*}                    && \
+		sudo dnf remove -y grubby grub2* shim* memtest86* &>/dev/null && \
+		sudo rm -rf /boot/{grub2,loader}
 	unset O
 
 	# Install systemd-boot
@@ -82,7 +84,8 @@ if $PROCEED; then
 	sudo kernel-install add $(uname -r) /lib/modules/$(uname -r)/vmlinuz
 
 	# Give notice the process is finished
-	[ $? -eq 0 ] && printf "\e[01;32mSuccess!\e[00m it is now safe to reboot.\n"
+	[ $? -eq 0 ] && printf "\e[01;32mSuccess!\e[00m it is now safe to reboot.
+PS: Use the file /etc/kernel/cmdline to configure the kernel commandline if you need to."
 
 else
 	exit 1
