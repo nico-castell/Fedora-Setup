@@ -9,7 +9,7 @@
 # THE SOFTWARE IS PROVIDED "AS IS"
 # Read the included LICENSE file for more information
 
-# Prepare config of Makefile & .config
+# Prepare config file and manage backups
 config() {
 	# Use specified config file, or find the config in use now, if all fails, return error
 	TYPE=$1
@@ -21,11 +21,10 @@ config() {
 		cp ~/kernel/configs/original.config ~/kernel/configs/$TYPE.config
 	fi
 
-	# Write config file, config buffer and extraversion, then make nconfig
-	sed -i "s/^EXTRAVERSION =.*/EXTRAVERSION = -$TYPE/" Makefile
+	# Write config file and make nconfig
 	cp ~/kernel/configs/$TYPE.config .config
 	make nconfig
-	touch .scmversion
+	printf '' > .scmversion
 
 	# Compare user-edited file with the one which was copied, if they differ, update the .old backup
 	# file.
