@@ -19,6 +19,9 @@ All significant changes to **Fedora Setup** will be documented here.
 
 ## Unreleased
 ### Changed
+- [fedora_setup.sh](fedora_setup.sh):
+	- The `dnf.conf` file written by this script is now configured to avoid installing weak
+		dependencies.
 - [gnome_apperance.sh](scripts/gnome_appearance.sh):
 	- The script now installs the themes and icons in `~/.local/share` instead of `~/.themes` or
 		`~/.icons`.
@@ -30,6 +33,8 @@ All significant changes to **Fedora Setup** will be documented here.
 - [.zshrc](samples/zshrc):
 	- Tweaked the final character of the vscode prompt.
 ### Fixed
+- [fedora_setup.sh](fedora_setup.sh):
+	- Fixed an unnecessary call to the *Separate* function.
 - [.zshrc](samples/zshrc):
 	- The git prompt now doesn't dissapear if you're not in the root folder of a repository.
 - [.bashrc](samples/bashrc):

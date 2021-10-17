@@ -211,6 +211,7 @@ clean_requirements_on_remove=True
 best=False
 skip_if_unavailable=True
 fastestmirror=True
+install_weak_deps=False
 max_parallel_downloads=20
 defaultyes=True
 minrate=384k
@@ -257,7 +258,6 @@ if [ -n "$TO_REMOVE" ]; then
 	Separate 4
 	printf "Removing user-selected packages...\n"
 	sudo dnf remove ${TO_REMOVE[@]}
-	Separate 4
 fi
 
 # If upgrades are available, offer the user a chance to install them now.
