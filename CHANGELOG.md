@@ -2,9 +2,6 @@
 
 All significant changes to **Fedora Setup** will be documented here.
 
-- [Unreleased](#unreleased)
-	- [Changed](#changed)
-	- [Fixed](#fixed)
 - [Released](#released)
 	- [Version 2.2.1 - *2021-10-08*](#version-221---2021-10-08)
 	- [Version 2.2.0 - *2021-10-06*](#version-220---2021-10-06)
@@ -17,8 +14,11 @@ All significant changes to **Fedora Setup** will be documented here.
 	- [Version 1.2.1 - *2021-05-18*](#version-121---2021-05-18)
 	- [Version 1.2.0 - *2021-05-18*](#version-120---2021-05-18)
 
-## Unreleased
-### Changed
+### Version [2.3.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/2.3.0) - *2021-10-17*
+This is a small release made in parity with the
+[PopOS Setup](https://github.com/nico-castell/PopOS-Setup) project to syncronize changes to this
+date.
+#### Changed
 - [fedora_setup.sh](fedora_setup.sh):
 	- The `dnf.conf` file written by this script is now configured to avoid installing weak
 		dependencies.
@@ -32,7 +32,7 @@ All significant changes to **Fedora Setup** will be documented here.
 		trigger unnecessary complete recompiles of the kernel.
 - [.zshrc](samples/zshrc):
 	- Tweaked the final character of the vscode prompt.
-### Fixed
+#### Fixed
 - [fedora_setup.sh](fedora_setup.sh):
 	- Fixed essential packages being forgotten after loading choices from the temporary file.
 	- Fixed an unnecessary call to the *Separate* function.
