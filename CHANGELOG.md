@@ -34,6 +34,7 @@ All significant changes to **Fedora Setup** will be documented here.
 	- Tweaked the final character of the vscode prompt.
 ### Fixed
 - [fedora_setup.sh](fedora_setup.sh):
+	- Fixed essential packages being forgotten after loading choices from the temporary file.
 	- Fixed an unnecessary call to the *Separate* function.
 - [.zshrc](samples/zshrc):
 	- The git prompt now doesn't dissapear if you're not in the root folder of a repository.

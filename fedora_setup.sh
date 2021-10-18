@@ -113,14 +113,12 @@ if [ "$load_choices_file" = "no" ]; then
 		TO_DNF+=("$(printf %s "$i" | cut -d ' ' -f 2-)")
 	done
 	TO_DNF=($(echo "${TO_DNF[@]}" | tr ' ' '\n' | sort -u))
+	TO_DNF+=("xclip" "rpmconf" "pxz") # Append "essential" packages
 	echo "TO_DNF - ${TO_DNF[@]}" >> "$choices_file"
 
 	# Return IFS to normal
 	IFS="$IFSB"
 	unset IFSB
-
-	# Append "essential" packages
-	TO_DNF+=("xclip" "rpmconf" "pxz")
 
 	Separate 4
 
