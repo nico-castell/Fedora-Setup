@@ -6,6 +6,7 @@
 
 # This way of switching is based on an article at:
 #   https://kowalski7cc.xyz/blog/systemd-boot-fedora-32
+# (with a few of my tweaks)
 
 # Switching to systemd-boot required removing grub.
 printf "\e[33mSwitching to systemd-boot requires removing grub.\e[00m
@@ -33,8 +34,13 @@ if $PROCEED; then
 
 	# Find some necessary packages
 	if ! which blkid sed awk cut cat sudo grep kernel-install &>/dev/null; then
-		printf "Missing required packages\n"
+		printf "Missing required packages\n" >&2
 		exit 3
+	fi
+
+	if [ $(lsblk -o MOUNTPOINT | grep '/boot' | wc -l) -ne 1 ]; then
+		printf "Cannot work with more than 1 boot partition (like /boot and /boot/efi as 2 partitions)\n" >&2
+			exit 4
 	fi
 
 	# Prepare directory and make a backup of the /etc/fstab
@@ -66,6 +72,11 @@ if $PROCEED; then
 	# Make directory for systemd-boot
 	sudo mkdir /efi/$(cat /etc/machine-id); O=$?
 
+	# Process grub config
+	MOUNTPOINT=$(printf "root=UUID=%s ro" $(lsblk -o MOUNTPOINT,UUID | grep '^/\s' | awk '{printf $2}'))
+	OPTIONS=$(awk -F\" '$1 ~ /GRUB_CMDLINE_LINUX=/ {print $2}' /etc/default/grub)
+	TIMEOUT=$(awk -F\= '$1 ~ /GRUB_TIMEOUT/ {print $2}' /etc/default/grub)
+
 	# Remove grub, grubby and shim
 	printf "Removing grub, \e[01;31mDO NOT REBOOT OR CANCEL\e[00m...\n"
 	[ $O -eq 0 ]                                                     && \
@@ -74,10 +85,11 @@ if $PROCEED; then
 		sudo rm -rf /boot/{grub2,loader}
 	unset O
 
-	# Install systemd-boot
+	# Install systemd-boot and write configurations
 	printf "Installing systemd-boot, \e[01;31mDO NOT REBOOT OR CANCEL\e[00m...\n"
-	cut -d' ' -f2- /proc/cmdline | sudo tee /etc/kernel/cmdline >/dev/null
+	printf "%s %s\n" "$MOUNTPOINT" "$OPTIONS" >/etc/kernel/cmdline
 	sudo bootctl install 2>&1 | grep entry
+	sed -i "s/^#timeout.*/timeout $TIMEOUT/" /efi/loader/loader.conf
 
 	# Reinstall kernel
 	printf "Reinstalling kernel, \e[01;31mDO NOT REBOOT OR CANCEL\e[00m...\n"
@@ -98,3 +110,4 @@ exit 0
 # 1 - User canceled the switch
 # 2 - System uses Legacy boot
 # 3 - Missing package/s
+# 4 - Multiple boot partitions detected

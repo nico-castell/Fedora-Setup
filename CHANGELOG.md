@@ -2,7 +2,10 @@
 
 All significant changes to **Fedora Setup** will be documented here.
 
+- [Unreleased](#unreleased)
+	- [Added](#added)
 - [Released](#released)
+	- [Version 2.3.0 - *2021-10-17*](#version-230---2021-10-17)
 	- [Version 2.2.1 - *2021-10-08*](#version-221---2021-10-08)
 	- [Version 2.2.0 - *2021-10-06*](#version-220---2021-10-06)
 	- [Version 2.1.0 - *2021-07-15*](#version-210---2021-07-15)
@@ -14,6 +17,16 @@ All significant changes to **Fedora Setup** will be documented here.
 	- [Version 1.2.1 - *2021-05-18*](#version-121---2021-05-18)
 	- [Version 1.2.0 - *2021-05-18*](#version-120---2021-05-18)
 
+## Unreleased
+### Added
+- [systemdboot_switch.sh](scripts/systemdboot_switch.sh):
+	- The file can now process the grub config at `/etc/default/grub` and use some of it for
+		systemd-boot.
+	- The file now checks the partition table to see if there are multiple partition mounpoints under
+		`/boot`, such as `/boot` and `/boot/efi`. If there are, the script will exit before making a
+		mess.
+
+## Released
 ### Version [2.3.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/2.3.0) - *2021-10-17*
 This is a small release made in parity with the
 [PopOS Setup](https://github.com/nico-castell/PopOS-Setup) project to syncronize changes to this
@@ -41,7 +54,6 @@ date.
 - [.bashrc](samples/bashrc):
 	- The git prompt now doesn't dissapear if you're not in the root folder of a repository.
 
-## Released
 ### Version [2.2.1](https://github.com/nico-castell/Fedora-Setup/releases/tag/2.2.1) - *2021-10-08*
 This is a small release, it is meant to complete version 2.2.0. These features were planned for it
 but I wanted to make a release even if it wasn't 101% ready. The main changes are:
