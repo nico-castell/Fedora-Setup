@@ -85,9 +85,9 @@ if $PROCEED; then
 
 	# Install systemd-boot and write configurations
 	printf "Installing systemd-boot, \e[01;31mDO NOT REBOOT OR CANCEL\e[00m...\n"
-	printf "%s %s\n" "$MOUNTPOINT" "$OPTIONS" >/etc/kernel/cmdline
+	printf "%s %s\n" "$MOUNTPOINT" "$OPTIONS" | sudo tee /etc/kernel/cmdline >/dev/null
 	sudo bootctl install 2>&1 | grep entry
-	sed -i "s/^#timeout.*/timeout $TIMEOUT/" /efi/loader/loader.conf
+	sudo sed -i "s/^#timeout.*/timeout $TIMEOUT/" /efi/loader/loader.conf
 
 	# Reinstall kernel
 	printf "Reinstalling kernel, \e[01;31mDO NOT REBOOT OR CANCEL\e[00m...\n"
