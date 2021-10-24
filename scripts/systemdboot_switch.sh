@@ -4,16 +4,14 @@
 # WARNING: THIS SCRIPT COULD BREAK YOUR BOOT - USE WITH CAUTION
 ###############################################################
 
-# This way of switching is based on an article at:
+# This way of switching is based on an article by Kowalski7cc that you can find at:
 #   https://kowalski7cc.xyz/blog/systemd-boot-fedora-32
 # (with a few of my tweaks)
 
 # Switching to systemd-boot required removing grub.
 printf "\e[33mSwitching to systemd-boot requires removing grub.\e[00m
 A new EFI boot entry will be created and your boot partition will be mounted at \e[01m/efi\e[00m.
-It's not recommendable to use systemd-boot if your boot partition is small (I recommend 512 MiB).
-
-WARNING: Do not use this script if you use separate partitions for /boot and /boot/efi.\n\n"
+It's not recommendable to use systemd-boot if your boot partition is small (I recommend 512 MiB).\n\n"
 
 PROCEED=false
 read -rp "Now that you understand the risk, do you still want to switch? (y/N) "
