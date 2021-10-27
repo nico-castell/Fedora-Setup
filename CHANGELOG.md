@@ -26,6 +26,8 @@ All significant changes to **Fedora Setup** will be documented here.
 	- The file now checks the partition table to see if there are multiple partition mounpoints under
 		`/boot`, such as `/boot` and `/boot/efi`. If there are, the script will exit before making a
 		mess.
+- [init.vim](samples/nvim.vim):
+	- The file type *limits* was added to use tabs with a length of 8.
 ### Changed
 - [.zshrc](samples/zshrc):
 	- The shell can now detect when it is running inside GNOME Builder, and use the vscode prompt.
