@@ -4,6 +4,7 @@ All significant changes to **Fedora Setup** will be documented here.
 
 - [Unreleased](#unreleased)
 	- [Added](#added)
+	- [Changed](#changed)
 - [Released](#released)
 	- [Version 2.3.0 - *2021-10-17*](#version-230---2021-10-17)
 	- [Version 2.2.1 - *2021-10-08*](#version-221---2021-10-08)
@@ -25,6 +26,9 @@ All significant changes to **Fedora Setup** will be documented here.
 	- The file now checks the partition table to see if there are multiple partition mounpoints under
 		`/boot`, such as `/boot` and `/boot/efi`. If there are, the script will exit before making a
 		mess.
+### Changed
+- [.zshrc](samples/zshrc):
+	- The shell can now detect when it is running inside GNOME Builder, and use the vscode prompt.
 
 ## Released
 ### Version [2.3.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/2.3.0) - *2021-10-17*
