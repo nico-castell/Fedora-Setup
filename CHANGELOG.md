@@ -28,9 +28,14 @@ All significant changes to **Fedora Setup** will be documented here.
 		mess.
 - [init.vim](samples/nvim.vim):
 	- The file type *limits* was added to use tabs with a length of 8.
+- [vimrc](samples/vimrc):
+	- The file type *limits* was added to use tabs with a length of 8.
 ### Changed
 - [.zshrc](samples/zshrc):
 	- The shell can now detect when it is running inside GNOME Builder, and use the vscode prompt.
+	- The `la` alias now groups folders first.
+- [.bashrc](samples/bashrc):
+	- The `la` alias now groups folders first.
 
 ## Released
 ### Version [2.3.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/2.3.0) - *2021-10-17*
