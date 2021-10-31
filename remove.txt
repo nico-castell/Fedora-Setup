@@ -3,6 +3,7 @@ GNOME_Boxes gnome-boxes
 Firefox firefox*
 Libre_Office libreoffice* @libreoffice
 GNOME_Logs gnome-logs
+Document_Scanner simple-scan
 Fedora_Media_Writer mediawriter
 GNOME_Connections gnome-connections
 GNOME_Maps gnome-maps
