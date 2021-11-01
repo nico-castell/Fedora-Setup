@@ -5,6 +5,7 @@ All significant changes to **Fedora Setup** will be documented here.
 - [Unreleased](#unreleased)
 	- [Added](#added)
 	- [Changed](#changed)
+	- [Fixed](#fixed)
 - [Released](#released)
 	- [Version 2.3.0 - *2021-10-17*](#version-230---2021-10-17)
 	- [Version 2.2.1 - *2021-10-08*](#version-221---2021-10-08)
@@ -38,6 +39,10 @@ All significant changes to **Fedora Setup** will be documented here.
 	- The `la` alias now groups folders first.
 - [.bashrc](samples/bashrc):
 	- The `la` alias now groups folders first.
+### Fixed
+- [flatpak.sh](post-install.d/flatpak.sh):
+	- The file now sets up the flathub remote for both system and user, this fixes errors when
+	  installing the GNOME Builder SDK.
 
 ## Released
 ### Version [2.3.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/2.3.0) - *2021-10-17*
