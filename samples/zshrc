@@ -41,6 +41,17 @@ compinit -d ~/.cache/zcompdump
 zstyle ':completion:*:*:*:*:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' # case insensitive tab completion
 
+# Enable zsh's git prompt features through vcs_info
+autoload -Uz vcs_info
+precmd_vcs_info() { vcs_info }
+precmd_functions+=( precmd_vcs_info )
+setopt prompt_subst
+zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:*' unstagedstr ' ✎'
+zstyle ':vcs_info:*' stagedstr ' +'
+zstyle ':vcs_info:*' formats '%b%u%c'
+
 # History configurations
 HISTFILE=~/.zsh_history
 HISTSIZE=1000
@@ -90,40 +101,6 @@ if [ -n "$force_color_prompt" ]; then
 	fi
 fi
 
-# Find info about git and add it to the prompt.
-git_info () {
-	# Don't run this code if it's not going to be useful
-	git rev-parse --git-dir &>/dev/null || return
-
-	# Get easy to parse info
-	_status="$(git status -b --porcelain=v2 2>/dev/null)"
-
-	# Prepare tag, branch name or commit hash (that's the order of priority)
-	branch="$(echo "$_status" | awk '$2 ~ /head/ {print $NF}')"
-	[ "$branch" = "(detached)" ] && \
-		branch="$(echo "$_status" | awk '$2 ~ /oid/ {print substr($NF,1,8)}')"
-	_tag=$(git describe --tags --exact-match $branch 2>/dev/null)
-	[ -n "$_tag" ] && branch=$_tag
-
-	# Process info
-	_commiting="$(echo "$_status" | grep "^[0-9]\s[MADRCU]."   | wc -l)"
-	_ahead="$(echo "$_status"     | awk '$2 ~ /ab/ {print $3}' | sed -e "s/\+//")"
-	_behind="$(echo "$_status"    | awk '$2 ~ /ab/ {print $4}' | sed -e "s/\-//")"
-	_modified="$(echo "$_status"  | grep "^[0-9]\s.[MADRCU]"   | wc -l)"
-	_untracked="$(echo "$_status" | grep "^\?"                 | wc -l)"
-
-	# Prepare simbols for the reader
-	[ "$_commiting" -gt 0 ] && info+=" +"
-	[ "$_ahead"     -gt 0 ] && info+=" ↑"
-	[ "$_behind"    -gt 0 ] && info+=" ↓"
-	[ "$_modified"  -gt 0 ] && info+=" ✎"
-	[ "$_untracked" -gt 0 ] && info+=" ?"
-
-	# Build the prompt info
-	[ -n "$branch" ] && printf "%s%s%%f%s" "$1" "$branch" "$info"
-	unset branch _branch _ahead _behind _modified _untracked _status _tag info
-}
-
 # Powerline style shell
 use_powerline () {
 	if [ $color_prompt ]; then
@@ -156,10 +133,22 @@ if [ "$color_prompt" = yes ]; then
 	# render. This helps when you're in vscode's tiny, gpu accelerated terminal
 	[ -n "$VSCODE_GIT_IPC_HANDLE" -o -n "$INSIDE_GNOME_BUILDER" ] && prompt_style=vscode
 	case ${(L)prompt_style} in
-		fedora) PROMPT=$'[%n@%m %1~%(1j. ⚙.)\$(git_info " - ")]%# ' ;;
-		ubuntu) PROMPT=$'%B%F{%(#.red.green)}%n@%m%f%b:%(1j. ⚙.)\$(git_info " %F{%(#.blue.yellow)}") %B%F{%(#.yellow.blue)}%(4~.%-1~/…/%2~.%3~)%f%b%# ' ;;
-		kali) PROMPT=$'%F{%(#.red.blue)}╭──(%B%F{%(#.red.cyan)}%n%(#.🕱.@)%m%f%b%F{%(#.red.blue)})-[%B%F{%(#.yellow.green)}%(4~.%-1~/…/%2~.%3~)%f%b%F{%(#.red.blue)}]%(1j. %F{grey}⚙%f.)%F{%(#.red.blue)}\$(git_info " - %F{%(#.blue.yellow)}")\n%F{%(#.red.blue)}╰─%#%f ' ;;
-		vscode) PROMPT=$'%F{%(#.red.blue)}(%B%F{%(#.yellow.cyan)}%1~%F{%(#.red.blue)}%b)%(1j. %F{grey}⚙.)\$(git_info " %F{%(#.blue.yellow)} ") %(#.%F{red}.%F{blue})⟩%f ' ;;
+		fedora)
+			PROMPT=$'[%n@%m %1~%(1j. ⚙.)${vcs_info_msg_0_}]%# '
+			zstyle ':vcs_info:*' formats ' - %b%u%c'
+		;;
+		ubuntu)
+			PROMPT=$'%B%F{%(#.red.green)}%n@%m%f%b:%(1j. ⚙.)${vcs_info_msg_0_} %B%F{%(#.yellow.blue)}%(4~.%-1~/…/%2~.%3~)%f%b%# '
+			zstyle ':vcs_info:*' formats ' %F{yellow}%b%f%u%c'
+		;;
+		kali)
+			PROMPT=$'%F{%(#.red.blue)}╭──(%B%F{%(#.red.cyan)}%n%(#.🕱.@)%m%f%b%F{%(#.red.blue)})-[%B%F{%(#.yellow.green)}%(4~.%-1~/…/%2~.%3~)%f%b%F{%(#.red.blue)}]%(1j. %F{grey}⚙%f.)%F{%(#.red.blue)}${vcs_info_msg_0_}\n%F{%(#.red.blue)}╰─%#%f '
+			zstyle ':vcs_info:*' formats ' - %F{yellow}%b%f%u%c'
+		;;
+		vscode)
+			PROMPT=$'%F{%(#.red.blue)}(%B%F{%(#.yellow.cyan)}%1~%F{%(#.red.blue)}%b)%(1j. %F{grey}⚙.)${vcs_info_msg_0_} %(#.%F{red}.%F{blue})⟩%f '
+			zstyle ':vcs_info:*' formats ' %F{yellow} %b%f%u%c'
+		;;
 		powerline) use_powerline ;;
 	esac
 	RPROMPT=$'%(?.. %F{red}%? ✘%f)'

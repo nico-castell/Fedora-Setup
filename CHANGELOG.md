@@ -35,6 +35,8 @@ All significant changes to **Fedora Setup** will be documented here.
 	- Added *Document Scanner* to the list.
 ### Changed
 - [.zshrc](samples/zshrc):
+	- The code for the git prompt was changed to be much faster by using zsh's *vcs_info*. This means
+		less functionality, but much less code to run every time the prompt needs to be renderes.
 	- The shell can now detect when it is running inside GNOME Builder, and use the vscode prompt.
 	- The `la` alias now groups folders first.
 - [.bashrc](samples/bashrc):
