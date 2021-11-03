@@ -29,7 +29,7 @@ config() {
 
 	# Compare user-edited file with the one which was copied, if they differ, update the .old backup
 	# file.
-	cmp .config ../$TYPE.config &>/dev/null || cp ~/kernel/configs/$TYPE.config ~/kernel/configs/$TYPE.config.old
+	cmp .config ../$TYPE.config &>/dev/null || cp ~/kernel/configs/$TYPE{.config,.config.old}
 	cp .config ~/kernel/configs/$TYPE.config
 
 	unset TYPE
