@@ -5,7 +5,7 @@
 # (_)___|___/_| |_|_|  \___|
 # file for interactive shells
 
-# This zshrc is based on Kali Linux's zsh.
+# This .zshrc is based on Kali Linux's .zshrc, though it's been modified in significant ways.
 
 setopt autocd               # change directory just by typing its name
 #setopt correct             # auto correct mistakes
@@ -19,7 +19,7 @@ setopt promptsubst          # enable command substitution in prompt
 WORDCHARS=${WORDCHARS//\/} # Don't consider certain characters part of the word
 
 # hide EOL sign ('%')
-PROMPT_EOL_MARK=""
+export PROMPT_EOL_MARK=""
 
 # configure key keybindings
 bindkey -e                                      # emacs key bindings
@@ -82,14 +82,14 @@ function zshaddhistory() {
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=
 
-# Find if we have color prompt
-# Uncomment to force color prompt
-#force_color_prompt=yes
 case "$TERM" in
 	xterm-color|*-256color) color_prompt=yes ;;
 	xterm-kitty)            color_prompt=yes ;;
 esac
 
+# Find if we have color prompt
+# Uncomment to force color prompt
+#force_color_prompt=yes
 if [ -n "$force_color_prompt" ]; then
 	if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
 	# We have color support; assume it's compliant with Ecma-48
@@ -107,17 +107,8 @@ use_powerline () {
 		function powerline_precmd() {
 			PS1="$(powerline-shell --shell zsh $?)"
 		}
-		function install_powerline_precmd() {
-			for s in "${precmd_functions[@]}"; do
-				if [ "$s" = "powerline_precmd" ]; then
-					return
-				fi
-			done
+		[ "$TERM" != "linux" -a ! "$precmd_functions" =~ 'powerline_precmd' ] && \
 			precmd_functions+=(powerline_precmd)
-		}
-		if [ "$TERM" != "linux" ]; then
-			install_powerline_precmd
-		fi
 	fi
 }
 
@@ -154,7 +145,7 @@ if [ "$color_prompt" = yes ]; then
 	RPROMPT=$'%(?.. %F{red}%? ✘%f)'
 
 	# enable syntax-highlighting
-	if [ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] && [ "$color_prompt" = yes ]; then
+	if [ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh -a "$color_prompt" = yes ]; then
 	. /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 	ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
 	ZSH_HIGHLIGHT_STYLES[default]=none
@@ -240,11 +231,6 @@ alias la='ls -ABhF --group-directories-first'
 alias l='ls -lBhF --group-directories-first'
 alias lz='ls -lBhFZ --group-directories-first'
 
-# Create a directory and cd into it
-new() {
-	mkdir "$1" && cd "$1"
-}
-
 # enable auto-suggestions based on the history
 if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
 	. /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -255,6 +241,11 @@ if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
 		ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#999"
 	fi
 fi
+
+# Create a directory and cd into it
+new() {
+	mkdir "$1" && cd "$1"
+}
 
 # Put all your aliases and configs in files under the ~/.zshrc.d folder
 [ -d ~/.zshrc.d ] && \

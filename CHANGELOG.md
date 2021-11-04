@@ -39,6 +39,7 @@ All significant changes to **Fedora Setup** will be documented here.
 		less functionality, but much less code to run every time the prompt needs to be renderes.
 	- The shell can now detect when it is running inside GNOME Builder, and use the vscode prompt.
 	- The `la` alias now groups folders first.
+	- Made many other tweaks to improve code maintainability and speed.
 - [.bashrc](samples/bashrc):
 	- The `la` alias now groups folders first.
 ### Fixed
