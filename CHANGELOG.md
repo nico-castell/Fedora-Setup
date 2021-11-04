@@ -48,6 +48,7 @@ All significant changes to **Fedora Setup** will be documented here.
 	  installing the GNOME Builder SDK.
 - [kdev.sh](samples/kdev.sh):
 	- Stop assuming the user's *cwd* when using `kdev config`.
+	- Fixed `kdev config` failing to find the config type currently in use.
 
 ## Released
 ### Version [2.3.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/2.3.0) - *2021-10-17*
