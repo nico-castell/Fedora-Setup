@@ -45,6 +45,8 @@ All significant changes to **Fedora Setup** will be documented here.
 - [flatpak.sh](post-install.d/flatpak.sh):
 	- The file now sets up the flathub remote for both system and user, this fixes errors when
 	  installing the GNOME Builder SDK.
+- [kdev.sh](samples/kdev.sh):
+	- Stop assuming the user's *cwd* when using `kdev config`.
 
 ## Released
 ### Version [2.3.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/2.3.0) - *2021-10-17*
