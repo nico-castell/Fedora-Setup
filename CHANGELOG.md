@@ -33,6 +33,8 @@ All significant changes to **Fedora Setup** will be documented here.
 	- The file type *limits* was added to use tabs with a length of 8.
 - [remove.txt](remove.txt):
 	- Added *Document Scanner* to the list.
+- [back_me_up.sh](back_me_up.sh):
+	- Added a notification to signal when the backup is finished.
 ### Changed
 - [.zshrc](samples/zshrc):
 	- The code for the git prompt was changed to be much faster by using zsh's *vcs_info*. This means
