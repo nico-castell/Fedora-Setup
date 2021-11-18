@@ -90,7 +90,7 @@ clean() {
 	make distclean
 	if [ -d .git ]; then
 		git reset --hard HEAD
-		git clean -dxf
+		git clean -xf
 	fi
 	;;
 	4)
