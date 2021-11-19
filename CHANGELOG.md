@@ -16,7 +16,6 @@ All significant changes to **Fedora Setup** will be documented here.
 	- [Version 1.5.0 - *2021-06-05*](#version-150---2021-06-05)
 	- [Version 1.4.0 - *2021-06-02*](#version-140---2021-06-02)
 	- [Version 1.3.0 - *2021-05-26*](#version-130---2021-05-26)
-	- [Version 1.2.1 - *2021-05-18*](#version-121---2021-05-18)
 
 ## Unreleased
 ### Added
@@ -399,8 +398,3 @@ The main change is the rewriting of the [back_me_up.sh](back_me_up.sh) script. H
   - Fix noisy output when `code` isn't found.
 - [zsh.sh](post-install.d/zsh.sh):
   - Fixed typo that would enable powerline-shell after successful installation.
-
-### Version [1.2.1](https://github.com/nico-castell/Fedora-Setup/tree/1.2.1) - *2021-05-18*
-#### Added
-- [gnome_settings.sh](modules/gnome_settings.sh):
-  - Added checks to see if the application to configure is installed.
