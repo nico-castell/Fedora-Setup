@@ -1,57 +1,66 @@
-Audacity audacity
-OBS_Studio obs-studio
-VLC vlc
-.NET_3.1 dotnet-sdk-3.1 aspnetcore-runtime-3.1
-.NET_5.0 dotnet-sdk-5.0 aspnetcore-runtime-5.0
-C/C++_development @c-development
-Clang clang clang-tools-extra
-CMake cmake cmake-gui
-Development_Tools @development-tools git git-lfs
-Eclipse_IDE_(for_Java) @eclipse
-Gitg gitg git git-lfs
-GNOME_Boxes gnome-boxes
-GNOME_Builder gnome-builder gnome-software-devel
-Go_Language golang
-Java_OpenJDK java-latest-openjdk
-Kernel_development kernel-devel ncurses-devel rpm-build pesign openssl openssl-devel
-Ninja_Build ninja-build
-Node.JS nodejs
-Virt_Manager @virtualization bridge-utils
-Virtual_Box VirtualBox kernel-headers kernel-devel qt5-qtx11extras @c-development
-Visual_Studio_Code code
-Visual_Studio_Code_Insiders code-insiders
-VS_Codium codium
-cmatrix cmatrix
-Discord discord
-GNOME_Chess gnome-chess
-GNOME_Mines gnome-mines
-Steam steam
-Terminal_fun fortune-mod cowsay doge toilet figlet asciiquarium lolcat
-GIMP gimp
-Inkscape inkscape
-Krita krita
-Brave_Browser brave-browser
-Chromium chromium
-Geary_Mail geary
-Libre_Office @libreoffice
-Thunderbird thunderbird
-Flatpak flatpak
-Grub_Customizer grub-customizer os-prober
-HTOP htop
-LM_Sensors lm_sensors hddtemp
-TLP tlp powertop
-Z-Shell zsh zsh-syntax-highlighting zsh-autosuggestions
-7zip p7zip
-Alacritty alacritty
-Archive_Manager file-roller file-roller-nautilus
-dconf-Editor dconf-editor
-GNOME_Power-Manager gnome-power-manager
-GNOME_Tweaks gnome-tweaks gnome-extensions-app
-GParted gparted
-Kitty_Terminal kitty
-Neofetch neofetch
-Neovim neovim
-Passwords_and_Keys seahorse gpgme
-Trash_CLI trash-cli
-Tree tree
-Vim vim
+Audio Apps for working with audio
+	Audacity audacity
+AudioVideo Apps for working with audio-video
+	OBS_Studio obs-studio
+	VLC vlc
+Development Apps and tools for developers
+	.NET_3.1 dotnet-sdk-3.1 aspnetcore-runtime-3.1
+	.NET_5.0 dotnet-sdk-5.0 aspnetcore-runtime-5.0
+	C/C++_development @c-development
+	Clang clang clang-tools-extra
+	CMake cmake cmake-gui
+	Development_Tools @development-tools git git-lfs
+	Eclipse_IDE_(for_Java) @eclipse
+	Gitg gitg git git-lfs
+	GNOME_Boxes gnome-boxes
+	GNOME_Builder gnome-builder gnome-software-devel
+	Go_Language golang
+	Java_OpenJDK java-latest-openjdk
+	Kernel_development kernel-devel ncurses-devel rpm-build pesign openssl openssl-devel
+	Ninja_Build ninja-build
+	Node.JS nodejs
+	Virt_Manager @virtualization bridge-utils
+	Virtual_Box VirtualBox kernel-headers kernel-devel qt5-qtx11extras @c-development
+	Visual_Studio_Code code
+	Visual_Studio_Code_Insiders code-insiders
+	VS_Codium codium
+Game Apps to have fun
+	cmatrix cmatrix
+	Discord discord
+	GNOME_Chess gnome-chess
+	GNOME_Mines gnome-mines
+	Steam steam
+	Terminal_fun fortune-mod cowsay doge toilet figlet asciiquarium lolcat
+Graphics Apps for working with images and graphic design
+	GIMP gimp
+	Inkscape inkscape
+	Krita krita
+Network Web browsers and networking apps
+	Brave_Browser brave-browser
+	Chromium chromium
+Office Apps to work
+	Geary_Mail geary
+	Libre_Office @libreoffice
+	Thunderbird thunderbird
+System Shells and apps to configure and monitor the system
+	Flatpak flatpak
+	Grub_Customizer grub-customizer os-prober
+	HTOP htop
+	LM_Sensors lm_sensors hddtemp
+	TLP tlp powertop
+	Z-Shell zsh zsh-syntax-highlighting zsh-autosuggestions
+Utilities Apps such as terminal emulators, text editors, tools, and other stuff
+	7zip p7zip
+	Alacritty alacritty
+	Archive_Manager file-roller file-roller-nautilus
+	dconf-Editor dconf-editor
+	GNOME_Power-Manager gnome-power-manager
+	GNOME_Tweaks gnome-tweaks gnome-extensions-app
+	GParted gparted
+	Kitty_Terminal kitty
+	Neofetch neofetch
+	Neovim neovim
+	Passwords_and_Keys seahorse gpgme
+	Trash_CLI trash-cli
+	Tree tree
+	Vim vim

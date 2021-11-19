@@ -92,34 +92,60 @@ if [ "$load_choices_file" = "no" ]; then
 	# We're about to make a new choices file
 	[ -f "$choices_file" ] && rm "$choices_file"
 
-	# Configure IFS to go line by line.
+	# Configure IFS and umask
 	IFSB="$IFS"
 	IFS="$(echo -en "\n\b")"
+	MASK=$(umask)
+	umask 077
+
+	# The loops are optimized by writing each line to a file in memory (/tmp/line)
 
 	# Go through a list of packages asking the user to choose wich ones to remove.
 	printf "Confirm packages to remove:\n"
 	for i in $(cat "$remove_file"); do
-		read -rp "Confirm: `tput setaf 1``printf %s $i | cut -d ' ' -f 1 | tr '_' ' '``tput sgr0` (y/N) "
+		echo "$i" > /tmp/line && chmod u-w /tmp/line
+
+		read -rp "$(printf "Confirm: \e[31m%s\e[00m (y/N) " "$(cut -d' ' -f1 /tmp/line | tr '_' ' ')" )"
 		[ "${REPLY,,}" == "y" ] && \
-			TO_REMOVE+=("$(printf %s "$i" | cut -d ' ' -f 2-)")
+			TO_REMOVE+=($(cut -d' ' -f2- /tmp/line))
+
+		chmod u+w /tmp/line
 	done
 	TO_REMOVE=($(echo "${TO_REMOVE[@]}" | tr ' ' '\n' | sort -u))
 	echo "TO_REMOVE - ${TO_REMOVE[@]}" >> "$choices_file"
 
 	# Go through a list of packages asking the user to choose which ones to install.
 	printf "Confirm packages to install:\n"
+
+	# Process the packages file and prompt the user
 	for i in $(cat "$packages_file"); do
-		read -r -p "Confirm: `tput setaf 3``printf %s $i | cut -d ' ' -f 1 | tr '_' ' '``tput sgr0` (Y/n) "
-		[[ ${REPLY,,} == "y" ]] || [ -z $REPLY ] && \
-		TO_DNF+=("$(printf %s "$i" | cut -d ' ' -f 2-)")
+		echo "$i" > /tmp/line && chmod u-w /tmp/line
+
+		# Detect category and user choice to skip or not skip
+		if [ -n "$(awk '$0 ~ /^\S/' /tmp/line)" ]; then
+			read -rp "$(printf "Do you want to install \e[01;33m%s\e[00m software? (%s) (Y/n) > " "$(awk '{print $1}' /tmp/line | tr '_' ' ')" "$(cut -d' ' -f2- /tmp/line)")"
+			[ "${REPLY,,}" == 'y' -o -z "$REPLY" ] && SKIP_CATEGORY=no || SKIP_CATEGORY=yes
+		fi
+		# Process apps in a category
+		if [ -n "$(awk '$0 ~ /\t/' /tmp/line)" -a "$SKIP_CATEGORY" = 'no' ]; then
+			read -rp "$(printf "  Confirm: \e[33m%s\e[00m (Y/n) " "$(awk '{print $1}' /tmp/line | tr '_' ' ')")"
+			[ "${REPLY,,}" == 'y' -o -z "$REPLY" ] && \
+				TO_DNF+=($(cut -d' ' -f2- /tmp/line))
+		fi
+
+		chmod u+w /tmp/line
 	done
+	rm /tmp/line
+
+	# Append essential packages, sort, and write
+	TO_DNF+=("xclip" "rpmconf" "pxz")
 	TO_DNF=($(echo "${TO_DNF[@]}" | tr ' ' '\n' | sort -u))
-	TO_DNF+=("xclip" "rpmconf" "pxz") # Append "essential" packages
 	echo "TO_DNF - ${TO_DNF[@]}" >> "$choices_file"
 
-	# Return IFS to normal
+	# Return IFS and umask to normal
 	IFS="$IFSB"
-	unset IFSB
+	umask $MASK
+	unset IFSB MASK
 
 	Separate 4
 
