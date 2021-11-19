@@ -35,6 +35,17 @@ All significant changes to **Fedora Setup** will be documented here.
 	- Added a notification to signal when the backup is finished.
 	- It now backs up the `~/.gitconfig` file.
 ### Changed
+- [fedora_setup.sh](fedora_setup.sh):
+	- The way the *packages.txt* file is processed has changed, the user can now skip certain
+		categories of software.
+	- The loops that process *remove.txt* and *packages.txt* were optimized using a file in memory
+		(in `/tmp`) and this file is protected using umask and chmod during operation.
+- [packages.txt](packages.txt):
+	- The format of the file was changed:
+		1. Lines that are not indented represent categories
+		2. Indented lines represent apps
+		3. Indented lines belong to the category above them
+		4. Indented lines must use a hard tab for indentation
 - [.zshrc](samples/zshrc):
 	- The code for the git prompt was changed to be much faster by using zsh's *vcs_info*. This means
 		less functionality, but much less code to run every time the prompt needs to be renderes.
