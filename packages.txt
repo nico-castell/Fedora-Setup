@@ -38,6 +38,7 @@ Graphics Apps for working with images and graphic design
 Network Web browsers and networking apps
 	Brave_Browser brave-browser
 	Chromium chromium
+	Firefox firefox
 Office Apps to work
 	Geary_Mail geary
 	Libre_Office @libreoffice
