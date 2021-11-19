@@ -98,18 +98,19 @@ if [ "$load_choices_file" = "no" ]; then
 	MASK=$(umask)
 	umask 077
 
-	# The loops are optimized by writing each line to a file in memory (/tmp/line)
+	# The loops are optimized by writing each line to a file in memory
+	MEMFILE=/tmp/$$-line
 
 	# Go through a list of packages asking the user to choose wich ones to remove.
 	printf "Confirm packages to remove:\n"
 	for i in $(cat "$remove_file"); do
-		echo "$i" > /tmp/line && chmod u-w /tmp/line
+		echo "$i" > $MEMFILE && chmod u-w $MEMFILE
 
-		read -rp "$(printf "Confirm: \e[31m%s\e[00m (y/N) " "$(cut -d' ' -f1 /tmp/line | tr '_' ' ')" )"
+		read -rp "$(printf "Confirm: \e[31m%s\e[00m (y/N) " "$(cut -d' ' -f1 $MEMFILE | tr '_' ' ')" )"
 		[ "${REPLY,,}" == "y" ] && \
-			TO_REMOVE+=($(cut -d' ' -f2- /tmp/line))
+			TO_REMOVE+=($(cut -d' ' -f2- $MEMFILE))
 
-		chmod u+w /tmp/line
+		chmod u+w $MEMFILE
 	done
 	TO_REMOVE=($(echo "${TO_REMOVE[@]}" | tr ' ' '\n' | sort -u))
 	echo "TO_REMOVE - ${TO_REMOVE[@]}" >> "$choices_file"
@@ -119,33 +120,33 @@ if [ "$load_choices_file" = "no" ]; then
 
 	# Process the packages file and prompt the user
 	for i in $(cat "$packages_file"); do
-		echo "$i" > /tmp/line && chmod u-w /tmp/line
+		echo "$i" > $MEMFILE && chmod u-w $MEMFILE
 
 		# Detect category and user choice to skip or not skip
-		if [ -n "$(awk '$0 ~ /^\S/' /tmp/line)" ]; then
-			read -rp "$(printf "Do you want to install \e[01;33m%s\e[00m software? (%s) (Y/n) > " "$(awk '{print $1}' /tmp/line | tr '_' ' ')" "$(cut -d' ' -f2- /tmp/line)")"
+		if [ -n "$(awk '$0 ~ /^\S/' $MEMFILE)" ]; then
+			read -rp "$(printf "Do you want to install \e[01;33m%s\e[00m software? (%s) (Y/n) > " "$(awk '{print $1}' $MEMFILE | tr '_' ' ')" "$(cut -d' ' -f2- $MEMFILE)")"
 			[ "${REPLY,,}" == 'y' -o -z "$REPLY" ] && SKIP_CATEGORY=no || SKIP_CATEGORY=yes
 		fi
 		# Process apps in a category
-		if [ -n "$(awk '$0 ~ /\t/' /tmp/line)" -a "$SKIP_CATEGORY" = 'no' ]; then
-			read -rp "$(printf "  Confirm: \e[33m%s\e[00m (Y/n) " "$(awk '{print $1}' /tmp/line | tr '_' ' ')")"
+		if [ -n "$(awk '$0 ~ /\t/' $MEMFILE)" -a "$SKIP_CATEGORY" = 'no' ]; then
+			read -rp "$(printf "  Confirm: \e[33m%s\e[00m (Y/n) " "$(awk '{print $1}' $MEMFILE | tr '_' ' ')")"
 			[ "${REPLY,,}" == 'y' -o -z "$REPLY" ] && \
-				TO_DNF+=($(cut -d' ' -f2- /tmp/line))
+				TO_DNF+=($(cut -d' ' -f2- $MEMFILE))
 		fi
 
-		chmod u+w /tmp/line
+		chmod u+w $MEMFILE
 	done
-	rm /tmp/line
 
 	# Append essential packages, sort, and write
 	TO_DNF+=("xclip" "rpmconf" "pxz")
 	TO_DNF=($(echo "${TO_DNF[@]}" | tr ' ' '\n' | sort -u))
 	echo "TO_DNF - ${TO_DNF[@]}" >> "$choices_file"
 
-	# Return IFS and umask to normal
+	# Delete MEMFILE, and return IFS and umask to normal
+	rm $MEMFILE
 	IFS="$IFSB"
 	umask $MASK
-	unset IFSB MASK
+	unset IFSB MASK MEMFILE
 
 	Separate 4
 
