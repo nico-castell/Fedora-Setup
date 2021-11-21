@@ -2,11 +2,8 @@
 
 All significant changes to **Fedora Setup** will be documented here.
 
-- [Unreleased](#unreleased)
-	- [Added](#added)
-	- [Changed](#changed)
-	- [Fixed](#fixed)
 - [Released](#released)
+	- [Version 2.4.0 - *2021-11-21*](#version-240---2021-11-21)
 	- [Version 2.3.0 - *2021-10-17*](#version-230---2021-10-17)
 	- [Version 2.2.1 - *2021-10-08*](#version-221---2021-10-08)
 	- [Version 2.2.0 - *2021-10-06*](#version-220---2021-10-06)
@@ -17,8 +14,17 @@ All significant changes to **Fedora Setup** will be documented here.
 	- [Version 1.4.0 - *2021-06-02*](#version-140---2021-06-02)
 	- [Version 1.3.0 - *2021-05-26*](#version-130---2021-05-26)
 
-## Unreleased
-### Added
+## Released
+### Version [2.4.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/2.4.0) - *2021-11-21*
+This release comes after 28 commits, and it is as extensive as it seems. These were the points of
+focus for this version:
+- Fixing bugs,
+- improving (slightly) code maintainabilty,
+- correcting outdated comments, and most notably:
+- **categorizing the dnf packages** so the user can now choose to skip an entire software category
+	when selecting packages to install, and
+- **taking into account the grub config** when swithching to systemdboot.
+#### Added
 - [systemdboot_switch.sh](scripts/systemdboot_switch.sh):
 	- The file can now process the grub config at `/etc/default/grub` and use some of it for
 		systemd-boot.
@@ -34,7 +40,7 @@ All significant changes to **Fedora Setup** will be documented here.
 - [back_me_up.sh](back_me_up.sh):
 	- Added a notification to signal when the backup is finished.
 	- It now backs up the `~/.gitconfig` file.
-### Changed
+#### Changed
 - [fedora_setup.sh](fedora_setup.sh):
 	- The way the *packages.txt* file is processed has changed, the user can now skip certain
 		categories of software.
@@ -54,7 +60,7 @@ All significant changes to **Fedora Setup** will be documented here.
 	- Made many other tweaks to improve code maintainability and speed.
 - [.bashrc](samples/bashrc):
 	- The `la` alias now groups folders first.
-### Fixed
+#### Fixed
 - [flatpak.sh](post-install.d/flatpak.sh):
 	- The file now sets up the flathub remote for both system and user, this fixes errors when
 	  installing the GNOME Builder SDK.
@@ -69,7 +75,6 @@ All significant changes to **Fedora Setup** will be documented here.
 	- Fixed local settings that lingered when changing filetype from markdown, text, or limits to
 	  anything else.
 
-## Released
 ### Version [2.3.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/2.3.0) - *2021-10-17*
 This is a small release made in parity with the
 [PopOS Setup](https://github.com/nico-castell/PopOS-Setup) project to syncronize changes to this
