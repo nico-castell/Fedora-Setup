@@ -2,6 +2,11 @@
 
 All significant changes to **Fedora Setup** will be documented here.
 
+- [Unreleased](#unreleased)
+	- [Added](#added)
+	- [Changed](#changed)
+	- [Fixed](#fixed)
+	- [Removed](#removed)
 - [Released](#released)
 	- [Version 2.4.0 - *2021-11-21*](#version-240---2021-11-21)
 	- [Version 2.3.0 - *2021-10-17*](#version-230---2021-10-17)
@@ -12,7 +17,31 @@ All significant changes to **Fedora Setup** will be documented here.
 	- [Version 1.6.0 - *2021-06-11*](#version-160---2021-06-11)
 	- [Version 1.5.0 - *2021-06-05*](#version-150---2021-06-05)
 	- [Version 1.4.0 - *2021-06-02*](#version-140---2021-06-02)
-	- [Version 1.3.0 - *2021-05-26*](#version-130---2021-05-26)
+
+## Unreleased
+### Added
+- [fedora_setup.sh](fedora_setup.sh):
+	- Given that now some post-install.d processes use child subshells to run things in the
+		background, a `wait` command was implemented in the final clean-up step so the user doesn't
+		close the shell while some things are still running.
+- [dnf.conf](dnf.samples/dnf.conf):
+	- This file's contents were previously held in the *fedora_setup.sh* script, but are now held in
+		this sample file to simplify code maintainability.
+### Changed
+- [fedora_setup.sh](fedora_setup.sh):
+	- There were many "behind the scenes" performance optimizations. Including the optimization of
+		the `Separate` function, the parallelization of some tasks and simplfying some commands.
+	- The contents of dnf.conf are now held in a sample file, instead of in the script.
+- [post-install.d](post-install.d):
+	- Many of the files now use child subshells `( .. ) &` to speed up the setup by running some
+		things in the background.
+### Fixed
+- [fedora_setup.sh](fedora_setup.sh):
+	- The script now doesn't miss the *install upgrades* step because of extra steps between checking
+		for upgrades and prompting the user to install them.
+### Removed
+- **ufw.sh**:
+	- The script was removed because it wasn't used.
 
 ## Released
 ### Version [2.4.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/2.4.0) - *2021-11-21*
@@ -389,28 +418,3 @@ It's a small release, the main additions are the prompt styles for **zsh** and s
   - Fixed the statusline showing current line instead of total lines after the `/`.
 - [back_me_up.sh](back_me_up.sh):
   - Fixed trying to keep less than one backup, set the minimum to 1.
-
-### Version [1.3.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/1.3.0) - *2021-05-26*
-The main change is the rewriting of the [back_me_up.sh](back_me_up.sh) script. However, there were other changes, new features, and a few fixes.
-#### Added
-- [fedora_setup.sh](fedora_setup.sh):
-  - dnf.conf now has `installonly_limit=3`.
-- [git.sh](post-install.d/git.sh):
-  - Now you can configure `gpg` to sign your commits.
-- [packages.txt](packages.txt):
-  - Added more packages
-- [vim.sh](post-install.d/vim.sh):
-  - Now the script prints to the console and can ask the user to change the default `$EDITOR`.
-#### Changed
-- [back_me_up.sh](back_me_up.sh):
-  - Rewrote the script, now it's much simpler to read, and has the capacity to keep a certain number of backups, deleting the oldest ones as you make new ones.
-  - Some edge cases where removed from it's main loop because they weren't really helpful
-- [fedora_setup.sh](fedora_setup.sh):
-  - `neofetch` and `vim` are no longer "essential" packages.
-- [packages.txt](packages.txt):
-  - Neofetch and Vim were added to the list
-#### Fixed
-- [nodejs.sh](post-install.d/nodejs.sh):
-  - Fix noisy output when `code` isn't found.
-- [zsh.sh](post-install.d/zsh.sh):
-  - Fixed typo that would enable powerline-shell after successful installation.

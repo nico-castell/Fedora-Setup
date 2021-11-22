@@ -1,8 +1,9 @@
 # bash script to be sourced from fedora_setup.sh
 
-# Add Golang configs every user's profile
-[ ! -f /etc/profile.d/golang.sh ] && \
-	printf "# Configure Golang
+(
+	# Add Golang configs for all user's profile
+	[ ! -f /etc/profile.d/golang.sh ] && \
+		printf "# Configure Golang
 
 [ -d /usr/local/go/bin ] && \\
 	export PATH=\"/usr/local/go/bin:\$PATH\"
@@ -12,11 +13,12 @@ GOBIN=\"\$HOME/.local/bin\"
 
 export GOPATH GOBIN\n" | sudo tee /etc/profile.d/golang.sh >/dev/null
 
-export GOPATH="$HOME/.local/golang"
-export GOBIN="$HOME/.local/bin"
+	export GOPATH="$HOME/.local/golang"
+	export GOBIN="$HOME/.local/bin"
+) &
 
 if which code &>/dev/null || which code-insiders &>/dev/null; then
-	Separate 4
+	Separate
 	printf "Successfully installed \e[36mGolang\e[00m, configuring...\n"
 
 	read -rp "$(printf "Do you want to install tools to develop \e[01mGolang\e[00m in \e[01mVisual Studio Code\e[00m?

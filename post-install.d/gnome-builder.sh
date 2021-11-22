@@ -1,7 +1,7 @@
 # bash script to be sourced from fedora_setup.sh
 
 if which flatpak &>/dev/null; then
-	Separate 4
+	Separate
 	printf "Successfully installed \e[36mGNOME Builder\e[00m\n"
 
 	# Install the GNOME SDK for GNOME Builder

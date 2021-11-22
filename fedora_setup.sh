@@ -58,9 +58,7 @@ unset USAGE_MSG MISSING
 
 # Function to draw a line across the width of the console.
 Separate () {
-	if [ ! -z $1 ]; then tput setaf $1; fi
-	printf "\n\n%`tput cols`s\n" |tr " " "="
-	tput sgr0
+	printf "\n\n\e[34m%`tput cols`s\e[34m\n" | tr ' ' '='
 }
 
 # The script should not be run as root
@@ -148,7 +146,7 @@ if [ "$load_choices_file" = "no" ]; then
 	umask $MASK
 	unset IFSB MASK MEMFILE
 
-	Separate 4
+	Separate
 
 	# Load extra scripts to run
 	printf "Choose some extra scripts to run:\n"
@@ -160,7 +158,7 @@ if [ "$load_choices_file" = "no" ]; then
 
 	# Store selected scripts
 	echo "SCRIPTS - ${SCRIPTS[@]}" >> "$choices_file"
-	Separate 4
+	Separate
 fi
 #endregion
 
@@ -186,7 +184,7 @@ if [ "$load_choices_file" = "yes" ]; then
 	SCRIPTS=$(cat "$choices_file" | grep "SCRIPTS")
 	SCRIPTS=${SCRIPTS/"SCRIPTS - "/""}
 
-	Separate 4
+	Separate
 fi
 #endregion
 
@@ -195,24 +193,15 @@ fi
 # Set BIOS time to UTC
 sudo timedatectl set-local-rtc 0
 
-# Ensure these hidden folders are present and have the right permissions
-# Normal folders
-for i in mydock icons themes; do
-	[ ! -d ~/.$i ] && [ -d ~/$i ] && mv ~/$i ~/.$i
-	[ ! -d ~/.$i ] && mkdir ~/.$i
-	chmod 755 ~/.$i
-done
+# Create themes, icons, and desktop folders
+mkdir -p ~/.local/share/{themes,icons}
 
-# Secret folders
-for i in ssh safe; do
-	[ ! -d ~/.$i ] && [ -d ~/$i ] && mv ~/$i ~/.$i
-	[ ! -d ~/.$i ] && mkdir ~/.$i
-	chmod 700 ~/.$i
-done
+# Create secret folders
+mkdir -p ~/{.ssh,.safe} -m 700
 
 # Backup the following files if present
-for i in .bashrc .clang-format .zshrc .vimrc; do
-	[ ! -f ~/$i-og ] && [ -f ~/$i ] && cp ~/$i ~/$i-og
+for i in .bashrc .clang-format .zshrc .vimrc .config/{nvim/init.vim,htop/htoprc} ; do
+	[ ! -f ~/$i-og -a -f ~/$i ] && cp ~/{$1,$i-og}
 	# "-og" stands for original
 done
 
@@ -227,23 +216,10 @@ if [ ! $? -eq 0 ]; then
 fi
 
 # Configure dnf now, before we start using it
-[ ! -f /etc/dnf/dnf.conf-og ] && \
-	sudo cp /etc/dnf/dnf.conf /etc/dnf/dnf.conf-og
-	cat <<EOF | sudo tee /etc/dnf/dnf.conf >/dev/null
-[main]
-gpgcheck=1
-installonly_limit=3
-clean_requirements_on_remove=True
-best=False
-skip_if_unavailable=True
-fastestmirror=True
-install_weak_deps=False
-max_parallel_downloads=20
-defaultyes=True
-minrate=384k
-EOF
+[ ! -f /etc/dnf/dnf.conf-og ] && sudo cp /etc/dnf/dnf.conf /etc/dnf/dnf.conf-og
+sudo cp "$script_location/samples/dnf.conf" /etc/dnf/dnf.conf
 
-# Stop GNOME's packagekit to avoid problems while the package manager is being used.
+# Stop packagekit to avoid problems while the package manager is being used.
 sudo systemctl stop packagekit
 
 # Source all the files containing extra sources now.
@@ -274,21 +250,21 @@ if [[ "${TO_RPMFUSION[@]}" ]]; then
 	sudo dnf install -y ${TO_RPMFUSION[@]} >/dev/null
 fi
 
-[[ "${REPOS_CONFIGURED[@]}" ]] && Separate 4
+[[ "${REPOS_CONFIGURED[@]}" ]] && Separate
 unset REPOS_CONFIGURED URL KEY NAME CONF CONF_FILE
 
-printf "Updating repositories...\n"
-sudo dnf check-update --refresh # Exit code will be 100 if upgrades are available
+printf "Updating repository metadata...\n"
+sudo dnf makecache --refresh
 
 if [ -n "$TO_REMOVE" ]; then
-	Separate 4
+	Separate
 	printf "Removing user-selected packages...\n"
 	sudo dnf remove ${TO_REMOVE[@]}
 fi
 
 # If upgrades are available, offer the user a chance to install them now.
-if [ $? -eq 100 ]; then
-	Separate 4
+if sudo dnf -q check-update; [ $? -eq 100 ]; then
+	Separate
 	printf "Upgrades are available, do you want to update now? (\e[35mY\e[00m)\n"
 	printf "Or do you want to skip and proceed to install your packages? (\e[35mN\e[00m)\n"
 	read -rp "You answer (default is Y): "
@@ -298,7 +274,7 @@ if [ $? -eq 100 ]; then
 	fi
 fi
 
-Separate 4
+Separate
 
 # Install user-selected packages now:
 printf "Installing user-selected packages...\n"
@@ -314,16 +290,17 @@ fi
 
 # Run extra scripts
 for i in ${SCRIPTS[@]}; do
-	Separate 4
+	Separate
 	printf "Running \e[01m%s\e[00m extra script...\n" "${i/".sh"/""}"
 	"$scripts_folder/$i"
 done
 
-# Restart gnome's package kit after we've finished using the package manager
+# Restart package kit after we've finished using the package manager
 sudo systemctl restart packagekit
-Separate 4
+Separate
 
-# Clean up after we're done
+# Wait for child processes and clean up
+wait
 [ -f "$choices_file" ] && rm "$choices_file"
 
 if [ "$persist_at_the_end" = "yes" ]; then
