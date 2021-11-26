@@ -58,7 +58,7 @@ unset USAGE_MSG MISSING
 
 # Function to draw a line across the width of the console.
 Separate () {
-	printf "\n\n\e[34m%`tput cols`s\e[34m\n" | tr ' ' '='
+	printf "\n\n\e[34m%`tput cols`s\e[00m\n" | tr ' ' '='
 }
 
 # The script should not be run as root
