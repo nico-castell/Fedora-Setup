@@ -35,6 +35,9 @@ All significant changes to **Fedora Setup** will be documented here.
 - [post-install.d](post-install.d):
 	- Many of the files now use child subshells `( .. ) &` to speed up the setup by running some
 		things in the background.
+- [sources.d](sources.d):
+	- Some of the .repo files generated from the info in this folder will now use `$basearch` in dnf
+		to show the architecture being used.
 ### Fixed
 - [fedora_setup.sh](fedora_setup.sh):
 	- The script now doesn't miss the *install upgrades* step because of extra steps between checking

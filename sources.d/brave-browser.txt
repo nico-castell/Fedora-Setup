@@ -1,5 +1,5 @@
 NAME="Brave Browser"
-URL="https://brave-browser-rpm-release.s3.brave.com/x86_64/"
+URL="https://brave-browser-rpm-release.s3.brave.com/\$basearch/"
 KEY="https://brave-browser-rpm-release.s3.brave.com/brave-core.asc"
-CONF="[brave-browser-rpm-release.s3.brave.com_x86_64_]\nname=Brave Browser\nbaseurl=$URL\nenabled=1\ngpgkey=$KEY\ngpgcheck=1"
+CONF="[brave-browser]\nname=Brave Browser - \$basearch\nbaseurl=$URL\nenabled=1\ngpgcheck=1\ngpgkey=$KEY"
 CONF_FILE="brave.repo"
