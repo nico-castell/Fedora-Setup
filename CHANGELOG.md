@@ -38,6 +38,10 @@ All significant changes to **Fedora Setup** will be documented here.
 - [sources.d](sources.d):
 	- Some of the .repo files generated from the info in this folder will now use `$basearch` in dnf
 		to show the architecture being used.
+- [init.vim](samples/nvim.vim):
+	- The color of the mode in the statusline was changed to blue.
+- [.vimrc](samples/vimrc):
+	- The color of the mode in the statusline was changed to blue.
 ### Fixed
 - [fedora_setup.sh](fedora_setup.sh):
 	- The script now doesn't miss the *install upgrades* step because of extra steps between checking

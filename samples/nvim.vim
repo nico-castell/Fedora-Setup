@@ -57,9 +57,9 @@ hi clear StatusLineNC
 hi StatusLine   term=bold cterm=bold gui=bold ctermbg=234 guibg=Grey11
 hi StatusLineNC ctermbg=232 guibg=Grey3
 if $USER == 'root'
-	hi StatusMode   term=bold cterm=bold gui=bold ctermfg=15  guifg=White  ctermbg=124 guibg=Red3
+	hi StatusMode  term=bold cterm=bold gui=bold  ctermfg=15 guifg=White  ctermbg=124 guibg=Red3
 else
-	hi StatusMode   term=bold cterm=bold gui=bold ctermfg=234 guifg=Grey11 ctermbg=34  guibg=Green3
+	hi StatusMode  term=bold cterm=bold gui=bold  ctermfg=15 guifg=White  ctermbg=21  guibg=Blue1
 endif
 
 let g:currentmode={
