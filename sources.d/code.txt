@@ -1,5 +1,5 @@
 NAME="Visual Studio Code"
 URL="https://packages.microsoft.com/yumrepos/vscode"
 KEY="https://packages.microsoft.com/keys/microsoft.asc"
-CONF="[code]\nname=Visual Studio Code - $basearch\nbaseurl=$URL\nenabled=1\ngpgcheck=1\ngpgkey=$KEY"
+CONF="[code]\nname=Visual Studio Code - \$basearch\nbaseurl=$URL\nenabled=1\ngpgcheck=1\ngpgkey=$KEY"
 CONF_FILE="vscode.repo"

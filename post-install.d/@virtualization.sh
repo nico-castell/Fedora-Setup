@@ -1,5 +1,6 @@
 # bash script to be sourced from fedora_setup.sh
 
+sudo echo >/dev/null
 (
 	STATE=ok
 
