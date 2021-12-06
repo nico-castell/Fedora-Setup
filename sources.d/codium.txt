@@ -1,5 +1,5 @@
 NAME="VS Codium"
 URL="https://paulcarroty.gitlab.io/vscodium-deb-rpm-repo/rpms/"
 KEY="https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/-/raw/master/pub.gpg"
-CONF="[gitlab.com_paulcarroty_vscodium_repo]\nname=VS Codium\nbaseurl=$URL\nenabled=1\ngpgcheck=1\ngpgkey=$KEY"
+CONF="[vscodium-repo]\nname=VS Codium\nbaseurl=$URL\nenabled=1\ngpgcheck=1\ngpgkey=$KEY"
 CONF_FILE="vscodium.repo"
