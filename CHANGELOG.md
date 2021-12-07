@@ -44,8 +44,12 @@ All significant changes to **Fedora Setup** will be documented here.
 	- The `now-ignored` alias was renamed to `list-ignored` because the keyword list better explains
 	  what the alias does.
 - [init.vim](samples/nvim.vim):
+	- The filetype *gitcommit* was added to an autocommand group to display colorcolumns at columns
+	  50 and 70 to help keep git commit messages at a reasonable length.
 	- The color of the mode in the statusline was changed to blue.
 - [.vimrc](samples/vimrc):
+	- The filetype *gitcommit* was added to an autocommand group to display colorcolumns at columns
+	  50 and 70 to help keep git commit messages at a reasonable length.
 	- The color of the mode in the statusline was changed to blue.
 ### Fixed
 - [fedora_setup.sh](fedora_setup.sh):
