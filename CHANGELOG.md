@@ -38,6 +38,11 @@ All significant changes to **Fedora Setup** will be documented here.
 - [sources.d](sources.d):
 	- Some of the .repo files generated from the info in this folder will now use `$basearch` in dnf
 		to show the architecture being used.
+- [git.sh](post-intall.d/git.sh):
+	- The alias `slog` now does not specify the number of commits to show, now the user can specify
+		how many commits they want to show.
+	- The `now-ignored` alias was renamed to `list-ignored` because the keyword list better explains
+	  what the alias does.
 - [init.vim](samples/nvim.vim):
 	- The color of the mode in the statusline was changed to blue.
 - [.vimrc](samples/vimrc):
@@ -49,6 +54,8 @@ All significant changes to **Fedora Setup** will be documented here.
 ### Removed
 - **ufw.sh**:
 	- The script was removed because it wasn't used.
+- [git.sh](post-intall.d/git.sh):
+	- The alias `mrc` was removed because it is only useful in very rare situations.
 
 ## Released
 ### Version [2.4.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/2.4.0) - *2021-11-21*
