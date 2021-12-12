@@ -57,6 +57,9 @@ All significant changes to **Fedora Setup** will be documented here.
 - [fedora_setup.sh](fedora_setup.sh):
 	- The script now doesn't miss the *install upgrades* step because of extra steps between checking
 		for upgrades and prompting the user to install them.
+- [flatpak.sh](flatpak.sh):
+	- The user remote installation was fixed, it used sudo to install flathub for the user which
+	  resulted in root getting a user remote, instead of the current user.
 ### Removed
 - **ufw.sh**:
 	- The script was removed because it wasn't used.
