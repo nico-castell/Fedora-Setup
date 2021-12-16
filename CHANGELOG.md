@@ -27,6 +27,8 @@ All significant changes to **Fedora Setup** will be documented here.
 - [dnf.conf](dnf.samples/dnf.conf):
 	- This file's contents were previously held in the *fedora_setup.sh* script, but are now held in
 		this sample file to simplify code maintainability.
+- [packages.txt](packages.txt):
+	- Added RPM Packaging in the development category.
 ### Changed
 - [fedora_setup.sh](fedora_setup.sh):
 	- There were many "behind the scenes" performance optimizations. Including the optimization of
@@ -35,6 +37,13 @@ All significant changes to **Fedora Setup** will be documented here.
 - [post-install.d](post-install.d):
 	- Many of the files now use child subshells `( .. ) &` to speed up the setup by running some
 		things in the background.
+- [packages.txt](packages.txt):
+	- **Gitg** is now **Git & Gitg** and lists git, git-lfs and gitg.
+	- **Development Tools** no longer lists git and git-lfs for installation, as now they have their
+		own entry in the list.
+	- **GNOME Builder** no longers installs gnome-software-devel.
+	- **Kernel development** no longer lists rpm-build as RPM Packaging is now its own entry in the
+		list.
 - [sources.d](sources.d):
 	- Some of the .repo files generated from the info in this folder will now use `$basearch` in dnf
 		to show the architecture being used.
