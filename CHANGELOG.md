@@ -52,6 +52,9 @@ All significant changes to **Fedora Setup** will be documented here.
 		how many commits they want to show.
 	- The `now-ignored` alias was renamed to `list-ignored` because the keyword list better explains
 	  what the alias does.
+- [.zshrc](samples/zshrc):
+	- Changed the way coloring works for all the ls aliases. `ls` itselft is now aliased to `ls -BhF
+	  --group-directories-first`, *raw* ls can still be used in the shell by typing `\ls`.
 - [init.vim](samples/nvim.vim):
 	- The filetype *gitcommit* was added to an autocommand group to display colorcolumns at columns
 	  50 and 70 to help keep git commit messages at a reasonable length.
