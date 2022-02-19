@@ -27,7 +27,6 @@ if which gedit &>/dev/null; then
 	gsettings set org.gnome.gedit.preferences.ui side-panel-visible true
 
 	gsettings set org.gnome.gedit.preferences.editor scheme 'oblivion'
-	gsettings set org.gnome.gedit.preferences.editor background-pattern 'grid'
 	gsettings set org.gnome.gedit.preferences.editor display-overview-map true
 	gsettings set org.gnome.gedit.preferences.editor display-right-margin true
 	gsettings set org.gnome.gedit.preferences.editor right-margin-position 100

@@ -40,7 +40,10 @@ Network Web browsers and networking apps
 	Brave_Browser brave-browser
 	Chromium chromium
 	Firefox firefox
+	Fragments fragments
+	Transmission transmission
 Office Apps to work
+	Evolution evolution
 	Geary_Mail geary
 	Libre_Office @libreoffice
 	Thunderbird thunderbird

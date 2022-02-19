@@ -29,6 +29,8 @@ All significant changes to **Fedora Setup** will be documented here.
 		this sample file to simplify code maintainability.
 - [packages.txt](packages.txt):
 	- Added RPM Packaging in the development category.
+	- Added Transmission and Fragments in The Network category.
+	- Added Evolution in the Office category.
 ### Changed
 - [fedora_setup.sh](fedora_setup.sh):
 	- There were many "behind the scenes" performance optimizations. Including the optimization of
@@ -52,6 +54,8 @@ All significant changes to **Fedora Setup** will be documented here.
 		how many commits they want to show.
 	- The `now-ignored` alias was renamed to `list-ignored` because the keyword list better explains
 	  what the alias does.
+	- The placeholders for all `log --format` aliases were updated to use *%C(auto)* instead of
+		*%C(r)*.
 - [.zshrc](samples/zshrc):
 	- Changed the way coloring works for all the ls aliases. `ls` itselft is now aliased to `ls -BhF
 	  --group-directories-first`, *raw* ls can still be used in the shell by typing `\ls`.
