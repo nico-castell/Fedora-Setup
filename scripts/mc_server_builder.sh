@@ -8,7 +8,7 @@
 # TODO: Keep link up to date.
 # Copy the download link from https://www.minecraft.net/en-us/download/server if there's a newer version.
 version="1.18.1"
-download_link="https://launcher.mojang.com/v1/objects/125e5adf40c659fd3bce3e66e67a16bb49ecc1b9/server.jar"
+download_link="https://launcher.mojang.com/v1/objects/c8f83c5655308435b3dcf03c06d9fe8740a77469/server.jar" # 1.18.2
 
 # Exit codes:
 # 1   - Java not found
@@ -36,7 +36,7 @@ while [ -n "$1" ]; do
 		-d | --delete)   delete_server=yes  ;; # Delete the server
 		-v | --visible)  hide_mc_folder=no  ;; # Don't prefix folder with a .
 		-f | --firewall) setup_firewall=yes ;; # Set up the firewall (requires sudo)
-		-h | --help)                          # Show help menu
+		-h | --help)                           # Show help menu
 		cat <<EOF >&2
 This script deploys a minecraft server to your computer. In the process it
 also sets up some tools to help you manage it.

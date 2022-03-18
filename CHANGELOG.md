@@ -68,7 +68,7 @@ All significant changes to **Fedora Setup** will be documented here.
 	  50 and 70 to help keep git commit messages at a reasonable length.
 	- The color of the mode in the statusline was changed to blue.
 - [mc_server_builder.sh](scripts/mc_server_builder.sh):
-	- The version was updated to 1.18.1.
+	- The version was updated to 1.18.2.
 ### Fixed
 - [fedora_setup.sh](fedora_setup.sh):
 	- The script now doesn't miss the *install upgrades* step because of extra steps between checking
