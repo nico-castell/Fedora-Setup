@@ -55,6 +55,16 @@ fi
 export PATH
 EOF
 
+# Improve how /etc/zprofile handles /etc/profile.d
+sudo sed -i -e 's/^_src_etc_profile/#_src_etc_profile/g' /etc/zprofile
+cat <<EOF | sudo tee -a /etc/zprofile >/dev/null
+
+# Process profile.d
+for i in /etc/profile.d/*.sh ; do
+	[ -r "$i" ] && . "$i" >/dev/null
+done
+EOF
+
 printf "Choose the prompt style you prefer: \n"
 select s in $(cat "$HOME/.zshrc" | grep "# Choose a prompt style between" | sed -e 's/\s*#.*: //'); do
 	if [ $O -ne 0 ] && [ $s = "powerline" ]; then

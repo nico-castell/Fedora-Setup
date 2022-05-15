@@ -11,13 +11,12 @@ Development Apps and tools for developers
 	CMake cmake cmake-gui
 	Development_Tools @development-tools
 	Eclipse_IDE_(for_Java) @eclipse
-	Git_&_Gitg git git-lfs gitg
 	GNOME_Boxes gnome-boxes
 	GNOME_Builder gnome-builder
 	Go_Language golang
 	Java_OpenJDK java-latest-openjdk
 	Kernel_development kernel-devel ncurses-devel pesign openssl openssl-devel
-	Ninja_Build ninja-build
+	Meson_&_Ninja_Build meson ninja-build
 	Node.JS nodejs
 	RPM_Packaging rpmdevtools rpmlint
 	Virt_Manager @virtualization bridge-utils
@@ -41,6 +40,7 @@ Network Web browsers and networking apps
 	Chromium chromium
 	Firefox firefox
 	Fragments fragments
+	GNOME_Web epiphany
 	Transmission transmission
 Office Apps to work
 	Evolution evolution
@@ -59,8 +59,9 @@ Utilities Apps such as terminal emulators, text editors, tools, and other stuff
 	Alacritty alacritty
 	Archive_Manager file-roller file-roller-nautilus
 	dconf-Editor dconf-editor
+	GNOME_Console gnome-console
 	GNOME_Power-Manager gnome-power-manager
-	GNOME_Tweaks gnome-tweaks gnome-extensions-app
+	GNOME_Tweaks_&_Extensions gnome-tweaks gnome-extensions-app
 	GParted gparted
 	Kitty_Terminal kitty
 	Neofetch neofetch

@@ -27,10 +27,17 @@ All significant changes to **Fedora Setup** will be documented here.
 - [dnf.conf](dnf.samples/dnf.conf):
 	- This file's contents were previously held in the *fedora_setup.sh* script, but are now held in
 		this sample file to simplify code maintainability.
+- [gnome_settings.sh](gnome_settings.sh):
+	- The script now configures the new GNOME Text Editor.
+	- The script can now configure gdm via the */etc/dconf/db/gdm.d/10-settins.ini* file.
 - [packages.txt](packages.txt):
 	- Added RPM Packaging in the development category.
-	- Added Transmission and Fragments in The Network category.
+	- Added Transmission and Fragments in the Network category.
+	- Added GNOME Web (epiphany) in the Network category.
 	- Added Evolution in the Office category.
+	- Added GNOME Console in the Utilities category.
+- [remove.txt](remove.txt):
+	- Added GNOME_Help to the list.
 ### Changed
 - [fedora_setup.sh](fedora_setup.sh):
 	- There were many "behind the scenes" performance optimizations. Including the optimization of
@@ -40,7 +47,6 @@ All significant changes to **Fedora Setup** will be documented here.
 	- Many of the files now use child subshells `( .. ) &` to speed up the setup by running some
 		things in the background.
 - [packages.txt](packages.txt):
-	- **Gitg** is now **Git & Gitg** and lists git, git-lfs and gitg.
 	- **Development Tools** no longer lists git and git-lfs for installation, as now they have their
 		own entry in the list.
 	- **GNOME Builder** no longers installs gnome-software-devel.
@@ -63,19 +69,28 @@ All significant changes to **Fedora Setup** will be documented here.
 	- The filetype *gitcommit* was added to an autocommand group to display colorcolumns at columns
 	  50 and 70 to help keep git commit messages at a reasonable length.
 	- The color of the mode in the statusline was changed to blue.
+	- Allow neovim to use the guicursor.
 - [.vimrc](samples/vimrc):
 	- The filetype *gitcommit* was added to an autocommand group to display colorcolumns at columns
 	  50 and 70 to help keep git commit messages at a reasonable length.
 	- The color of the mode in the statusline was changed to blue.
+- [packages.txt](packages.txt):
+	- Removed Git from the Development category since it comes preinstalled.
+	- Meson and Ninja Build now come together.
 - [mc_server_builder.sh](scripts/mc_server_builder.sh):
 	- The version was updated to 1.18.2.
 ### Fixed
 - [fedora_setup.sh](fedora_setup.sh):
 	- The script now doesn't miss the *install upgrades* step because of extra steps between checking
 		for upgrades and prompting the user to install them.
+- [zsh.sh](post-install.d):
+	- Use the script to fix the way */etc/zprofile* handles */etc/profile.d*.
 - [flatpak.sh](flatpak.sh):
 	- The user remote installation was fixed, it used sudo to install flathub for the user which
 	  resulted in root getting a user remote, instead of the current user.
+- [gnome_settings.sh](scripts/gnome_settings.sh):
+	- Removed the keybindings configurations as they were rather clunky.
+	- GNOME Terminal is no longer configured twice.
 ### Removed
 - **ufw.sh**:
 	- The script was removed because it wasn't used.

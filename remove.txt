@@ -6,6 +6,7 @@ GNOME_Logs gnome-logs
 Document_Scanner simple-scan
 Fedora_Media_Writer mediawriter
 GNOME_Connections gnome-connections
+GNOME_Help yelp
 GNOME_Maps gnome-maps
 GNOME_Tour gnome-tour
 Videos totem
