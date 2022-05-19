@@ -93,4 +93,4 @@ git config --global alias.slog 'log --show-signature'
 git config --global alias.sflog "log --all --graph --oneline --format=format:'%C(bold yellow)%h%C(auto) %C(bold green)%G?%C(auto) %an: %C(bold)%s%C(r) %C(auto)%d'"
 git config --global alias.mkst 'stash push -u'
 git config --global alias.popst 'stash pop "stash@{0}" -q'
-git config --global alias.list-ignored 'ls-files -i --exclude-standard'
+git config --global alias.list-ignored 'ls-files -i -o --exclude-standard'

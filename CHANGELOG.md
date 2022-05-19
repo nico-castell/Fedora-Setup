@@ -62,6 +62,7 @@ All significant changes to **Fedora Setup** will be documented here.
 	  what the alias does.
 	- The placeholders for all `log --format` aliases were updated to use *%C(auto)* instead of
 		*%C(r)*.
+	- The alias `list-ignored` now uses the option `-o` because of an update to git.
 - [.zshrc](samples/zshrc):
 	- Changed the way coloring works for all the ls aliases. `ls` itselft is now aliased to `ls -BhF
 	  --group-directories-first`, *raw* ls can still be used in the shell by typing `\ls`.
