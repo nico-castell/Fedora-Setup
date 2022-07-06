@@ -66,6 +66,10 @@ All significant changes to **Fedora Setup** will be documented here.
 - [.zshrc](samples/zshrc):
 	- Changed the way coloring works for all the ls aliases. `ls` itselft is now aliased to `ls -BhF
 	  --group-directories-first`, *raw* ls can still be used in the shell by typing `\ls`.
+- [zsh.sh](post-install.d/zsh.sh):
+	- The script now makes a copy of *.zshrc* in */etc/skel/.zshrc*.
+	- The script now configures useradd to use zsh as the default shell when the user changes their
+		default shell to zsh.
 - [init.vim](samples/nvim.vim):
 	- The filetype *gitcommit* was added to an autocommand group to display colorcolumns at columns
 	  50 and 70 to help keep git commit messages at a reasonable length.
@@ -78,6 +82,8 @@ All significant changes to **Fedora Setup** will be documented here.
 - [packages.txt](packages.txt):
 	- Removed Git from the Development category since it comes preinstalled.
 	- Meson and Ninja Build now come together.
+- [back_me_up.sh](back_me_up.sh):
+	- The script was updated to be able to handle drives in */run/media/user* as well as in */media*.
 - [mc_server_builder.sh](scripts/mc_server_builder.sh):
 	- The version was updated to 1.18.2.
 ### Fixed
