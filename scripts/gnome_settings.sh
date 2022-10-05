@@ -145,7 +145,7 @@ gsettings set org.gnome.settings-daemon.plugins.color night-light-temperature 32
 gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true
 
 # Using /etc/dconf/db/gdm.d/10-settings.ini to configure gdm
-echo "Configuring gdm... (/etc/dconf/db/gdm.d/10-settings.ini"
+echo "Configuring gdm... (/etc/dconf/db/gdm.d/10-settings.ini)"
 cat <<EOF | sudo tee /etc/dconf/db/gdm.d/10-settings.ini >/dev/null
 # Custom configuration for gdm
 
