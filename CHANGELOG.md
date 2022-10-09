@@ -85,7 +85,7 @@ All significant changes to **Fedora Setup** will be documented here.
 - [back_me_up.sh](back_me_up.sh):
 	- The script was updated to be able to handle drives in */run/media/user* as well as in */media*.
 - [mc_server_builder.sh](scripts/mc_server_builder.sh):
-	- The version was updated to 1.18.2.
+	- The version was updated to 1.19.2.
 ### Fixed
 - [fedora_setup.sh](fedora_setup.sh):
 	- The script now doesn't miss the *install upgrades* step because of extra steps between checking

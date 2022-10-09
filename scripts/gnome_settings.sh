@@ -91,7 +91,7 @@ if which gnome-system-monitor &>/dev/null; then
 fi
 
 if which gnome-terminal &>/dev/null; then
-	echo "Configuring the terminal..."
+	echo "Configuring the Terminal..."
 	GNOME_TERMINAL_PROFILE=`gsettings get org.gnome.Terminal.ProfilesList default | awk -F \' '{print $2}'`
 	gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:$GNOME_TERMINAL_PROFILE/ cursor-shape 'underline'
 	gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:$GNOME_TERMINAL_PROFILE/ use-theme-colors false
@@ -112,7 +112,7 @@ gsettings reset org.gnome.desktop.wm.preferences button-layout
 gsettings set org.gnome.mutter center-new-windows true
 gsettings set org.gnome.desktop.wm.preferences action-middle-click-titlebar minimize
 gsettings set org.gnome.SessionManager logout-prompt false
-gsettings set org.gnome.desktop.calendar show-weekdate true
+gsettings set org.gnome.desktop.calendar show-weekdate false
 gsettings set org.gnome.desktop.interface clock-format 24h
 gsettings set org.gnome.desktop.interface clock-show-weekday true
 gsettings set org.gnome.desktop.interface show-battery-percentage true
