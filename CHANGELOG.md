@@ -2,12 +2,8 @@
 
 All significant changes to **Fedora Setup** will be documented here.
 
-- [Unreleased](#unreleased)
-	- [Added](#added)
-	- [Changed](#changed)
-	- [Fixed](#fixed)
-	- [Removed](#removed)
 - [Released](#released)
+	- [Version 2.5.0 - *2022-10-09*](#version-250---2022-10-09)
 	- [Version 2.4.0 - *2021-11-21*](#version-240---2021-11-21)
 	- [Version 2.3.0 - *2021-10-17*](#version-230---2021-10-17)
 	- [Version 2.2.1 - *2021-10-08*](#version-221---2021-10-08)
@@ -18,8 +14,13 @@ All significant changes to **Fedora Setup** will be documented here.
 	- [Version 1.5.0 - *2021-06-05*](#version-150---2021-06-05)
 	- [Version 1.4.0 - *2021-06-02*](#version-140---2021-06-02)
 
-## Unreleased
-### Added
+## Released
+### Version [2.5.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/2.5.0) - *2022-10-09*
+This is the longest I've ever taken to release a version. Highlights of this version include:
+- gdm settings through [gnome_settings.sh](scripts/gnome_settings.sh).
+- A few more packages to install
+- Removed the clunky keybindings from [gnome_settings.sh](scripts/gnome_settings.sh).
+#### Added
 - [fedora_setup.sh](fedora_setup.sh):
 	- Given that now some post-install.d processes use child subshells to run things in the
 		background, a `wait` command was implemented in the final clean-up step so the user doesn't
@@ -27,7 +28,7 @@ All significant changes to **Fedora Setup** will be documented here.
 - [dnf.conf](dnf.samples/dnf.conf):
 	- This file's contents were previously held in the *fedora_setup.sh* script, but are now held in
 		this sample file to simplify code maintainability.
-- [gnome_settings.sh](gnome_settings.sh):
+- [gnome_settings.sh](scripts/gnome_settings.sh):
 	- The script now configures the new GNOME Text Editor.
 	- The script can now configure gdm via the */etc/dconf/db/gdm.d/10-settins.ini* file.
 - [packages.txt](packages.txt):
@@ -38,7 +39,7 @@ All significant changes to **Fedora Setup** will be documented here.
 	- Added GNOME Console in the Utilities category.
 - [remove.txt](remove.txt):
 	- Added GNOME_Help to the list.
-### Changed
+#### Changed
 - [fedora_setup.sh](fedora_setup.sh):
 	- There were many "behind the scenes" performance optimizations. Including the optimization of
 		the `Separate` function, the parallelization of some tasks and simplfying some commands.
@@ -84,9 +85,10 @@ All significant changes to **Fedora Setup** will be documented here.
 	- Meson and Ninja Build now come together.
 - [back_me_up.sh](back_me_up.sh):
 	- The script was updated to be able to handle drives in */run/media/user* as well as in */media*.
+	- The script now syncs the drive to make unmounting it after using the script faster.
 - [mc_server_builder.sh](scripts/mc_server_builder.sh):
 	- The version was updated to 1.19.2.
-### Fixed
+#### Fixed
 - [fedora_setup.sh](fedora_setup.sh):
 	- The script now doesn't miss the *install upgrades* step because of extra steps between checking
 		for upgrades and prompting the user to install them.
@@ -98,13 +100,12 @@ All significant changes to **Fedora Setup** will be documented here.
 - [gnome_settings.sh](scripts/gnome_settings.sh):
 	- Removed the keybindings configurations as they were rather clunky.
 	- GNOME Terminal is no longer configured twice.
-### Removed
+#### Removed
 - **ufw.sh**:
 	- The script was removed because it wasn't used.
 - [git.sh](post-intall.d/git.sh):
 	- The alias `mrc` was removed because it is only useful in very rare situations.
 
-## Released
 ### Version [2.4.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/2.4.0) - *2021-11-21*
 This release comes after 28 commits, and it is as extensive as it seems. These were the points of
 focus for this version:
