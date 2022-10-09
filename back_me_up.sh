@@ -187,6 +187,8 @@ for i in ${LIST[@]}; do
 	esac
 done
 
+sync "${destination/\/Backup/}"
+
 notify-send              \
 	-t 5000               \
 	-a org.gnome.Nautilus \
