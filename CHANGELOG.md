@@ -2,6 +2,9 @@
 
 All significant changes to **Fedora Setup** will be documented here.
 
+- [Unreleased](#unreleased)
+	- [Added](#added)
+	- [Changed](#changed)
 - [Released](#released)
 	- [Version 2.5.0 - *2022-10-09*](#version-250---2022-10-09)
 	- [Version 2.4.0 - *2021-11-21*](#version-240---2021-11-21)
@@ -13,6 +16,15 @@ All significant changes to **Fedora Setup** will be documented here.
 	- [Version 1.6.0 - *2021-06-11*](#version-160---2021-06-11)
 	- [Version 1.5.0 - *2021-06-05*](#version-150---2021-06-05)
 	- [Version 1.4.0 - *2021-06-02*](#version-140---2021-06-02)
+
+## Unreleased
+### Added
+- [.zshrc](samples/zshrc):
+	- Added the option to use a purple black hexagon `⬢` to signal that the shell is being run
+		inside a toolbox container.
+### Changed
+- [dnf.conf](samples/dnf.conf):
+	- Brought the file up to date by using True of False instead of 1 or 0.
 
 ## Released
 ### Version [2.5.0](https://github.com/nico-castell/Fedora-Setup/releases/tag/2.5.0) - *2022-10-09*

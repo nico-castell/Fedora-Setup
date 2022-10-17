@@ -137,7 +137,12 @@ if [ "$color_prompt" = yes ]; then
 				precmd_functions+=(powerline_precmd)
 		;;
 	esac
-	RPROMPT=$'%(?.. %F{red}%? ✘%f)'
+	# Use the right prompt to display if we're running inside a toolbox container
+	if [ "$HOSTNAME" = "toolbox" ]; then
+		RPROMPT=$'%(?.. %F{red}%? ✘%f) %F{magenta}⬢%f'
+	else
+		RPROMPT=$'%(?.. %F{red}%? ✘%f)'
+	fi
 
 	# enable syntax-highlighting
 	if [ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh -a "$color_prompt" = yes ]; then
