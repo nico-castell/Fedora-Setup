@@ -22,6 +22,8 @@ All significant changes to **Fedora Setup** will be documented here.
 - [.zshrc](samples/zshrc):
 	- Added the option to use a purple black hexagon `⬢` to signal that the shell is being run
 		inside a toolbox container.
+- [packages.txt](packages.txt):
+	- Added Rust to the Development category.
 ### Changed
 - [dnf.conf](samples/dnf.conf):
 	- Brought the file up to date by using True of False instead of 1 or 0.
