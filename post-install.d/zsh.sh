@@ -47,12 +47,11 @@ fi
 # Modify PATH for all users
 cat <<EOF | sudo tee -a /etc/zshenv >/dev/null
 # User specific environment
-if ! [[ "\$PATH" =~ "\$HOME/.local/bin" ]]; then
-	PATH="\$HOME/.local/bin:\$PATH"
-fi
-if ! [[ "\$PATH" =~ "\$HOME/bin" ]]; then
-	PATH="\$HOME/bin:\$PATH"
-fi
+for i in \$HOME/.local/bin \$HOME/bin \$HOME/.cargo/bin; do
+	if ! [[ "\$PATH =~ "\$i" ]]; then
+		PATH="\$i:\$PATH"
+	fi
+done
 export PATH
 EOF
 

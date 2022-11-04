@@ -24,6 +24,9 @@ All significant changes to **Fedora Setup** will be documented here.
 		inside a toolbox container.
 - [packages.txt](packages.txt):
 	- Added Rust to the Development category.
+- [zsh.sh](post-install.d/zsh.sh):
+	- Added *~/.cargo/bin* to the `$PATH`, so as to be able to use binaries from
+	[Crates.io](https://crates.io/).
 ### Changed
 - [dnf.conf](samples/dnf.conf):
 	- Brought the file up to date by using True of False instead of 1 or 0.
